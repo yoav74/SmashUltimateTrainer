@@ -84,7 +84,12 @@ function parseCharacter(slug, html) {
   let category = 'unknown';
 
   for (const el of root.querySelectorAll('h2.movecategory, div.movecontainer')) {
-    if (el.tagName === 'H2') { category = el.getAttribute('id') ?? 'unknown'; continue; }
+    if (el.tagName === 'H2') {
+      category = el.getAttribute('id') ?? 'unknown';
+      // Kazuya's page splits ground attacks into jab/tilt/crouching/dash/smash/input sections.
+      if (/^(jab|tilt|crouching|dash|smash|input)attacks$/.test(category)) category = 'groundattacks';
+      continue;
+    }
     if (category === 'misc') {
       for (const d of el.querySelectorAll('div')) {
         const t = clean(d.text);
@@ -125,6 +130,18 @@ async function main() {
     characters.push(c);
     console.log(`${cached ? '(cache)' : '(net)  '} ${c.name}: ${c.moves.length} moves, ${c.oos.length} OoS`);
     if (!cached) await sleep(DELAY_MS);
+  }
+
+  // Portraits: UFD's small character art, downloaded once into public/ so the app doesn't hotlink them.
+  const portraitDir = path.resolve('public/portraits');
+  await fs.mkdir(portraitDir, { recursive: true });
+  for (const { slug } of characters) {
+    const file = path.join(portraitDir, `${slug}.webp`);
+    try { await fs.access(file); continue; } catch {}
+    const res = await fetch(`${BASE}/characterart/${slug}.webp`, { headers: { 'User-Agent': 'smash-trainer personal project' } });
+    if (!res.ok) { console.log(`portrait missing for ${slug} (HTTP ${res.status})`); continue; }
+    await fs.writeFile(file, Buffer.from(await res.arrayBuffer()));
+    await sleep(300);
   }
 
   const data = { source: BASE, scrapedAt: new Date().toISOString(), characters };

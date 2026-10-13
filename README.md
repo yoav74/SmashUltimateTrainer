@@ -36,6 +36,17 @@ The fastest computed option matches UFD's hand-curated OoS list for 79/87 fighte
 
 **Known limits (next steps):** spacing/range isn't modeled, "best punish" ranks by raw damage (no kill power or follow-ups), and multi-hit moves count their biggest single hit.
 
-## Community links
+## Community resources
 
-Add Discord invites and highlight videos per fighter in `src/data/community.ts`.
+```bash
+npm run scrape:resources
+```
+
+Builds `src/data/resources.json` for every fighter:
+- **Discord**: invites from [SmashWiki's character Discord table](https://www.ssbwiki.com/Discord), each checked against Discord's invite API, so only live invites are kept (with member counts).
+- **Docs, sheets, videos, players to watch**: from [dragdown.wiki](https://dragdown.wiki/wiki/SSBU/Resources) `SSBU/<Fighter>/Resources` pages. Unlabeled Google Docs/Sheets and YouTube links get their real titles.
+- **Tournament VODs**: [Smash Archives](https://smasharchives.com) per-fighter pages.
+
+Add your own verified links in the `manual` block of `src/data/community.ts`.
+
+Portraits are UFD's character art, downloaded to `public/portraits` by `npm run scrape`.

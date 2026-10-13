@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { characters } from '../data/characters';
+import { Portrait } from './Media';
 
 interface Props {
   value: string | null;
@@ -23,17 +24,20 @@ export function CharacterPicker({ value, onChange, allowRandom }: Props) {
       />
       <div className="picker-grid">
         {allowRandom && (
-          <button className={`chip random ${value === RANDOM ? 'selected' : ''}`} onClick={() => onChange(RANDOM)}>
-            🎲 Random
+          <button className={`tile random ${value === RANDOM ? 'selected' : ''}`} onClick={() => onChange(RANDOM)} title="Random">
+            <span className="tile-random">🎲</span>
+            <span className="tile-name">Random</span>
           </button>
         )}
         {shown.map((c) => (
           <button
             key={c.slug}
-            className={`chip ${value === c.slug ? 'selected' : ''}`}
+            className={`tile ${value === c.slug ? 'selected' : ''}`}
             onClick={() => onChange(c.slug)}
+            title={c.name}
           >
-            {c.name}
+            <Portrait slug={c.slug} name={c.name} size={64} />
+            <span className="tile-name">{c.name}</span>
           </button>
         ))}
       </div>

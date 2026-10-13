@@ -1,0 +1,2913 @@
+{
+ "generatedAt": "2026-10-13T15:14:30.438Z",
+ "fighters": {
+  "banjo_and_kazooie": {
+   "discords": [],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Banjo_&_Kazooie",
+   "vodArchive": "https://smasharchives.com/character/73"
+  },
+  "bayonetta": {
+   "discords": [
+    {
+     "url": "https://discord.gg/0hnEtng5sDAInh0c",
+     "name": "Bayonetta's Smash Ult Server",
+     "members": 5430
+    }
+   ],
+   "players": [
+    {
+     "name": "|Region  =",
+     "region": "|Color   =",
+     "footage": "|Note    =",
+     "note": null
+    }
+   ],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Bayonetta/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Bayonetta",
+   "vodArchive": "https://smasharchives.com/character/63"
+  },
+  "bowser": {
+   "discords": [
+    {
+     "url": "https://discord.gg/0hwgnNR34wz6cSgX",
+     "name": "SHOWTIME.",
+     "members": 5638
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Bowser/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Bowser",
+   "vodArchive": "https://smasharchives.com/character/14"
+  },
+  "bowser_jr": {
+   "discords": [
+    {
+     "url": "https://discord.gg/98a5WGM",
+     "name": "Koopaling Kingdom (SSBU)",
+     "members": 2899
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Bowser_Jr.",
+   "vodArchive": "https://smasharchives.com/character/58"
+  },
+  "byleth": {
+   "discords": [
+    {
+     "url": "https://discord.gg/4ycWWeNHzr",
+     "name": "Garreg Mach Monastery",
+     "members": 10294
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Byleth FAQ",
+     "url": "https://docs.google.com/document/d/16Pt6fr5Qqu_a5d_zVUyvYXHVsqtqqQ8SEsGcJkeK2eE/edit",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents",
+     "label": "Comprehensive Nair Doc",
+     "url": "https://docs.google.com/document/d/15wHHq8YjPpsfV76jMUUDl-hhoo3zSH0hgEtOP3qFVUA/edit",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents",
+     "label": "Byleth Graphic Library",
+     "url": "https://drive.google.com/drive/folders/1O9c3LfIyYUZJpnnQdU_zshH0E1FecjPR",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Byleth Combo Tree",
+     "url": "https://byleth-combo-tree.vercel.app/",
+     "kind": "link"
+    },
+    {
+     "section": "Videos",
+     "label": "The Ultimate Byleth Combo and Kill Confirm Guide",
+     "url": "https://www.youtube.com/watch?v=eQoHKv6Mht4",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Byleth's Lance Ledge Trap",
+     "url": "https://www.youtube.com/watch?v=h_ZxEsyczdY",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Scholar Shorts - Byleth's Nairquake Run Off Fair Kill Confirm",
+     "url": "https://www.youtube.com/watch?v=VaPxmCfDgsw",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Scholar Shorts - Byleth's Down Throw Back Air Kill Confirm",
+     "url": "https://www.youtube.com/watch?v=38BqiiW3a6o",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "SSBU Byleth's Sword of the Creator - Triplat 50/50 Guide",
+     "url": "https://www.youtube.com/watch?v=AWafTKPR57M",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Byleth/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Byleth",
+   "vodArchive": "https://smasharchives.com/character/75"
+  },
+  "captain_falcon": {
+   "discords": [
+    {
+     "url": "https://discord.gg/0XG2K9WbH8VAFd8p",
+     "name": "Captain Falcon [SSBU]",
+     "members": 7254
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Captain_Falcon/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Captain_Falcon",
+   "vodArchive": "https://smasharchives.com/character/11"
+  },
+  "chrom": {
+   "discords": [
+    {
+     "url": "https://discord.gg/dgJrPSK",
+     "name": "Great Lords - Roy & Chrom Discord",
+     "members": 8935
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Chrom/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Chrom",
+   "vodArchive": null
+  },
+  "cloud": {
+   "discords": [
+    {
+     "url": "https://discord.gg/fk7NWD5",
+     "name": "Midgar 凶",
+     "members": 8635
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Cloud/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Cloud",
+   "vodArchive": "https://smasharchives.com/character/61"
+  },
+  "corrin": {
+   "discords": [
+    {
+     "url": "https://discord.gg/FPgq8kb",
+     "name": "- The Astral Plane - Corrin Discord 📌",
+     "members": 5853
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Videos",
+     "label": "IzawSmash's Art of Corrin. Easy to follow guide for Corrin neutral, gameplan, and moveset.",
+     "url": "https://youtu.be/M172F_U6DQk",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Corrin/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Corrin",
+   "vodArchive": "https://smasharchives.com/character/62"
+  },
+  "daisy": {
+   "discords": [
+    {
+     "url": "https://discord.gg/gPq3gC4g2f",
+     "name": "Damsels in Success! [SSBU Peach and Daisy]",
+     "members": 6173
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Daisy",
+   "vodArchive": null
+  },
+  "dark_pit": {
+   "discords": [
+    {
+     "url": "https://discord.gg/gJHHHR4urr",
+     "name": "Skyworld",
+     "members": 5810
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "General document that contains various useful info on the character",
+     "url": "https://docs.google.com/spreadsheets/d/1aQGEPXGPZxEOV--ZIYZ0gn2jdH0yZzbxIMSg4nQeQoU/edit#gid=0",
+     "kind": "sheet"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Dark_Pit/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Dark_Pit",
+   "vodArchive": null
+  },
+  "dark_samus": {
+   "discords": [
+    {
+     "url": "https://discord.gg/b69G8H6",
+     "name": ".Dark/Samus Discord Group.",
+     "members": 6622
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Dark_Samus",
+   "vodArchive": null
+  },
+  "diddy_kong": {
+   "discords": [
+    {
+     "url": "https://discord.gg/9trzxan",
+     "name": "Diddy Kong Discord",
+     "members": 4250
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Diddy_Kong",
+   "vodArchive": "https://smasharchives.com/character/36"
+  },
+  "donkey_kong": {
+   "discords": [
+    {
+     "url": "https://discord.gg/qMzMf8g",
+     "name": "Kong Kollege (Smash Ultimate DK Discord)",
+     "members": 6781
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Donkey_Kong/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Donkey_Kong",
+   "vodArchive": "https://smasharchives.com/character/2"
+  },
+  "dr_mario": {
+   "discords": [
+    {
+     "url": "https://discord.gg/BqDTDgj",
+     "name": "The Hospital - Smash Ult/4 Dr. Mario Discord",
+     "members": 3247
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Dr._Mario/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Dr._Mario",
+   "vodArchive": "https://smasharchives.com/character/18"
+  },
+  "duck_hunt": {
+   "discords": [
+    {
+     "url": "https://discord.gg/0lSgxaH91EeSdy6V",
+     "name": "Doggo Haven",
+     "members": 2749
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Duck_Hunt",
+   "vodArchive": "https://smasharchives.com/character/59"
+  },
+  "falco": {
+   "discords": [
+    {
+     "url": "https://discord.gg/HptPZcT",
+     "name": "Smash Ultimate Falco Hub",
+     "members": 4785
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Falco/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Falco",
+   "vodArchive": "https://smasharchives.com/character/20"
+  },
+  "fox": {
+   "discords": [
+    {
+     "url": "https://discord.gg/UsXQhYQSKx",
+     "name": "The Cornerian Armada -Smash Ultimate Fox Server-",
+     "members": 5098
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Fox/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Fox",
+   "vodArchive": "https://smasharchives.com/character/7"
+  },
+  "ganondorf": {
+   "discords": [
+    {
+     "url": "https://discord.gg/qhtPMHY",
+     "name": "Ganondorf's Valley of Thieves",
+     "members": 5257
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Ganondorf/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Ganondorf",
+   "vodArchive": "https://smasharchives.com/character/23"
+  },
+  "greninja": {
+   "discords": [
+    {
+     "url": "https://discord.gg/V9hnnSp",
+     "name": "The Pond - Greninja Discord",
+     "members": 6758
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Greninja",
+   "vodArchive": "https://smasharchives.com/character/50"
+  },
+  "hero": {
+   "discords": [
+    {
+     "url": "https://discord.gg/Sf6EZuQ",
+     "name": "Dragon Quest",
+     "members": 8857
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Hero",
+   "vodArchive": "https://smasharchives.com/character/72"
+  },
+  "ice_climbers": {
+   "discords": [
+    {
+     "url": "https://discord.gg/TUhckZuYSR",
+     "name": "Icicle Mountain - SSBU Ice Climbers",
+     "members": 5527
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Ice_Climbers/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Ice_Climbers",
+   "vodArchive": "https://smasharchives.com/character/15"
+  },
+  "ike": {
+   "discords": [
+    {
+     "url": "https://discord.gg/ggHCGgM",
+     "name": "Smash Ultimate Ike Discord",
+     "members": 4048
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Ike",
+   "vodArchive": "https://smasharchives.com/character/32"
+  },
+  "incineroar": {
+   "discords": [
+    {
+     "url": "https://discord.gg/3DDQ9tQ",
+     "name": "The Ring of Fire - SSBU Incineroar Discord",
+     "members": 6108
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "CatomicBomb’s Ledgetrapping Guide",
+     "url": "https://docs.google.com/document/d/11O8dFSYMiW6uFn2QrUa6XxdPCqRZbyKwVdd9z1Pi5UM/edit?usp=sharing",
+     "kind": "doc"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Incineroar/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Incineroar",
+   "vodArchive": "https://smasharchives.com/character/69"
+  },
+  "inkling": {
+   "discords": [
+    {
+     "url": "https://discord.gg/eJskccFuuU",
+     "name": "Inklingcord - SSBU",
+     "members": 9083
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Inkling",
+   "vodArchive": "https://smasharchives.com/character/64"
+  },
+  "isabelle": {
+   "discords": [
+    {
+     "url": "https://discord.gg/buV2XbFBWY",
+     "name": "Town Hall - SSBU Isabelle Discord",
+     "members": 5199
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Isabelle",
+   "vodArchive": "https://smasharchives.com/character/68"
+  },
+  "jigglypuff": {
+   "discords": [
+    {
+     "url": "https://discord.gg/0Wj6QkUoh01KUVPn",
+     "name": "Jigglypuff Dead",
+     "members": 4491
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Jigglypuff/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Jigglypuff",
+   "vodArchive": "https://smasharchives.com/character/12"
+  },
+  "joker": {
+   "discords": [
+    {
+     "url": "https://discord.gg/Pvwkbt8",
+     "name": "Phantom Thieves Hideout",
+     "members": 17589
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Joker",
+   "vodArchive": "https://smasharchives.com/character/71"
+  },
+  "kazuya": {
+   "discords": [
+    {
+     "url": "https://discord.gg/gvemyvhX6u",
+     "name": "Bunuyacord",
+     "members": 4486
+    }
+   ],
+   "players": [
+    {
+     "name": "Riddles",
+     "region": "Toronto, Canada",
+     "footage": "|Note    = The best Kazuya and Terry player in the world.",
+     "note": "The best Kazuya and Terry player in the world."
+    },
+    {
+     "name": "Ferps",
+     "region": "Brazil",
+     "footage": "|Note    = Ferps plays very technical.  When he gets a hit he will try his very best to take a stock off that hit.",
+     "note": "Ferps plays very technical.  When he gets a hit he will try his very best to take a stock off that hit."
+    },
+    {
+     "name": "Tea",
+     "region": "Japan",
+     "footage": "|Note    = Tea plays Pac-Man and Kazuya. He plays Kazuya with a high risk, high reward playstyle.",
+     "note": "Tea plays Pac-Man and Kazuya. He plays Kazuya with a high risk, high reward playstyle."
+    },
+    {
+     "name": "Nito",
+     "region": "SoCal USA",
+     "footage": "|Note    = Nito plays Shotos and Kazuya. He plays Kazuya on Smashbox.",
+     "note": "Nito plays Shotos and Kazuya. He plays Kazuya on Smashbox."
+    }
+   ],
+   "links": [
+    {
+     "section": "Documents",
+     "label": null,
+     "url": "http://kazuyamishima.com/",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": null,
+     "url": "https://www.ssbwiki.com/Kazuya_(SSBU)",
+     "kind": "link"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/adamshepley/status/1410075808740356100",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/pikuoriparadise/status/1412085678888964100?s=20",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/wdbthtgp/status/1416035572129337347?s=21&t=UNAQ03eavWvvDlMswD5OPQ",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": "Kazuya Movement Guide: Crouch Dash Cancel Basics (SSBU)",
+     "url": "https://youtu.be/xTDH1zFC8UY",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/Sids_SSB/status/1430190608136691715?s=21",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/Sids_SSB/status/1430654884924305408",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/ferpsfgc/status/1493667287911518208",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/RoninX1819/status/1433307316087050240?s=20",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/SchimmyGVO/status/1440082455872999430",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": "カズヤの新時代コンボ！？魔神拳ループと横Bループ【スマブラSP】#Shorts",
+     "url": "https://youtu.be/M60Sq8Lw2xw",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "『１列目』さすがにヤバすぎ！？カズヤ界隈を揺るがす級のコンボ発見したｗｗｗ【カズヤ】【スマブラSP】",
+     "url": "https://youtu.be/ybqP48G2EIU",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Precision Kazuya Combos (SSBU)",
+     "url": "https://youtu.be/gCWI7bM_XYc",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Kazuya Guide/Tech: How to CDC Pivot/Perfect Pivot from a run",
+     "url": "https://youtu.be/Py-AFunNYqE",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "The ULTIMATE Kazuya Crouch Dashing Tech Guide (SSBU)",
+     "url": "https://youtu.be/lW1sLTHNc3E",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/ViedViper/status/1454143422177099776?s=20&t=VVn_Xeog4Cx0aVCyFH1bxg",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/ViedViper/status/1451621280235536389?s=20&t=0yH9Ea8RJ1tkgerKefTE0g",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/SchimmyGVO/status/1440082455872999430?s=20&t=O915Un1hyPB5jLoSmr6Rvg",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://www.youtube.com/@2350CST",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://www.youtube.com/@ViedViper",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/shiratsuki_hero/status/1617571907968303105?s=46&t=Mz91xeWMsh1q4OfuVl6-nQ",
+     "kind": "tweet"
+    },
+    {
+     "section": "Box Kazuya",
+     "label": "Sids made a site that explains what each button does and how to do inputs on Smashbox for Kazuya",
+     "url": "https://sites.google.com/view/sids-smash-box-stuff/smash-bros-ultimate/kazuya/inputs?authuser=0",
+     "kind": "link"
+    },
+    {
+     "section": "Box Kazuya",
+     "label": "This link goes to the Hitbox Arcade discord",
+     "url": "http://hitboxarcade.com/discord",
+     "kind": "link"
+    },
+    {
+     "section": "Normal SOCD Smashbox Layout",
+     "label": null,
+     "url": "https://cdn.discordapp.com/attachments/984162537689980928/984205619810689034/NitoKazuya.sbl",
+     "kind": "link"
+    },
+    {
+     "section": "Normal SOCD Smashbox Layout",
+     "label": null,
+     "url": "https://cdn.discordapp.com/attachments/984162537689980928/984205620028788746/NitoKazuya.sbx",
+     "kind": "link"
+    },
+    {
+     "section": "2nd Input Priority SOCD Layout",
+     "label": null,
+     "url": "https://drive.google.com/file/d/10M9yDCm-0S14HRZQgOjZD2Dh2S3PvqW2/view?usp=sharing",
+     "kind": "link"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Kazuya/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Kazuya",
+   "vodArchive": "https://smasharchives.com/character/81"
+  },
+  "ken": {
+   "discords": [
+    {
+     "url": "https://discord.gg/9zy9qqG",
+     "name": "The Dojo",
+     "members": 4781
+    }
+   ],
+   "players": [
+    {
+     "name": "Takera",
+     "region": "Japan",
+     "footage": "|Note    = Takera mainly plays Ken but has played some Ryu, too. He is known for his combo game and is considered to have the best combos of all Ken players.",
+     "note": "Takera mainly plays Ken but has played some Ryu, too. He is known for his combo game and is considered to have the best combos of all Ken players."
+    },
+    {
+     "name": "Jahzz0",
+     "region": "Georgia, USA",
+     "footage": "|Note    = Jahzz0 has the best parries.",
+     "note": "Jahzz0 has the best parries."
+    },
+    {
+     "name": "Sytonix",
+     "region": "Ohio, USA",
+     "footage": "|Note    = Sytonix plays on Smashbox.",
+     "note": "Sytonix plays on Smashbox."
+    },
+    {
+     "name": "Vendetta",
+     "region": "Georgia, USA",
+     "footage": "|Note    = Vendetta is a very defensive player who specializes in the Shotos and Terry.",
+     "note": "Vendetta is a very defensive player who specializes in the Shotos and Terry."
+    },
+    {
+     "name": "Nito",
+     "region": "SoCal USA",
+     "footage": "|Note    = Nito plays Shotos and Kazuya.",
+     "note": "Nito plays Shotos and Kazuya."
+    },
+    {
+     "name": "AndresFN",
+     "region": "Spain",
+     "footage": "|Note    = AndresFN is a well rounded player who specializes in all Fighting Game characters",
+     "note": "AndresFN is a well rounded player who specializes in all Fighting Game characters"
+    }
+   ],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Book of Shotos by Bean!",
+     "url": "https://drive.google.com/file/d/1K4WqrIt7zNTM7JaJLByWzkyTNfcZ4sWs/view?usp=drivesdk",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Grounded {{clr|special|TSRK}} kill percents by Architect",
+     "url": "https://docs.google.com/spreadsheets/d/1r-WGtV7-GdFS14pR5pwmHrb8044lwx8xhGF84Kos1Ho/edit#gid=1513224806",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "Tumble Percents by ICE | Torricane",
+     "url": "https://docs.google.com/spreadsheets/d/1X0UYrejVoqrcO9QTDHAVAyHXFissGb3oe6ZIAoJA-Ck/edit#gid=0",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "COIL Docs by Zegis",
+     "url": "https://drive.google.com/file/d/1MxJocVcTAwDd1sqZDwpqWTproHHMjSDD/view",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "COIL Docs by Zegis",
+     "url": "https://drive.google.com/file/d/1JKnUK24mrs8QLl4KFSFwuACU-HLwCJDF/view",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Frame advantage of {{clr|special|Crescent Kick}} on hit by Pennini",
+     "url": "https://docs.google.com/spreadsheets/d/1M_lqezLMQ-LszOUL3XkU1-QpXglyC8hDucqrH8AY_jk/edit#gid=0",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "Ken's Scripts",
+     "url": "https://rubendal.github.io/ssbu/#/Character/Ken",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": null,
+     "url": "https://www.ssbwiki.com/Ken_(SSBU)",
+     "kind": "link"
+    },
+    {
+     "section": "Videos",
+     "label": "IzAw's Art of Ken",
+     "url": "https://youtu.be/F6m-jOY6nOw",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Playlist of VODs of top Ken players at offline tournaments by Lernonad",
+     "url": "https://youtube.com/playlist?list=PLOX1E26OpSe5tiTnA38SXfXtMbSWpFxrt",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Ken/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Ken",
+   "vodArchive": null
+  },
+  "king_dedede": {
+   "discords": [
+    {
+     "url": "https://discord.gg/fccCz2G",
+     "name": "SSBU King Dedede Discord",
+     "members": 5457
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/King_Dedede",
+   "vodArchive": "https://smasharchives.com/character/39"
+  },
+  "king_k_rool": {
+   "discords": [
+    {
+     "url": "https://discord.gg/Xqrchru",
+     "name": "King K. Rool's Kremling Krew",
+     "members": 7028
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "King K. Rool. Lab Repository by Plague Von Karma and EyeDonutz",
+     "url": "https://drive.google.com/open?id=13xNgYfbRISGsIVrdnE45jUwqNIYvlvqDwuF3jghJEEs",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Belly Armor Instabreaks and Interactions by Plague Von Karma and EyeDonutz",
+     "url": "https://docs.google.com/spreadsheets/d/1QiWT63mHFBLbKn9594ahe1ee22Gf_aowCjrK6Heushk/edit?usp=sharing",
+     "kind": "sheet"
+    },
+    {
+     "section": "Videos",
+     "label": "King K. Rool's Forward Throw ~ Dash Attack | Smash Ultimate Guides by Plague Von Karma",
+     "url": "https://www.youtube.com/watch?v=bAVNiITXpzE",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/King_K._Rool/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/King_K._Rool",
+   "vodArchive": "https://smasharchives.com/character/67"
+  },
+  "kirby": {
+   "discords": [
+    {
+     "url": "https://discord.gg/wDMG7sQ6EE",
+     "name": "Kirby Discord Riders (SSBU)",
+     "members": 6971
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Kirby/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Kirby",
+   "vodArchive": "https://smasharchives.com/character/6"
+  },
+  "link": {
+   "discords": [
+    {
+     "url": "https://discord.gg/Wynbrkd",
+     "name": "Link is Sick",
+     "members": 6847
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Link/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Link",
+   "vodArchive": "https://smasharchives.com/character/3"
+  },
+  "little_mac": {
+   "discords": [
+    {
+     "url": "https://discord.gg/ZjJUVNn",
+     "name": "Mac Nation",
+     "members": 3920
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Little_Mac",
+   "vodArchive": "https://smasharchives.com/character/49"
+  },
+  "lucario": {
+   "discords": [
+    {
+     "url": "https://discord.gg/ZvRt7CD",
+     "name": "Aura Dojo",
+     "members": 3970
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Lucario",
+   "vodArchive": "https://smasharchives.com/character/41"
+  },
+  "lucas": {
+   "discords": [
+    {
+     "url": "https://discord.gg/Y5fjHed",
+     "name": "Nowhere Islands - SSBU Lucascord",
+     "members": 6079
+    }
+   ],
+   "players": [
+    {
+     "name": "Nitox",
+     "region": "France",
+     "footage": "https://www.youtube.com/watch?v=Z5v3BPMOoiM&t=945s&pp=ygUOTml0b3ggdnMgb3J5b24%3D",
+     "note": "Notable for being the most technical but also the most developed Lucas in France, Europe if not the world as well.",
+     "footageTitle": "WANTED S4 C4 Winners Semis - Nitox (Lucas) Vs. Oryon (Wolf) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Rinkururu",
+     "region": "Japan",
+     "footage": "https://www.youtube.com/watch?v=0R21iCe24YM&pp=ygUVUmlua3VydXJ1IEx1Y2FzIHZvZHMg",
+     "note": "Notable for being one of the best Japanese Lucas mains",
+     "footageTitle": "Kagaribi 4 - Tet (Pit) Vs. rinkururu (Min Min, Lucas) SSBU Smash Ultimate"
+    },
+    {
+     "name": "JaZaR",
+     "region": "Mexico",
+     "footage": "https://www.youtube.com/watch?v=5szmPFNbfGc&pp=ygURSmFaYVIgTHVjYXMgdm9kcyA%3D",
+     "note": "Notable for being both the Best Lucas and Doctor Mario in Mexico.",
+     "footageTitle": "Combo CIty - Grand Final - Waymas (Wario) vs JaZaR (Dr Mario, Lucas)"
+    },
+    {
+     "name": "Regalo",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=d2gGclm5TJc&t=9s&pp=ygUSUmVnYWxvIEx1Y2FzIHZvZHMg",
+     "note": "Notable for Being the best power ranked North Carolina player in 2 different power ranking seasons and being the best overall Lucas in that region results wise. Very experienced.",
+     "footageTitle": "Regalo (Lucas) vs Scend (Ness) -  Winners Top 32 - Rock the Winds"
+    },
+    {
+     "name": "Remi",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=OZ1PqCUJ-KQ&pp=ygUQUmVtaSBMdWNhcyB2b2RzIA%3D%3D",
+     "note": "Notable for being regarded as a very solid Lucas player with some of the best results",
+     "footageTitle": "Solo (Ness) vs Remi (Lucas) - Ultimate Singles Winners Pools - MAJOR UPSET"
+    },
+    {
+     "name": "Chocotaco",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=ojt5YugTwdw&pp=ygUVQ2hvY290YWNvIEx1Y2FzIHZvZHMg",
+     "note": "Notable for initially being more of a simple or more player based Lucas but slowly becoming more optimized with both the game and Lucas.",
+     "footageTitle": "Flynn's Arcade 081 Losers Quarters - Sly | Chocotaco (Lucas) Vs FG | Bluxious (Bowser) Ssbu Tourney"
+    },
+    {
+     "name": "WhYYZ",
+     "region": "Netherlands",
+     "footage": "https://www.youtube.com/watch?v=bz3hxxDdJnA&t=50s&pp=ygUtV2hZWVogTHVjYXMgdm9kcyBzbWFzaCB1bHRpbWF0ZSBncmFuZCBmaW5hbHMg",
+     "note": "Notable for being one of the best European Lucas mains both in Smash 4 doubles and singles and but also smash ultimate doubles and singles. The best Lucas in the Netherlands still as of now.",
+     "footageTitle": "Hyperfocus Grand Finals: Solo (Rosalina & Luma) vs WhYYZ (Lucas)"
+    },
+    {
+     "name": "Crits",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=0vFEhqJk8oc&t=14s&pp=ygUfQ3JpdHMgTHVjYXMgdm9kcyBzbWFzaCB1bHRpbWF0ZQ%3D%3D",
+     "note": "Crits like WhYYZ was a labber and very dedicated Lucas player from the beginning, having experienced carried over from Smash 4 and still doing great in Ultimate with Lucas.",
+     "footageTitle": "Xanadu Winter Arcadian Top 32 - Crits (Lucas) Vs. Rel Wood (Incineroar) Smash Ultimate - SSBU"
+    },
+    {
+     "name": "Mekos",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=rbStHe6ni7Q&pp=ygURTWVrb3MgTHVjYXMgdm9kcyA%3D",
+     "note": "Notable for being an original veteran Lucas who stuck to Lucas for years since brawl. Retired Lucas legacy with incredible skill and being regarded as being one of the best Lucas players out there when he was active.",
+     "footageTitle": "JRWI13- Mekos (Lucas) Vs. Mikerowave (Wolf) - Top 48"
+    },
+    {
+     "name": "Kota",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=Unh8cOEkkww&pp=ygUQS290YSBMdWNhcyB2b2RzIA%3D%3D",
+     "note": "Notable for having a large character pool and being an amazing Lucas main. Kota is retired and had a good run even if it wasn't as long of a brawl legacy as Mekos it was still one that came before the dawn of Smash Ultimate's release in smash 4.",
+     "footageTitle": "4o4 Smash Night 23 GRAND FINALS - Kola (Roy, Cloud) Vs. Kota (Lucas) - SSBU Ultimate Tournament"
+    }
+   ],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Main centralized Lucas resources",
+     "url": "https://docs.google.com/spreadsheets/d/1lCVfUxWdrXDzIJBMYjvxPhJQ4FI0w-owyZkFcIPjUFE/edit#gid=2097575101",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "Smash - Lucas data",
+     "url": "https://docs.google.com/document/d/1GRt-sD2znUo4mcXkVlUbYlppPsCWP8dEhKYRwYtyF_0/edit?usp=drivesdk",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents",
+     "label": "Thread of more Lucas resources",
+     "url": "https://twitter.com/TheLucasGuy2003/status/1471444762653831171?t=Q2HZyUrl9_GFloxIREG6Pg&s=19",
+     "kind": "tweet"
+    },
+    {
+     "section": "Documents",
+     "label": null,
+     "url": "https://dacrenzio.github.io/Lucapp/",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": null,
+     "url": "https://twitter.com/dunsparce19/status/1535522820515680256?s=20&t=2Dhxo7qIMEe_GYqUugHmVA",
+     "kind": "tweet"
+    },
+    {
+     "section": "Documents",
+     "label": null,
+     "url": "https://docs.google.com/document/d/10idRe988YWWhSsH0wYfj44PnKDlJC1arjLJUdCB7O8Y/edit?usp=drivesdk",
+     "kind": "doc"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://twitter.com/GrimptheImp/status/1710069750045241623?t=-fwcawr0o-5PZs1XX_YHLA&s=19",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": "Yoshi's Movement Tech",
+     "url": "https://www.youtube.com/watch?v=ld-fgJ387m4&feature=youtu.be",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Tether Twist",
+     "url": "https://www.youtube.com/watch?v=pwBj50QOsqI",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Air Slide",
+     "url": "https://www.youtube.com/watch?v=K46kpNi7ioQ",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Complete Lucas Tether Guide(SSBU)",
+     "url": "https://youtu.be/lQv3lUMy2iE",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "DJCZ - Double Jump Cancel Zair - Lucas Tutorial [Smash Ultimate]",
+     "url": "https://youtu.be/MA1bVZEyPQ0",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "MUFFIN FROM MARS INTERVIEW - Technical Lucas",
+     "url": "https://youtu.be/sbae8i-yeE4",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Lucas Double Jump Cancel Zair (DJCZ) Mini Guide!",
+     "url": "https://youtu.be/wPsLrTnwgtA",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "PK Thunder Bonking - Lightning Round! - Lucas Tutorial [Smash Ultimate]",
+     "url": "https://youtu.be/DqF-d8-POHc",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Smash Ultimate - Lucas Up Smash Cancel into Jump for i-frames on aerials",
+     "url": "https://youtu.be/h1YYeDL_bRs",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Lucas Tech Showcase - Plat DJCZ by Snap and Yoyo",
+     "url": "https://youtu.be/p-2YLJpDwmo",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Magnet Movement - Lucas Tutorial [Smash Ultimate] (Part 2)",
+     "url": "https://youtu.be/4-V8bZD9oRg",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Lucas Platform Combo Concepts",
+     "url": "https://youtu.be/dC-IIdOBGnU",
+     "kind": "video"
+    },
+    {
+     "section": "Plain Text",
+     "label": "\"1. This should go without saying, but get comfortable with Lucas's moves. Look at [this] ( for a great explanation of what they do. You don't have to master everything, but you shouldn't have to stop and remember what button you need to press in when faced with X. You should know when and how to use PK Fire. In particular, learn your basic PK Thunder recovery angle; it's, more or less, a half circle going (counter)clockwise (whichever way goes behind him).",
+     "url": "https://docs.google.com/document/d/1nyjz4vfzazLp_wSVGPlf6yE1_0lSL52DdWjvPsxSZ1g/edit)",
+     "kind": "doc"
+    },
+    {
+     "section": "Plain Text",
+     "label": "Nair to DJCZ",
+     "url": "https://docs.google.com/document/d/1XQ-KzBfp_d2b5mDFi-6Xa0ZlOl3PoOy73ZEzpVa5_Jk/edit?usp=drivesdk",
+     "kind": "doc"
+    },
+    {
+     "section": "Plain Text",
+     "label": "Nair trains guide",
+     "url": "https://docs.google.com/document/d/1G7mXDGeirAYL8Es3s43Gf2RxPDHvNG7s4vNLzRpipn4/edit",
+     "kind": "doc"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Lucas/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Lucas",
+   "vodArchive": "https://smasharchives.com/character/37"
+  },
+  "lucina": {
+   "discords": [
+    {
+     "url": "https://discord.gg/0bQ68KVbo2Pt5ISy",
+     "name": "Parallel Falchions",
+     "members": 9981
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Lucina/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Lucina",
+   "vodArchive": null
+  },
+  "luigi": {
+   "discords": [
+    {
+     "url": "https://discord.gg/sx7JWub",
+     "name": "SSBU Luigicord - The Last Resort",
+     "members": 7389
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Luigi/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Luigi",
+   "vodArchive": "https://smasharchives.com/character/9"
+  },
+  "mario": {
+   "discords": [
+    {
+     "url": "https://discord.gg/xARdRQ3eGz",
+     "name": "New Donk City- SSBU Mario Discord",
+     "members": 6856
+    }
+   ],
+   "players": [
+    {
+     "name": "Kurama",
+     "region": "Northern California",
+     "footage": "https://youtu.be/3CXor1SZQ_A",
+     "note": "The best Mario player in the world. Known for his explosive advantage state and punish game.",
+     "footageTitle": "Kurama (Mario) vs Riddles (Kazuya) - Ultimate Singles Top 8 - Losers Quarter-Final - MAJOR UPSET"
+    },
+    {
+     "name": "Snow (スノー)",
+     "region": "Japan",
+     "footage": "https://youtu.be/vl5CS74wHRE",
+     "note": "Japan's current best Mario alongside Nao. Great neutral and punish game. Secondaries Aegis.",
+     "footageTitle": "マエスマHIT#83[GF] W:スノー(マリオ）VS L:ドラ右(ミェンミェン) #スマブラSP #マエスマ"
+    },
+    {
+     "name": "Dark Wizzy",
+     "region": "New York",
+     "footage": "https://youtu.be/CGW8r1Tmetg",
+     "note": "Dark Wizzy is often able to find large rewards off of a grab, and has a great punish game as well.",
+     "footageTitle": "Dark Wizzy (Mario) vs ERA (Steve) - Ultimate Singles Pools Winners Quarter-Final  - Genesis 9"
+    },
+    {
+     "name": "Nao",
+     "region": "Hokkaido",
+     "footage": "https://youtu.be/dAbAY9yjThA",
+     "note": "One of Japan's best Mario players uses tricky movement and baits to get the edge in a match.",
+     "footageTitle": "Kagaribi 9 Top 8 - Hero (Bowser) Vs. Nao (Mario) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "NoTag",
+     "region": "South Carolina",
+     "footage": "https://youtu.be/LPmMuyL0ykc",
+     "note": "NoTag makes quick work of stocks with his Mario, but his secondary Samus is also potent.",
+     "footageTitle": "Cavalier Clash #2: Winners Quarters - Dietsoda (Cloud) Vs NoTag (Mario) SSBU Singles"
+    },
+    {
+     "name": "Samtea",
+     "region": "Illinois",
+     "footage": "https://youtu.be/PcQfr5C3wCA",
+     "note": "Samtea's flashy combos and strong edgeguards help him go far in any bracket. Also goes by YooMoo.",
+     "footageTitle": "Scrims Showdown 54 GRAND FINALS - Samtea (Mario) Vs. Ravenking (Joker) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Tavares",
+     "region": "Alabama",
+     "footage": "https://youtu.be/EQfbZuUYmus",
+     "note": "Tavares (formerly ChillyChilli) has a dominating presence in neutral and a terrifying combo game.",
+     "footageTitle": "Glitch Infinite - MJ (ROB) Vs. ChillyChilli (Mario) - SSBU Ultimate Tournament"
+    },
+    {
+     "name": "NotBrayden",
+     "region": "Ontario, Canada",
+     "footage": "https://youtu.be/HSQ_c9wQ3bQ",
+     "note": "NotBrayden is a recent advent who makes great use of all of Mario's tools for a well-rounded playstyle.",
+     "footageTitle": "ROT6 October Grand Finals - Burst (Yoshi) vs NS | NotBrayden (Mario) SSBU Singles"
+    }
+   ],
+   "links": [
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/3CXor1SZQ_A",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/vl5CS74wHRE",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/CGW8r1Tmetg",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/dAbAY9yjThA",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/LPmMuyL0ykc",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/PcQfr5C3wCA",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/EQfbZuUYmus",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/HSQ_c9wQ3bQ",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "IzawSmash's Art Of Mario Video, gives a general outline of how Mario functions",
+     "url": "https://www.youtube.com/watch?v=vKBM9B8CEBw",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Mario/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mario",
+   "vodArchive": "https://smasharchives.com/character/1"
+  },
+  "marth": {
+   "discords": [
+    {
+     "url": "https://discord.gg/0bQ68KVbo2Pt5ISy",
+     "name": "Parallel Falchions",
+     "members": 9981
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Marth/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Marth",
+   "vodArchive": "https://smasharchives.com/character/21"
+  },
+  "mega_man": {
+   "discords": [
+    {
+     "url": "https://discord.gg/fBfHuKS",
+     "name": "\"We Rock, Man!\" - Mega Man/ロックマン Smash Group",
+     "members": 3496
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mega_Man",
+   "vodArchive": "https://smasharchives.com/character/46"
+  },
+  "meta_knight": {
+   "discords": [
+    {
+     "url": "https://discord.gg/raEcZ8f",
+     "name": "Meta Knight",
+     "members": 3696
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Mach Tornado vs Projectiles",
+     "url": "https://docs.google.com/document/d/18VuyQ2YlhMETlnQn48kCWOS9vNiFi_pJP9avdFabHKg/edit",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents",
+     "label": "FSmash vs Ledge Hangs",
+     "url": "https://twitter.com/RohanDoge/status/1183507817644343298?s=20",
+     "kind": "tweet"
+    },
+    {
+     "section": "Documents",
+     "label": "Random Combos",
+     "url": "https://docs.google.com/document/d/1RnJZlSk2EQE5OY-5Ft5GDCkMP3_p1lSbCNAGDU_J9yA/edit",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents",
+     "label": "DTilt Advantage on Hit",
+     "url": "https://docs.google.com/spreadsheets/d/1Nj_vpwosigPHcvfkXnurOCRYkF-IkECiAWRi2hXBHLc/edit#gid=0",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "Smash Archives",
+     "url": "https://smasharchives.com/character/27",
+     "kind": "link"
+    },
+    {
+     "section": "Notable Matchup Charts",
+     "label": "Abadango's Chart",
+     "url": "https://twitter.com/Abadango/status/1558067846608957440",
+     "kind": "tweet"
+    },
+    {
+     "section": "Notable Matchup Charts",
+     "label": "B0NK's Chart",
+     "url": "https://twitter.com/BONK_MK/status/1615590399850205186",
+     "kind": "tweet"
+    },
+    {
+     "section": "Notable Matchup Charts",
+     "label": "Yei's Chart",
+     "url": "https://twitter.com/YeiMK_ssb/status/1615092028785704961",
+     "kind": "tweet"
+    },
+    {
+     "section": "Notable Matchup Charts",
+     "label": "Combination of those ^^^",
+     "url": "https://twitter.com/Impulse315/status/1655626072061358102",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": "Meta Knight's wakeup roll has bonus invulnerability frames IF AND ONLY IF he lands on his BACK, MISSES the tech, and performs a BACKWARDS roll.",
+     "url": "https://twitter.com/ShredTM/status/1644789953606606848",
+     "kind": "tweet"
+    },
+    {
+     "section": "Videos",
+     "label": "Abadango's Combo Guide",
+     "url": "https://www.youtube.com/watch?v=FX9VUDZFmgs",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Abadango's Meta Knight Guide",
+     "url": "https://youtu.be/rjJyYx2nGoo",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "A playlist of Tatari's Meta Knight Guides",
+     "url": "https://www.youtube.com/playlist?list=PL87xM0mnulnivtqC_SgI69xxFdfskd9bX",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Mage Ferago's Dimensional Cape Overview",
+     "url": "https://www.youtube.com/watch?v=W3XBIy-9Esw",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Bridge Combo Guide",
+     "url": "https://youtu.be/bpWR9JX8vdE",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Ladder Combo Guide",
+     "url": "https://www.youtube.com/watch?v=4YqiYTZwE1E",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Optimal Controls",
+     "url": "https://youtu.be/dEgS_j9aASc",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Laddering Fast Fallers",
+     "url": "https://www.youtube.com/watch?v=iVf1Jh4HCBE",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Meta_Knight/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Meta_Knight",
+   "vodArchive": "https://smasharchives.com/character/27"
+  },
+  "mewtwo": {
+   "discords": [
+    {
+     "url": "https://discord.gg/AUVSYqb",
+     "name": "Cerulean Cave",
+     "members": 4532
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Mewtwo/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mewtwo",
+   "vodArchive": "https://smasharchives.com/character/24"
+  },
+  "mii_brawler": {
+   "discords": [
+    {
+     "url": "https://discord.gg/GBkjrd3",
+     "name": "Fighters of Many Faces - Mii Brawler Discord",
+     "members": 3747
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Mii_Brawler/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mii_Brawler",
+   "vodArchive": "https://smasharchives.com/character/51"
+  },
+  "mii_gunner": {
+   "discords": [
+    {
+     "url": "https://discord.gg/7CdEzy9",
+     "name": "💥Gunnercord 🔫",
+     "members": 2288
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mii_Gunner",
+   "vodArchive": "https://smasharchives.com/character/53"
+  },
+  "mii_swordfighter": {
+   "discords": [
+    {
+     "url": "https://discord.gg/muVX4h5",
+     "name": "Mii Swordcord",
+     "members": 2411
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Mii_Swordfighter/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mii_Swordfighter",
+   "vodArchive": "https://smasharchives.com/character/52"
+  },
+  "minmin": {
+   "discords": [
+    {
+     "url": "https://discord.gg/P9QPeFr",
+     "name": "Mintendo Noodle House",
+     "members": 3533
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Min_Min/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Min_Min",
+   "vodArchive": "https://smasharchives.com/character/76"
+  },
+  "mr_game_and_watch": {
+   "discords": [
+    {
+     "url": "https://discord.gg/fzWuqZ8",
+     "name": "Flat Man's World (Mr. Game and Watch SSBU Server)",
+     "members": 2485
+    }
+   ],
+   "players": [
+    {
+     "name": "Maister",
+     "region": "Mexico",
+     "footage": "https://www.youtube.com/watch?v=0s2qvxAPXwc",
+     "note": "Notable for (Placeholder)",
+     "footageTitle": "SWT Championship Group E - Maister (Game & Watch) Vs. Br1 AV (Steve) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Miya",
+     "region": "Japan",
+     "footage": "https://www.youtube.com/watch?v=QCOMsAzgPmY",
+     "note": "Notable for (Placeholder)",
+     "footageTitle": "Apex 2022 GRAND FINALS - Miya (Mr. Game & Watch) Vs. Jakal (Wolf) - SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Monte",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=N79rW1UUSaY",
+     "note": "Notable for (Placeholder)",
+     "footageTitle": "Highlander Con 2022 Kei (Sephiroth) vs. Monte (Mr. GnW) Winners Quarters"
+    }
+   ],
+   "links": [
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://www.youtube.com/watch?v=0s2qvxAPXwc",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://www.youtube.com/watch?v=QCOMsAzgPmY",
+     "kind": "video"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "|Footage =",
+     "url": "https://www.youtube.com/watch?v=N79rW1UUSaY",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Mr._Game_&_Watch/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mr._Game_&_Watch",
+   "vodArchive": "https://smasharchives.com/character/26"
+  },
+  "mythra": {
+   "discords": [
+    {
+     "url": "https://discord.gg/kX2usVD62C",
+     "name": "Alrest",
+     "members": 7729
+    },
+    {
+     "url": "https://discord.gg/wrrBRE7crE",
+     "name": "World Tree - SSBU Pyra/Mythra",
+     "members": 3694
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Mythra",
+   "vodArchive": "https://smasharchives.com/character/79"
+  },
+  "ness": {
+   "discords": [
+    {
+     "url": "https://discord.gg/GXvBCuN",
+     "name": "Kids From Eagleland - SSBU Ness Discord",
+     "members": 5207
+    }
+   ],
+   "players": [
+    {
+     "name": "Gackt",
+     "region": "Japan",
+     "footage": "https://youtu.be/TeZhqUGxAx8",
+     "note": null,
+     "footageTitle": "Kagaribi 10 - Gackt (Ness) Vs. Miya (Game & Watch) Smash Ultimate - SSBU"
+    },
+    {
+     "name": "Pew",
+     "region": "France",
+     "footage": "https://youtu.be/FgZ0UoP6U1s",
+     "note": null,
+     "footageTitle": "Ultimate Wanted 4 - PeW (Ness) Vs. Proudhon (Incineroar) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Nessboy12",
+     "region": "USA",
+     "footage": "https://youtu.be/mHYZxo1PUMc",
+     "note": null,
+     "footageTitle": "Wavedash 2023 - Nessboy12 (Ness) Vs. MkLeo (Byleth) Smash Ultimate - SSBU"
+    },
+    {
+     "name": "Syrup",
+     "region": "USA",
+     "footage": "https://youtu.be/0S3OInNZWqM",
+     "note": null,
+     "footageTitle": "Stargate Grand Final Series | Zomba (ROB) vs Syrup (Ness)"
+    },
+    {
+     "name": "Atata",
+     "region": "USA",
+     "footage": "https://youtu.be/P3JXj0ZBqyg",
+     "note": null,
+     "footageTitle": "Midwest Ultimate Invitational - Winners Semifinals - ATATA(Ness) Vs. Ned(Sephiroth)"
+    },
+    {
+     "name": "PkChris",
+     "region": "USA",
+     "footage": "https://youtu.be/4Y-O-cRq6tU",
+     "note": null,
+     "footageTitle": "DTN 2023 Top 8 - PkChris (Ness) Vs. Mr. E (Lucina) Smash Ultimate - SSBU"
+    }
+   ],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Optimal Ness",
+     "url": "https://docs.google.com/document/d/1-zI4SY_5Fru6ifLZrAe-JkcbVW78RMGidr4tDF4pVQQ/edit?usp=drivesdk",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents",
+     "label": "Magnet Footstool Infinite - Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1wndg3wqQy-MBIqIjXUIOR0p88yQ_jOIdeESWMBQOiMg/edit?usp=drivesdk",
+     "kind": "sheet"
+    },
+    {
+     "section": "Videos",
+     "label": null,
+     "url": "https://youtu.be/NEXnAsOfQ7g",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Ness Multimag Guide",
+     "url": "https://youtu.be/rOFSZhJ0jck",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Ness PSI Magnet guide",
+     "url": "https://www.youtube.com/watch?v=7-wJBqAOpMc",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Flying Held Magnet | Advanced Ness Combo Guide",
+     "url": "https://youtu.be/_luVgeXhdSk",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Ness Exfire Advanced Technique Showcase - Smash Ultimate",
+     "url": "https://youtu.be/D0hCFSISMno",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "More Exfire Methods!",
+     "url": "https://youtu.be/DSekufOXhNI",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Mini Tech Showcase - PK Thunder Lag Cancel",
+     "url": "https://youtu.be/13I07oMoRJQ",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Mini Tech Showcase - Ledgebounce Exfire",
+     "url": "https://youtu.be/dvc-LgEwo3Y",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Ruskiloops - Ness SSBU",
+     "url": "https://youtu.be/noJTnSz1F8Y",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Autocancel Dair Applications - Ness SSBU",
+     "url": "https://youtu.be/EfamiVKCoPs",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Mini Tech Showcase - Firelanding",
+     "url": "https://youtu.be/fNzxWpPl6g4",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Ness Infinite: Full Guide",
+     "url": "https://youtu.be/OaI4B7YlTd0",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Ness/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Ness",
+   "vodArchive": "https://smasharchives.com/character/10"
+  },
+  "olimar": {
+   "discords": [
+    {
+     "url": "https://discord.gg/GDpDJzK",
+     "name": "PNF-404 Alphimar Smash Ultimate Discord",
+     "members": 2538
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Olimar",
+   "vodArchive": "https://smasharchives.com/character/40"
+  },
+  "pac_man": {
+   "discords": [
+    {
+     "url": "https://discord.gg/Khu27zPeaW",
+     "name": "SSBU: PAC-MAN Discord",
+     "members": 4326
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Pac-Man/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pac-Man",
+   "vodArchive": "https://smasharchives.com/character/55"
+  },
+  "palutena": {
+   "discords": [
+    {
+     "url": "https://discord.gg/xRYxrgEAnf",
+     "name": "Palutena’s Guidance",
+     "members": 6431
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Videos",
+     "label": "Art of Palutena by IzawSmash",
+     "url": "https://youtu.be/6w7N3Pn8wNU",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Palutena/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Palutena",
+   "vodArchive": "https://smasharchives.com/character/54"
+  },
+  "peach": {
+   "discords": [
+    {
+     "url": "https://discord.gg/gPq3gC4g2f",
+     "name": "Damsels in Success! [SSBU Peach and Daisy]",
+     "members": 6173
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Peach/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Peach",
+   "vodArchive": "https://smasharchives.com/character/13"
+  },
+  "pichu": {
+   "discords": [
+    {
+     "url": "https://discord.gg/RgcFwQB",
+     "name": "Ilex Forest - SSBU Pichu Discord",
+     "members": 3907
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Pichu/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pichu",
+   "vodArchive": "https://smasharchives.com/character/19"
+  },
+  "pikachu": {
+   "discords": [
+    {
+     "url": "https://discord.gg/UprygGD",
+     "name": "Pika-Palooza",
+     "members": 5895
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Pikachu/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pikachu",
+   "vodArchive": "https://smasharchives.com/character/8"
+  },
+  "piranha_plant": {
+   "discords": [
+    {
+     "url": "https://discord.gg/HfsFQ8j",
+     "name": "Pipe World - SSBU Piranha Plant Discord",
+     "members": 4241
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Piranha_Plant/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Piranha_Plant",
+   "vodArchive": "https://smasharchives.com/character/70"
+  },
+  "pit": {
+   "discords": [
+    {
+     "url": "https://discord.gg/gJHHHR4urr",
+     "name": "Skyworld",
+     "members": 5810
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "General document that contains various useful info on the character",
+     "url": "https://docs.google.com/spreadsheets/d/1aQGEPXGPZxEOV--ZIYZ0gn2jdH0yZzbxIMSg4nQeQoU/edit#gid=0",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "Pitcord's MU repository, organized by row",
+     "url": "https://drive.google.com/drive/folders/1hqK3kL-a9-IHqTBCVPYFcgzLMhCpTqw4?ths=true",
+     "kind": "link"
+    },
+    {
+     "section": "Videos",
+     "label": "How to do Uair dragdowns (by Naegin)",
+     "url": "https://www.youtube.com/watch?v=EbpvCjBydyI",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Pit/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pit",
+   "vodArchive": "https://smasharchives.com/character/28"
+  },
+  "pt_squirtle": {
+   "discords": [
+    {
+     "url": "https://discord.gg/tzNV4hF",
+     "name": "SSBU Pokémon Trainer Discord",
+     "members": 5989
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Pokemon_Trainer/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pokemon_Trainer",
+   "vodArchive": "https://smasharchives.com/character/33"
+  },
+  "pt_ivysaur": {
+   "discords": [
+    {
+     "url": "https://discord.gg/tzNV4hF",
+     "name": "SSBU Pokémon Trainer Discord",
+     "members": 5989
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Pokemon_Trainer/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pokemon_Trainer",
+   "vodArchive": "https://smasharchives.com/character/33"
+  },
+  "pt_charizard": {
+   "discords": [
+    {
+     "url": "https://discord.gg/tzNV4hF",
+     "name": "SSBU Pokémon Trainer Discord",
+     "members": 5989
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Pokemon_Trainer/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pokemon_Trainer",
+   "vodArchive": "https://smasharchives.com/character/33"
+  },
+  "pyra": {
+   "discords": [
+    {
+     "url": "https://discord.gg/kX2usVD62C",
+     "name": "Alrest",
+     "members": 7729
+    },
+    {
+     "url": "https://discord.gg/wrrBRE7crE",
+     "name": "World Tree - SSBU Pyra/Mythra",
+     "members": 3694
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Pyra",
+   "vodArchive": "https://smasharchives.com/character/79"
+  },
+  "richter": {
+   "discords": [
+    {
+     "url": "https://discord.gg/yHRz4fG",
+     "name": "House of Belmont",
+     "members": 2887
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Richter",
+   "vodArchive": null
+  },
+  "ridley": {
+   "discords": [
+    {
+     "url": "https://discord.gg/3UJwxAh",
+     "name": "Lower Norfair - SSBU Ridley Discord",
+     "members": 4413
+    }
+   ],
+   "players": [
+    {
+     "name": "Mezcaul",
+     "region": "France",
+     "footage": "-",
+     "note": "-"
+    },
+    {
+     "name": "Smub",
+     "region": "United States",
+     "footage": "-",
+     "note": "-"
+    },
+    {
+     "name": "Zoro",
+     "region": "Guam",
+     "footage": "-",
+     "note": "-"
+    },
+    {
+     "name": "-",
+     "region": "-",
+     "footage": "-",
+     "note": "-"
+    }
+   ],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Ridley Fighter Data",
+     "url": "https://docs.google.com/spreadsheets/d/1fvBNlkLUKIeh6PkpWeGDpL7lcIMyiEXgBi7KtmK_gfc/edit#gid=908968340",
+     "kind": "sheet"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Ridley/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Ridley",
+   "vodArchive": "https://smasharchives.com/character/65"
+  },
+  "rob": {
+   "discords": [
+    {
+     "url": "https://discord.gg/FkSQVBp",
+     "name": "ROB Squad 13.1",
+     "members": 5822
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/R.O.B./Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/R.O.B.",
+   "vodArchive": "https://smasharchives.com/character/42"
+  },
+  "robin": {
+   "discords": [
+    {
+     "url": "https://discord.gg/qp2FYcm",
+     "name": "Robins of Ylisse",
+     "members": 5108
+    }
+   ],
+   "players": [
+    {
+     "name": "Jul",
+     "region": "New York",
+     "footage": "https://youtu.be/_lhhQhbga6U",
+     "note": "Retired",
+     "footageTitle": "Smash Ultimate Tournament - Mr E (Lucina) Vs. Jul (Robin) SSBU Xeno 188 Grand Finals"
+    },
+    {
+     "name": "Bananime",
+     "region": "North Carolina",
+     "footage": "https://youtu.be/hwmmxQT9q34",
+     "note": null,
+     "footageTitle": "KKON23 Main Event: SSBU - Losers QF - Bananime vs VoiD"
+    },
+    {
+     "name": "igreg!",
+     "region": "Georgia",
+     "footage": "https://youtu.be/4vB7FwUb2Cs",
+     "note": null,
+     "footageTitle": "4o4 Smash Night 34 Losers Finals - Jahzz0 (Ken) Vs. iGreg! (Robin) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "xillion",
+     "region": "Texas",
+     "footage": "https://youtu.be/QdCi9JFgZYk",
+     "note": null,
+     "footageTitle": "Ikan vs. X i l l i o n - Ultimate Singles Pools - Low Tide City 2022"
+    }
+   ],
+   "links": [
+    {
+     "section": "Players to watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/_lhhQhbga6U",
+     "kind": "video"
+    },
+    {
+     "section": "Players to watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/hwmmxQT9q34",
+     "kind": "video"
+    },
+    {
+     "section": "Players to watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/4vB7FwUb2Cs",
+     "kind": "video"
+    },
+    {
+     "section": "Players to watch",
+     "label": "|Footage =",
+     "url": "https://youtu.be/QdCi9JFgZYk",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Robin/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Robin",
+   "vodArchive": "https://smasharchives.com/character/56"
+  },
+  "rosalina_and_luma": {
+   "discords": [
+    {
+     "url": "https://discord.gg/a5asHUc",
+     "name": "The Comet Observatory - Home of Rosalina and Luma",
+     "members": 3864
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Rosalina_&_Luma",
+   "vodArchive": "https://smasharchives.com/character/48"
+  },
+  "roy": {
+   "discords": [
+    {
+     "url": "https://discord.gg/dgJrPSK",
+     "name": "Great Lords - Roy & Chrom Discord",
+     "members": 8935
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Roy/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Roy",
+   "vodArchive": "https://smasharchives.com/character/25"
+  },
+  "ryu": {
+   "discords": [
+    {
+     "url": "https://discord.gg/9zy9qqG",
+     "name": "The Dojo",
+     "members": 4781
+    }
+   ],
+   "players": [
+    {
+     "name": "Asimo / あしも",
+     "region": "Japan",
+     "footage": "|Note    = Asimo plays nearly only Ryu with a few matches as Ken. Asimo is a very well rounded player able to balance going all in and holding back. Keep watch for tech chase setups and punishes.",
+     "note": "Asimo plays nearly only Ryu with a few matches as Ken. Asimo is a very well rounded player able to balance going all in and holding back. Keep watch for tech chase setups and punishes."
+    },
+    {
+     "name": "Ikan",
+     "region": "Illinois, USA",
+     "footage": "|Note    = Ikan is a pure solo Ryu player and is very aerial heavy. Watch for his crazy long combos.",
+     "note": "Ikan is a pure solo Ryu player and is very aerial heavy. Watch for his crazy long combos."
+    },
+    {
+     "name": "Munekin / むねきん、",
+     "region": "Japan",
+     "footage": "|Note    = Munekin plays both Shotos.",
+     "note": "Munekin plays both Shotos."
+    },
+    {
+     "name": "Vendetta",
+     "region": "Georgia, USA",
+     "footage": "|Note    = Vendetta is a very defensive player who specializes in the Shotos and Terry.",
+     "note": "Vendetta is a very defensive player who specializes in the Shotos and Terry."
+    },
+    {
+     "name": "Nito",
+     "region": "SoCal USA",
+     "footage": "|Note    = Nito plays Shotos and Kazuya",
+     "note": "Nito plays Shotos and Kazuya"
+    },
+    {
+     "name": "AndresFN",
+     "region": "Spain",
+     "footage": "|Note    = AndresFN is a well rounded player who specializes in all Fighting Game characters",
+     "note": "AndresFN is a well rounded player who specializes in all Fighting Game characters"
+    }
+   ],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Book of Shotos by Bean!",
+     "url": "https://drive.google.com/file/d/1K4WqrIt7zNTM7JaJLByWzkyTNfcZ4sWs/view?usp=drivesdk",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Grounded TSRK kill percents by Architect",
+     "url": "https://docs.google.com/spreadsheets/d/1r-WGtV7-GdFS14pR5pwmHrb8044lwx8xhGF84Kos1Ho/edit#gid=1513224806",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "Tumble Percents by ICE | Torricane",
+     "url": "https://docs.google.com/spreadsheets/d/1X0UYrejVoqrcO9QTDHAVAyHXFissGb3oe6ZIAoJA-Ck/edit#gid=0",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "COIL Docs by Zegis",
+     "url": "https://drive.google.com/file/d/1MxJocVcTAwDd1sqZDwpqWTproHHMjSDD/view",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "COIL Docs by Zegis",
+     "url": "https://drive.google.com/file/d/1JKnUK24mrs8QLl4KFSFwuACU-HLwCJDF/view",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Ryu's Scripts",
+     "url": "https://rubendal.github.io/ssbu/#/Character/Ryu",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Ryu Frame Data",
+     "url": "https://docs.google.com/spreadsheets/d/1_rXOd4Y-NNR97Ibav5riqp0RNUwtGdq5wZSvqFwqT6Y/edit#gid=254560731",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents",
+     "label": "SSB Wiki",
+     "url": "https://www.ssbwiki.com/Ryu_(SSBU)",
+     "kind": "link"
+    },
+    {
+     "section": "Videos",
+     "label": "IzAw's Art of Ryu",
+     "url": "https://youtu.be/P3LQJzwnf_c",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Playlist of VODs of top Ryu players at offline tournaments by Lernonad",
+     "url": "https://youtube.com/playlist?list=PLOX1E26OpSe7K-H43bhFsTmJOgLj75lKM",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Ryu/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Ryu",
+   "vodArchive": "https://smasharchives.com/character/60"
+  },
+  "samus": {
+   "discords": [
+    {
+     "url": "https://discord.gg/b69G8H6",
+     "name": ".Dark/Samus Discord Group.",
+     "members": 6622
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Why Samus upsmash is good and bad",
+     "url": "https://docs.google.com/document/d/1zmDx4NYAUdRXCCGGwaiwbZCSOKx9I0z2jSUsX9mX0Fw/edit?usp=drivesdk",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents",
+     "label": "How to avoid Samus down-b ledgetrapping",
+     "url": "https://docs.google.com/document/d/1kEwcjlR6o3qP1YlFQ9SBG9rgsJ6d7HNTTyoJEn3yYLQ/edit?usp=drivesdk",
+     "kind": "doc"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Samus/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Samus",
+   "vodArchive": "https://smasharchives.com/character/4"
+  },
+  "sephiroth": {
+   "discords": [
+    {
+     "url": "https://discord.gg/qqcCyUMBZE",
+     "name": "The Reunion - Sephiroth Discord",
+     "members": 8860
+    }
+   ],
+   "players": [
+    {
+     "name": "-",
+     "region": "-",
+     "footage": "-",
+     "note": "-"
+    },
+    {
+     "name": "-",
+     "region": "-",
+     "footage": "-",
+     "note": "-"
+    },
+    {
+     "name": "-",
+     "region": "-",
+     "footage": "-",
+     "note": "-"
+    }
+   ],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Sephiroth/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Sephiroth",
+   "vodArchive": "https://smasharchives.com/character/78"
+  },
+  "sheik": {
+   "discords": [
+    {
+     "url": "https://discord.gg/MSbMHrY",
+     "name": "Temple of Time II",
+     "members": 3591
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Sheik/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Sheik",
+   "vodArchive": "https://smasharchives.com/character/16"
+  },
+  "shulk": {
+   "discords": [
+    {
+     "url": "https://discord.gg/NpXtA3f",
+     "name": "The Bionis - Official Discord for Shulk in Smash Ultimate",
+     "members": 4963
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "DoberCorgi, Resources on Shulk combo, tech, matchups among other resources",
+     "url": "https://dobercorgi.info/",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "ShulkXenoblade.com: Web app with matchup info, frame data and VODs",
+     "url": "https://shulkxenoblade.com",
+     "kind": "link"
+    },
+    {
+     "section": "Documents",
+     "label": "Shulk extra frame data",
+     "url": "https://docs.google.com/spreadsheets/d/1Q60DNSLWiQVOWRlAbxZpEuho0SFVFzoU64TSn1hPBS0/edit?usp=sharing",
+     "kind": "sheet"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Shulk/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Shulk",
+   "vodArchive": "https://smasharchives.com/character/57"
+  },
+  "simon": {
+   "discords": [
+    {
+     "url": "https://discord.gg/yHRz4fG",
+     "name": "House of Belmont",
+     "members": 2887
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Simon",
+   "vodArchive": "https://smasharchives.com/character/66"
+  },
+  "snake": {
+   "discords": [
+    {
+     "url": "https://discord.gg/3BXATDr",
+     "name": "Foxhound HQ | SSBU Snake Discord",
+     "members": 6555
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Snake",
+   "vodArchive": "https://smasharchives.com/character/31"
+  },
+  "sonic": {
+   "discords": [],
+   "players": [
+    {
+     "name": "Sonix",
+     "region": "Dominican Republic",
+     "footage": "https://youtu.be/GZSn6O-Jl7E",
+     "note": "The best Sonic player in the world, known for his explosive offense and patient defense.",
+     "footageTitle": "LMBM 2023 Losers Semis - MkLeo (Joker, Pyra Mythra) Vs. Sonix (Sonic) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Ken",
+     "region": "Japan",
+     "footage": "https://youtu.be/RXLwNCgvZ-Y",
+     "note": "The best Sonic player in Japan, he carefully uses {{clr|special|Spin Dash}} to open up foes.",
+     "footageTitle": "Winner! 20 GRAND FINALS - Paseriman (Fox) Vs. KEN (Sonic) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Wrath",
+     "region": "Southeastern US",
+     "footage": "https://youtu.be/fNxYFhM4GwA",
+     "note": "Georgian Sonic and defensive powerhouse. Semi-Retired.",
+     "footageTitle": "SWT Championship Group C - MVD (Snake) Vs. Wrath (Sonic) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Taikei",
+     "region": "Japan",
+     "footage": "https://youtu.be/k7rC9JQQgtY",
+     "note": "Uses advanced Sonic techniques to zip across the stage.",
+     "footageTitle": "Sumapa 78 - Gorioka (Joker) Vs. taikei (Sonic) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Peli",
+     "region": "UK",
+     "footage": "https://youtu.be/m0pqYU2fOqo",
+     "note": "The best European Sonic. A strong all-around Sonic.",
+     "footageTitle": "VCA 2021 GRAND FINALS - Glutonny (Wario) Vs. Peli (Sonic) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "SuperGirlKels",
+     "region": "Canada",
+     "footage": "https://youtu.be/vMtrZWgFuy8",
+     "note": "The best Canadian Sonic. Adept in all aspects of Sonic, but known for a more offensive style.",
+     "footageTitle": "GOML 2022 - SuperGirlKels (Sonic) Vs. Pi (Samus, Dark Samus) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Sonido",
+     "region": "Southeastern US",
+     "footage": "https://youtu.be/nqUxMJoqWm8",
+     "note": "Another Georgia Sonic. Whiff punishes with {{clr|special|Spin Charge}} for high damage conversions.",
+     "footageTitle": "Senn (Sheik) vs Sonido (Sonic) -  Winners Semi-Final  - Rock the Winds"
+    },
+    {
+     "name": "6WX",
+     "region": "Tri-State",
+     "footage": "https://youtu.be/cYnhhRTlTtI",
+     "note": "Uses free-flow movement mixups to run circles around his opponents. Semi-Retired.",
+     "footageTitle": "Regular Bairs #373 - SSBU - Winners Quarters - Alo! vs. 6WX"
+    }
+   ],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Sonic/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Sonic",
+   "vodArchive": "https://smasharchives.com/character/38"
+  },
+  "sora": {
+   "discords": [
+    {
+     "url": "https://discord.gg/Xkh9UTV9y4",
+     "name": "The Datascape",
+     "members": 4314
+    },
+    {
+     "url": "https://discord.gg/uFExBp7hkE",
+     "name": "Soras del tercermundo",
+     "members": 114
+    }
+   ],
+   "players": [
+    {
+     "name": "Kameme",
+     "region": "Japan",
+     "footage": "https://youtu.be/Durza2liLjk",
+     "note": "The best Sora player in the world.",
+     "footageTitle": "Glitch Regen Losers Semis - Zomba (ROB) Vs. Kameme (Sora) Smash Ultimate Tournament"
+    },
+    {
+     "name": "DTP",
+     "region": "Northeast",
+     "footage": "https://www.youtube.com/watch?v=dH8L5_HujoI",
+     "note": "Philidelphia's strongest Sora, often employs advanced combos.",
+     "footageTitle": "Regular Bairs #371 - SSBU - Winners Finals - DTP vs. MPg"
+    },
+    {
+     "name": "Unleashed",
+     "region": "Northeast",
+     "footage": "https://www.youtube.com/watch?v=kQIfDtSRbbs",
+     "note": "Strong Sora hailing from Massachusetts.",
+     "footageTitle": "Bay State Beatdown 45: Shine Prelocal - TT | Unleashed (Sora) vs TT | naitosharp (Corrin, etc) - LQ"
+    },
+    {
+     "name": "Hikaru",
+     "region": "Japan",
+     "footage": "https://youtu.be/fNxYFhM4GwA",
+     "note": "Relatively newer Sora, using his vast character pool and fundamental knowledge to pilot the character",
+     "footageTitle": "SWT Championship Group C - MVD (Snake) Vs. Wrath (Sonic) SSBU Ultimate Tournament"
+    },
+    {
+     "name": "Zackray",
+     "region": "Japan",
+     "footage": "https://www.youtube.com/watch?v=FZC-32UNxOk",
+     "note": "\"Retired\" Sora, known for winning a major two weeks after the character released.",
+     "footageTitle": "Kagaribi 5 GRAND FINALS - Zackray (Sora) Vs. Shuton (Olimar, Pyra Mythra) SSBU Smash Ultimate"
+    },
+    {
+     "name": "Komorikiri",
+     "region": "Japan",
+     "footage": "https://www.youtube.com/watch?v=UrwkvlHnpFE",
+     "note": "Japanese Sora, previously known for his Cloud in Smash 4. Preforms well on the regional level.",
+     "footageTitle": "第35回スマバトSP くろぽんず(ロボット) VS 古森霧(ソラ)勝者側2回戦 -スマブラSP大阪大会"
+    },
+    {
+     "name": "Nakat",
+     "region": "West US",
+     "footage": "https://www.youtube.com/watch?v=1c5kyFhsj3Q&list=PLtH2gy69C6zUYPMUScy5zQHXfS6kRQpYN",
+     "note": "One of the first Sora's, known for keeping his gameplay simple yet effective.",
+     "footageTitle": "NAKAT (Sora, Lucina) vs Apollokage (Snake)"
+    },
+    {
+     "name": "Alastair",
+     "region": "New Zealand",
+     "footage": "https://youtu.be/KFc95xerhes",
+     "note": "Hailing from New Zealand, grinds the game with enthusiasm.",
+     "footageTitle": "IT'S TIME! Australia's BEST SORA Makes Sora Look GODLIKE In Smash Tournament! (SSBU)"
+    }
+   ],
+   "links": [
+    {
+     "section": "Players to Watch",
+     "label": "Vods.co",
+     "url": "https://vods.co/ultimate/character/Sora",
+     "kind": "link"
+    },
+    {
+     "section": "Players to Watch",
+     "label": "smasharchives.com",
+     "url": "https://smasharchives.com/character/82",
+     "kind": "link"
+    },
+    {
+     "section": "Documents and Links",
+     "label": "DTP's Sora Matchup Megadocument",
+     "url": "https://docs.google.com/document/d/1-BQ0mXoKrgqdjTpVGKWh18F8zK6Usq3wFm2BdnemIDo/edit#heading=h.hpkkwlwnhege",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents and Links",
+     "label": "Video (In Japanese)",
+     "url": "https://youtu.be/9NM9tfEjlpY",
+     "kind": "video"
+    },
+    {
+     "section": "Documents and Links",
+     "label": "Document (In English, Translated by Tsuba and Created by Seels @wifiseels",
+     "url": "https://docs.google.com/document/d/10Mj7FulatOQl3CuF_NUT_ebEMEm7d3QgpckbjwtEnA8/edit?usp=sharing",
+     "kind": "doc"
+    },
+    {
+     "section": "Documents and Links",
+     "label": "Evading moves with Sora Down Smash",
+     "url": "https://docs.google.com/spreadsheets/d/1g0P4VEAeUjBVrK2w-s-aVvKXudZ4niqfVcURX1R544M/edit?usp=drivesdk",
+     "kind": "sheet"
+    },
+    {
+     "section": "Documents and Links",
+     "label": "Data of Sora's N-Air12 and F-Air12 frame advantage. Provided by HD from Soracord.",
+     "url": "https://docs.google.com/spreadsheets/d/1AkqXJeiVWRc_NkTtPh4fYw1oP3DnQftGNnEBzO3d_ZY/edit#gid=1455738970",
+     "kind": "sheet"
+    },
+    {
+     "section": "Videos",
+     "label": "{{#ev:youtube| }}",
+     "url": "https://www.youtube.com/watch?v=-Hd6fXGDD48",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "{{#ev:youtube| }}",
+     "url": "https://www.youtube.com/watch?v=ahia6eW84Fo&t=4s",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "{{#ev:youtube| }}",
+     "url": "https://www.youtube.com/watch?v=DJfzDibpgKc&t=2s",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "{{#ev:youtube| }}",
+     "url": "https://www.youtube.com/watch?v=zcy6SSWlMU4",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Part 1: {{#ev:youtube| }}",
+     "url": "https://www.youtube.com/watch?v=XrRb0Q46h10",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Part 2: {{#ev:youtube| }}",
+     "url": "https://www.youtube.com/watch?v=Hp0pA3Jx3hY",
+     "kind": "video"
+    },
+    {
+     "section": "Miscellaneous",
+     "label": "Ars Arcanum, a combo structure optimized by Limon",
+     "url": "https://twitter.com/Limon1211zzz/status/1561492857222901760",
+     "kind": "tweet"
+    },
+    {
+     "section": "Miscellaneous",
+     "label": "Ars Arcanum Finishers, shown by Pan @Pan_SSB",
+     "url": "https://twitter.com/Pan_SSB/status/1574896408888483841?s=20&t=rkOVW5RMa7XUamwZOCFc_g",
+     "kind": "tweet"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Sora/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Sora",
+   "vodArchive": "https://smasharchives.com/character/82"
+  },
+  "steve": {
+   "discords": [
+    {
+     "url": "https://discord.gg/BRSDm9U",
+     "name": "New World",
+     "members": 5533
+    }
+   ],
+   "players": [
+    {
+     "name": "acola",
+     "region": "Japan",
+     "footage": "https://youtu.be/Y2fprqaGpgA?t=4291",
+     "note": "Notable for (Placeholder)",
+     "footageTitle": "Frosty Faustings XIV 2022 - GGXXAC+R Top 8"
+    },
+    {
+     "name": "Onin",
+     "region": "USA",
+     "footage": "https://youtu.be/BV6rq9fNE4E",
+     "note": "Notable for (Placeholder)",
+     "footageTitle": "Scuffed World Tour Losers Round 2 - Onin (Steve) Vs. Riddles (Kazuya) Smash Ultimate - SSBU"
+    },
+    {
+     "name": "yonni",
+     "region": "USA",
+     "footage": "https://www.youtube.com/watch?v=DSu3r2CbJzs",
+     "note": "Notable for (Placeholder). Retired(Placeholder)",
+     "footageTitle": "Gimvitational Winners Quarters - Tweek (Sephiroth) Vs. Yonni (Steve) SSBU Smash Ultimate Tournament"
+    }
+   ],
+   "links": [
+    {
+     "section": "Videos",
+     "label": "Steve Counterplay guide by omuatsu, Japanese Pro Min-Min Main(subtitled in English)",
+     "url": "https://www.youtube.com/watch?v=t2PkUp57I2I",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Steve/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Steve",
+   "vodArchive": "https://smasharchives.com/character/77"
+  },
+  "terry": {
+   "discords": [
+    {
+     "url": "https://discord.gg/3BvsNSwXu2",
+     "name": "South Town - SSBU Terry Discord Server",
+     "members": 5471
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Terry/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Terry",
+   "vodArchive": "https://smasharchives.com/character/74"
+  },
+  "toon_link": {
+   "discords": [
+    {
+     "url": "https://discord.gg/uvGBcTA",
+     "name": "The Great Sea - SSBU Toon Link Discord",
+     "members": 3241
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Toon_Link",
+   "vodArchive": "https://smasharchives.com/character/43"
+  },
+  "villager": {
+   "discords": [
+    {
+     "url": "https://discord.gg/eA56cyJ",
+     "name": "Smashville - SSBU Villager Server",
+     "members": 2764
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Villager",
+   "vodArchive": "https://smasharchives.com/character/45"
+  },
+  "wario": {
+   "discords": [
+    {
+     "url": "https://discord.gg/HRQWSZK",
+     "name": "Wario World",
+     "members": 4302
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Wario/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Wario",
+   "vodArchive": "https://smasharchives.com/character/30"
+  },
+  "wii_fit_trainer": {
+   "discords": [
+    {
+     "url": "https://discord.gg/CQ4NQ6r",
+     "name": "⚽Wii Fit Studio⚽",
+     "members": 3514
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Wii_Fit_Trainer",
+   "vodArchive": "https://smasharchives.com/character/47"
+  },
+  "wolf": {
+   "discords": [],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "This",
+     "url": "https://docs.google.com/spreadsheets/d/1B4RJ3l4X7LCBZq4NwGHjOCJmId3Gq97F6o3UPFSpFXg/edit?usp=sharing",
+     "kind": "sheet"
+    },
+    {
+     "section": "Videos",
+     "label": "Art of Wolf",
+     "url": "https://www.youtube.com/watch?v=Km7MSZU4gTg",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Wolf/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Wolf",
+   "vodArchive": "https://smasharchives.com/character/44"
+  },
+  "yoshi": {
+   "discords": [
+    {
+     "url": "https://discord.gg/QKanWPU",
+     "name": "Egg Hut (SSBU)",
+     "members": 4635
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "Written Guide by @marteenYosh on how to use Yoshi",
+     "url": "https://docs.google.com/document/d/1lm9X2nJ7l0gyqkORc_Nh2RsGN1gAw_QT1CKG6i_ystI/edit?usp=sharing",
+     "kind": "doc"
+    },
+    {
+     "section": "Videos",
+     "label": "IzawSmash's Art of Yoshi, Rundown on Yoshi's tools and how to use them",
+     "url": "https://youtu.be/zbel6sAHzDM?list=PL4SzCzeORbSRRI72fLpdCCDI-SZIwqFyJ",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Yoshi/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Yoshi",
+   "vodArchive": "https://smasharchives.com/character/5"
+  },
+  "young_link": {
+   "discords": [
+    {
+     "url": "https://discord.gg/zxC8Vzr",
+     "name": "Clock Town - SSBU Young Link Server",
+     "members": 4753
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Documents",
+     "label": "JustNair.com",
+     "url": "https://www.justnair.com/home",
+     "kind": "link"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Young_Link/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Young_Link",
+   "vodArchive": "https://smasharchives.com/character/22"
+  },
+  "zelda": {
+   "discords": [
+    {
+     "url": "https://discord.gg/V8tkEWF",
+     "name": "Zelda's Sanctuary",
+     "members": 4403
+    }
+   ],
+   "players": [],
+   "links": [
+    {
+     "section": "Videos",
+     "label": "How to Play Zelda - Smash Bros. Ultimate | Part 1",
+     "url": "https://www.youtube.com/watch?v=ndCgq2ygGv4",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "KILL AT 0% 🤯 😱 ☠️ Ultimate Zelda Shield Break Punish Guide",
+     "url": "https://www.youtube.com/watch?v=AoAxuBqeT3g",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Smash Ultimate : Zelda - Phantom Platform Tech",
+     "url": "https://www.youtube.com/watch?v=75awiv_Tjrg",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Smash Ultimate Zelda Edge Cancel Guide",
+     "url": "https://youtu.be/VOZdgcbrG80",
+     "kind": "video"
+    },
+    {
+     "section": "Videos",
+     "label": "Zelda Smash Ultimate: Simple DISPLACED PHANTOM step by step",
+     "url": "https://www.youtube.com/watch?v=n1fIzDt0ZEQ",
+     "kind": "video"
+    }
+   ],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Zelda/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Zelda",
+   "vodArchive": "https://smasharchives.com/character/17"
+  },
+  "zero_suit_samus": {
+   "discords": [
+    {
+     "url": "https://discord.gg/up3dbCf",
+     "name": "Zero Suit, Zero Closets",
+     "members": 5198
+    }
+   ],
+   "players": [],
+   "links": [],
+   "sources": [
+    "https://dragdown.wiki/wiki/SSBU/Zero_Suit_Samus/Resources"
+   ],
+   "wiki": "https://dragdown.wiki/wiki/SSBU/Zero_Suit_Samus",
+   "vodArchive": "https://smasharchives.com/character/29"
+  }
+ }
+}

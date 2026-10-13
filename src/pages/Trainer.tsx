@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { characterBySlug, characters } from '../data/characters';
 import type { Character } from '../data/types';
 import { CharacterPicker, RANDOM } from '../components/CharacterPicker';
+import { HitboxGif, Portrait, preloadImages } from '../components/Media';
 import { grade, pick, punishes, punishOptions, situationsFor, type Grade, type PunishOption, type Situation } from '../lib/punish';
 import { getStats, recordResult } from '../lib/stats';
 
@@ -9,12 +10,17 @@ interface Settings {
   includeAerials: boolean;
   includeSpecials: boolean;
   showFrames: boolean;
+  showMoveGifs: boolean;
 }
 
 export function Trainer() {
-  const [you, setYou] = useState<string | null>(null);
+  // Fighter pages link here as #/?you=<slug>.
+  const [you, setYou] = useState<string | null>(() => {
+    const s = new URLSearchParams(window.location.hash.split('?')[1]).get('you');
+    return s && characterBySlug.has(s) ? s : null;
+  });
   const [opp, setOpp] = useState<string | null>(RANDOM);
-  const [settings, setSettings] = useState<Settings>({ includeAerials: true, includeSpecials: true, showFrames: false });
+  const [settings, setSettings] = useState<Settings>({ includeAerials: true, includeSpecials: true, showFrames: false, showMoveGifs: true });
   const [running, setRunning] = useState(false);
 
   if (running && you && opp) {
@@ -52,6 +58,10 @@ export function Trainer() {
           <input type="checkbox" checked={settings.showFrames} onChange={(e) => setSettings({ ...settings, showFrames: e.target.checked })} />
           Show frame hints before answering
         </label>
+        <label className="toggle">
+          <input type="checkbox" checked={settings.showMoveGifs} onChange={(e) => setSettings({ ...settings, showMoveGifs: e.target.checked })} />
+          Show hitbox GIFs on my options (heavier to load)
+        </label>
       </section>
 
       <button className="primary big" disabled={!you || !opp} onClick={() => setRunning(true)}>
@@ -81,6 +91,9 @@ const METHOD_LABEL: Record<PunishOption['method'], string> = {
 function Session({ you, opp, settings, onExit }: { you: Character; opp: string; settings: Settings; onExit: () => void }) {
   const options = useMemo(() => punishOptions(you), [you]);
   const [situation, setSituation] = useState(() => nextSituation(opp, settings));
+  // The next question is picked ahead of time so its GIF can preload while you answer this one.
+  const [upcoming, setUpcoming] = useState(() => nextSituation(opp, settings));
+  useEffect(() => preloadImages(upcoming.move.hitboxGifs.slice(0, 1)), [upcoming]);
   const [answer, setAnswer] = useState<{ choice: PunishOption | null; grade: Grade } | null>(null);
   const [session, setSession] = useState({ attempts: 0, correct: 0, streak: 0 });
 
@@ -95,7 +108,8 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
 
   const next = () => {
     setAnswer(null);
-    setSituation(nextSituation(opp, settings));
+    setSituation(upcoming);
+    setUpcoming(nextSituation(opp, settings));
   };
 
   useEffect(() => {
@@ -127,15 +141,15 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
 
       <div className="prompt card">
         <div className="matchup">
-          <strong>{you.name}</strong> <span className="muted">shields</span> <strong>{situation.attacker.name}</strong>
+          <span className="fighter"><Portrait slug={you.slug} name={you.name} size={44} /> <strong>{you.name}</strong></span>
+          <span className="muted">shields</span>
+          <span className="fighter"><Portrait slug={situation.attacker.slug} name={situation.attacker.name} size={44} /> <strong>{situation.attacker.name}</strong></span>
         </div>
         <div className="move-title">
           {situation.move.name}
           {situation.hitbox && <span className="tag">{situation.hitbox} hit</span>}
         </div>
-        {gifs.length > 0 && (
-          <img className="hitbox-gif" src={gifs[0]} alt={`${situation.attacker.name} ${situation.move.name} hitbox`} loading="lazy" />
-        )}
+        <HitboxGif className="hitbox-main" src={gifs[0]} alt={`${situation.attacker.name} ${situation.move.name} hitbox`} />
         {(settings.showFrames || answer) && (
           <div className="adv">
             On shield: <b>{situation.advantage}</b> → you have <b>{window_}</b> frames to land a hit
@@ -157,6 +171,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
                   : 'dim';
           return (
             <button key={o.move.name} className={`option ${cls} ${o === answer?.choice ? 'chosen' : ''}`} onClick={() => submit(o)}>
+              {settings.showMoveGifs && <HitboxGif className="opt-gif" lazy src={o.move.hitboxGifs[0]} alt={o.move.name} />}
               <span className="opt-name">{o.move.name}</span>
               {(settings.showFrames || answer) && (
                 <span className="opt-frames">

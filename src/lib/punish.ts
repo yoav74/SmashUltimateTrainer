@@ -31,7 +31,7 @@ export interface Situation {
 
 // Per-character exceptions to the general OoS rules.
 const CHARACTER_RULES: Record<string, { jumpsquat?: number; excludeMoves?: RegExp }> = {
-  kazuya: { jumpsquat: 7 },
+  kazuya: { jumpsquat: 7, excludeMoves: /\(Final Hit\)|Taunt/ },
   // Listed startup is the projectile/item spawn, not a hitbox that reaches the attacker.
   duck_hunt: { excludeMoves: /Trick Shot/ },
   rob: { excludeMoves: /Gyro/ },
@@ -44,7 +44,7 @@ const CHARACTER_RULES: Record<string, { jumpsquat?: number; excludeMoves?: RegEx
 // UFD names aerial versions several ways: "Hand Slap, Air", "Hammer (Air)", "Down B, Air (Stone, Air)".
 const isAirVariant = (name: string) => /, Air\b|\(Air\)/.test(name);
 const isFollowUp = (name: string) =>
-  /^(Jab [2-9]|Rapid Jab)/.test(name) || (name.includes(',') && !isAirVariant(name)) || /counter/i.test(name);
+  /^(Jab ([2-9]|\d{2})|Rapid Jab)/.test(name) || (name.includes(',') && !isAirVariant(name)) || /counter/i.test(name);
 /** Strips slot and air markers so "Side B (Hammer)" and "Hammer (Air)" both become "Hammer". */
 function baseOf(name: string) {
   const n = name.replace(/\s*\(Air\)$/, '');
@@ -97,7 +97,7 @@ export function situationsFor(attacker: Character, opts: { includeSpecials: bool
     if (move.category === 'aerialattacks' && !opts.includeAerials) continue;
     if (move.category === 'specialattacks' && !opts.includeSpecials) continue;
     if (!['groundattacks', 'aerialattacks', 'specialattacks'].includes(move.category)) continue;
-    if (/^Jab [2-9]/.test(move.name)) continue;
+    if (/^Jab ([2-9]|\d{2})/.test(move.name)) continue;
     for (const a of move.shieldAdvantage) {
       if (a.value < 0) out.push({ attacker, move, hitbox: a.hitbox, advantage: a.value });
     }
