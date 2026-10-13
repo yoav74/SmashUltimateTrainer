@@ -15,7 +15,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "scrape": "npm run scrape -w @smash-trainer/data",
-    "scrape:resources": "npm run scrape:resources -w @smash-trainer/data"
+    "scrape:resources": "npm run scrape:resources -w @smash-trainer/data",
+    "scrape:hitboxes": "npm run scrape:hitboxes -w @smash-trainer/data"
   },
   "devDependencies": {
     "typescript": "5.6.3",

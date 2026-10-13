@@ -131,3 +131,9 @@ td.notes { color: var(--muted); font-size: 0.8rem; max-width: 320px; }
 }
 
 .footer { max-width: 1100px; margin: 40px auto 24px; padding: 0 16px; text-align: center; }
+.option.short { border-color: var(--accent-2); }
+.opt-flag { font-size: 0.72rem; color: var(--accent-2); font-weight: 600; }
+.spacing-choice { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.spacing-option { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; align-items: start; background: var(--panel-2); border: 2px solid var(--border); border-radius: 10px; padding: 10px; cursor: pointer; }
+.spacing-option input { grid-row: span 2; margin-top: 3px; }
+.spacing-option.on { border-color: var(--accent); }

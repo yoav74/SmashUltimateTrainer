@@ -4,10 +4,13 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Scrapers and the generated frame-data / community-resource JSON, plus typed loaders.",
-  "exports": { ".": "./src/index.ts" },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "scrape": "node scripts/scrape-ufd.mjs",
-    "scrape:resources": "node scripts/scrape-resources.mjs"
+    "scrape:resources": "node scripts/scrape-resources.mjs",
+    "scrape:hitboxes": "node scripts/scrape-ssbwiki.mjs"
   },
   "dependencies": {
     "@smash-trainer/core": "*"

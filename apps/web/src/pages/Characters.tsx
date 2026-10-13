@@ -181,7 +181,7 @@ export function CharacterDetail({ slug }: { slug: string }) {
             <table>
               <thead>
                 <tr>
-                  <th>Move</th><th>Startup</th><th>Active</th><th>Total</th><th>Landing lag</th><th>Damage</th><th>On shield</th><th>Notes</th>
+                  <th>Move</th><th>Startup</th><th>Active</th><th title="Forward reach in game units, from SmashWiki hitbox data. ≈ means estimated.">Reach</th><th>Total</th><th>Landing lag</th><th>Damage</th><th>On shield</th><th>Notes</th>
                 </tr>
               </thead>
               <tbody>
@@ -192,6 +192,7 @@ export function CharacterDetail({ slug }: { slug: string }) {
                     </td>
                     <td>{m.raw.startup ?? '—'}</td>
                     <td>{m.raw.activeFrames ?? '—'}</td>
+                    <td className={m.reach && !m.reach.exact ? 'muted' : ''}>{m.reach ? (m.reach.exact ? m.reach.units.toFixed(1) : `≈${Math.round(m.reach.units)}`) : '—'}</td>
                     <td>{m.raw.totalFrames ?? '—'}</td>
                     <td>{m.raw.landingLag ?? '—'}</td>
                     <td>{m.raw.damage ?? '—'}</td>
@@ -207,7 +208,9 @@ export function CharacterDetail({ slug }: { slug: string }) {
 
       <p className="muted small">
         Frame data from <a href={dataSource.url} target="_blank" rel="noreferrer">ultimateframedata.com</a>, scraped{' '}
-        {new Date(dataSource.scrapedAt).toLocaleDateString()}.
+        {new Date(dataSource.scrapedAt).toLocaleDateString()}. Reach from{' '}
+        <a href="https://www.ssbwiki.com" target="_blank" rel="noreferrer">SmashWiki</a> hitbox data (CC BY-SA): exact where the hitbox is
+        anchored to the character, "≈" estimated for hitboxes on limbs and weapons.
       </p>
     </div>
   );

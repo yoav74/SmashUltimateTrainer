@@ -1,7 +1,9 @@
-import type { Character, FrameData } from '@smash-trainer/core';
+import { moveReach, sizeProxy, TETHER_GRABS, wikiPageFor, type Character, type FrameData, type HitboxGroup } from '@smash-trainer/core';
 import raw from '../generated/frameData.json';
+import hitboxRaw from '../generated/hitboxes.json';
 
 const data = raw as FrameData;
+const hitboxes = (hitboxRaw as unknown as { fighters: Record<string, { traction: number | null; moves: Record<string, HitboxGroup[]> }> }).fighters;
 
 // UFD's page titles are inconsistently cased, so names are derived from slugs.
 const NAME_OVERRIDES: Record<string, string> = {
@@ -34,8 +36,39 @@ function withGifFallbacks(c: Character): Character {
   return { ...c, moves };
 }
 
+const stat = (c: Character, key: string, fallback: number) => {
+  const v = parseFloat(c.stats[key] ?? '');
+  return Number.isNaN(v) ? fallback : v;
+};
+
+/** Attaches SmashWiki reach to each move and the movement numbers the range model needs. */
+function withRange(c: Character): Character {
+  const hb = hitboxes[c.slug];
+  if (!hb) return c;
+  const tether = TETHER_GRABS.has(c.slug);
+  const grab = hb.moves['Grab'] && !tether ? moveReach(hb.moves['Grab'], 99, { grab: true }) : null;
+  const size = sizeProxy(grab?.units ?? null);
+  const moves = c.moves.map((m) => {
+    const page = wikiPageFor(m.name);
+    const groups = page && (hb.moves[page] ?? (page === 'Neutral attack/Hit 1' ? hb.moves['Neutral attack'] : undefined));
+    if (!groups || (page === 'Grab' && tether)) return m;
+    return { ...m, reach: moveReach(groups, size, { grab: page === 'Grab', backward: page === 'Back aerial' }) };
+  });
+  return {
+    ...c,
+    moves,
+    physics: {
+      traction: hb.traction ?? 0.11,
+      size,
+      airSpeed: stat(c, 'Air Speed', 1),
+      airAccel: stat(c, 'Total Air Acceleration', 0.08),
+      initialDash: stat(c, 'Initial Dash', 1.8),
+    },
+  };
+}
+
 export const characters: Character[] = data.characters
-  .map((c) => withGifFallbacks({ ...c, name: displayName(c.slug) }))
+  .map((c) => withRange(withGifFallbacks({ ...c, name: displayName(c.slug) })))
   .sort((a, b) => a.name.localeCompare(b.name));
 
 export const characterBySlug = new Map(characters.map((c) => [c.slug, c]));

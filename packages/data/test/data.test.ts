@@ -70,3 +70,24 @@ describe('fighter numbers', () => {
     expect(order[order.length - 1]).toBe('sora');
   });
 });
+
+describe('reach from SmashWiki hitbox data', () => {
+  it('has hitbox data and physics for every fighter', () => {
+    expect(characters.filter((c) => !c.physics).map((c) => c.slug)).toEqual([]);
+  });
+  it("computes Lucas forward tilt's reach exactly", () => {
+    expect(get('lucas').moves.find((m) => m.name === 'Forward Tilt')?.reach).toEqual({ units: 14.8, exact: true });
+  });
+  it("computes Pikachu's standing grab exactly", () => {
+    expect(get('pikachu').moves.find((m) => m.name === 'Grab')?.reach).toEqual({ units: 11.9, exact: true });
+  });
+  it('leaves tether grabs unknown instead of guessing', () => {
+    expect(get('lucas').moves.find((m) => m.name === 'Grab')?.reach).toBeUndefined();
+  });
+  it('still lets Lucas forward tilt punish Kirby forward smash up close', () => {
+    const lucas = get('lucas');
+    const s = situationsFor(get('kirby'), { includeAerials: true, includeSpecials: true }).find((x) => x.move.name === 'Forward Smash')!;
+    const ftilt = punishOptions(lucas).find((o) => o.move.name === 'Forward Tilt')!;
+    expect(grade(punishOptions(lucas), s, ftilt, { spacing: 'close', defender: lucas }).verdict).not.toBe('wrong');
+  });
+});

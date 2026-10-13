@@ -1,10 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { characterBySlug, characters } from '@smash-trainer/data';
-import type { Character } from '@smash-trainer/core';
+import {
+  bucketByAnswer,
+  fastEnough,
+  grade,
+  pickBalanced,
+  punishes,
+  punishOptions,
+  reachNeeded,
+  situationsFor,
+  type Character,
+  type Grade,
+  type PunishContext,
+  type PunishOption,
+  type Situation,
+  type Spacing,
+} from '@smash-trainer/core';
 import { CharacterPicker, RANDOM } from '../components/CharacterPicker';
 import { HitboxGif, Portrait, preloadImages } from '../components/Media';
-import { bucketByAnswer, grade, pickBalanced, punishes, punishOptions, situationsFor, type Grade, type PunishOption, type Situation } from '@smash-trainer/core';
 import { getStats, recordResult } from '../lib/stats';
 
 interface Settings {
@@ -12,7 +26,14 @@ interface Settings {
   includeSpecials: boolean;
   showFrames: boolean;
   showMoveGifs: boolean;
+  spacing: Spacing;
 }
+
+const SPACING_LABEL: Record<Spacing, { title: string; help: string }> = {
+  close: { title: 'Close range', help: 'They hit your shield standing next to you. The usual punish scenario.' },
+  max: { title: 'Max range', help: 'Their hitbox just touched the edge of your shield. Spaced moves are much safer.' },
+  off: { title: 'Ignore range', help: 'Frame data only, like before.' },
+};
 
 export function Trainer() {
   // Fighter pages link here as /?you=<slug>.
@@ -22,7 +43,13 @@ export function Trainer() {
     return s && characterBySlug.has(s) ? s : null;
   });
   const [opp, setOpp] = useState<string | null>(RANDOM);
-  const [settings, setSettings] = useState<Settings>({ includeAerials: true, includeSpecials: true, showFrames: false, showMoveGifs: true });
+  const [settings, setSettings] = useState<Settings>({
+    includeAerials: true,
+    includeSpecials: true,
+    showFrames: false,
+    showMoveGifs: true,
+    spacing: 'close',
+  });
   const [running, setRunning] = useState(false);
 
   if (running && you && opp) {
@@ -33,7 +60,7 @@ export function Trainer() {
     <div className="setup">
       <h1>Punish Trainer</h1>
       <p className="muted">
-        The enemy's move hits your shield. Pick the punish. Answers come from frame data only, so they don't account for spacing yet.
+        The enemy's move hits your shield. Pick the punish. Answers use frame data plus each move's reach and shield pushback.
       </p>
 
       <section>
@@ -47,7 +74,20 @@ export function Trainer() {
       </section>
 
       <section>
-        <h2>3. Options</h2>
+        <h2>3. Spacing</h2>
+        <div className="spacing-choice">
+          {(Object.keys(SPACING_LABEL) as Spacing[]).map((sp) => (
+            <label key={sp} className={`spacing-option ${settings.spacing === sp ? 'on' : ''}`}>
+              <input type="radio" name="spacing" checked={settings.spacing === sp} onChange={() => setSettings({ ...settings, spacing: sp })} />
+              <b>{SPACING_LABEL[sp].title}</b>
+              <span className="muted small">{SPACING_LABEL[sp].help}</span>
+            </label>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Options</h2>
         <label className="toggle">
           <input type="checkbox" checked={settings.includeAerials} onChange={(e) => setSettings({ ...settings, includeAerials: e.target.checked })} />
           Include enemy aerials (landing on shield)
@@ -58,7 +98,7 @@ export function Trainer() {
         </label>
         <label className="toggle">
           <input type="checkbox" checked={settings.showFrames} onChange={(e) => setSettings({ ...settings, showFrames: e.target.checked })} />
-          Show frame hints before answering
+          Show frame and reach hints before answering
         </label>
         <label className="toggle">
           <input type="checkbox" checked={settings.showMoveGifs} onChange={(e) => setSettings({ ...settings, showMoveGifs: e.target.checked })} />
@@ -77,13 +117,13 @@ export function Trainer() {
  * Every shielded situation for the chosen opponent (or all fighters), grouped by right answer
  * so each possible answer comes up about equally often (see bucketByAnswer).
  */
-function useQuestionBuckets(options: PunishOption[], opp: string, settings: Settings) {
+function useQuestionBuckets(options: PunishOption[], opp: string, settings: Settings, ctx: PunishContext) {
   return useMemo(() => {
     const attackers = opp === RANDOM ? characters : [characterBySlug.get(opp)!];
     const pool = attackers.flatMap((a) => situationsFor(a, settings));
     if (!pool.length) throw new Error('No situations available with these filters');
-    return bucketByAnswer(options, pool);
-  }, [options, opp, settings.includeAerials, settings.includeSpecials]);
+    return bucketByAnswer(options, pool, ctx);
+  }, [options, opp, settings.includeAerials, settings.includeSpecials, ctx]);
 }
 
 const METHOD_LABEL: Record<PunishOption['method'], string> = {
@@ -93,9 +133,18 @@ const METHOD_LABEL: Record<PunishOption['method'], string> = {
   'shield grab': 'shield grab +4',
 };
 
+/** "14.8" for exact reach, "≈12" for estimates, null when unknown. */
+function reachLabel(o: PunishOption): string | null {
+  const r = o.move.reach;
+  if (!r) return null;
+  const total = r.units + o.travel;
+  return r.exact && !o.travel ? total.toFixed(1) : `≈${Math.round(total)}`;
+}
+
 function Session({ you, opp, settings, onExit }: { you: Character; opp: string; settings: Settings; onExit: () => void }) {
   const options = useMemo(() => punishOptions(you), [you]);
-  const buckets = useQuestionBuckets(options, opp, settings);
+  const ctx = useMemo<PunishContext>(() => ({ spacing: settings.spacing, defender: you }), [settings.spacing, you]);
+  const buckets = useQuestionBuckets(options, opp, settings, ctx);
   const [situation, setSituation] = useState(() => pickBalanced(buckets));
   // The next question is picked ahead of time so its GIF can preload while you answer this one.
   const [upcoming, setUpcoming] = useState(() => pickBalanced(buckets));
@@ -105,7 +154,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
 
   const submit = (choice: PunishOption | null) => {
     if (answer) return;
-    const g = grade(options, situation, choice);
+    const g = grade(options, situation, choice, ctx);
     setAnswer({ choice, grade: g });
     recordResult(you.slug, situation.attacker.slug, g.verdict);
     const ok = g.verdict !== 'wrong';
@@ -130,8 +179,10 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
   });
 
   const window_ = -situation.advantage;
+  const needed = reachNeeded(situation, ctx);
   const mu = getStats(you.slug, situation.attacker.slug);
   const gifs = situation.move.hitboxGifs;
+  const hints = settings.showFrames || !!answer;
 
   return (
     <div className="session">
@@ -141,7 +192,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
           {session.correct}/{session.attempts} correct · streak {session.streak}
         </span>
         <span className="muted">
-          vs {situation.attacker.name} overall: {mu.correct}/{mu.attempts}
+          {SPACING_LABEL[settings.spacing].title} · vs {situation.attacker.name} overall: {mu.correct}/{mu.attempts}
         </span>
       </div>
 
@@ -154,11 +205,17 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
         <div className="move-title">
           {situation.move.name}
           {situation.hitbox && <span className="tag">{situation.hitbox} hit</span>}
+          {settings.spacing !== 'off' && <span className="tag">{SPACING_LABEL[settings.spacing].title.toLowerCase()}</span>}
         </div>
         <HitboxGif className="hitbox-main" src={gifs[0]} alt={`${situation.attacker.name} ${situation.move.name} hitbox`} />
-        {(settings.showFrames || answer) && (
+        {hints && (
           <div className="adv">
-            On shield: <b>{situation.advantage}</b> → you have <b>{window_}</b> frames to land a hit
+            On shield: <b>{situation.advantage}</b> → you have <b>{window_}</b> frames
+            {needed != null && (
+              <>
+                {' '}and need about <b>{needed.toFixed(1)}</b> units of reach after pushback
+              </>
+            )}
           </div>
         )}
         <h3>What do you punish with?</h3>
@@ -166,24 +223,30 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
 
       <div className="options">
         {options.map((o) => {
+          const outOfRange = answer?.grade.outOfRange.includes(o);
           const cls = !answer
             ? ''
             : o === answer.grade.best
               ? 'best'
-              : punishes(o, situation)
+              : punishes(o, situation, ctx)
                 ? 'ok'
-                : o === answer.choice
-                  ? 'bad'
-                  : 'dim';
+                : outOfRange
+                  ? 'short'
+                  : o === answer.choice
+                    ? 'bad'
+                    : 'dim';
+          const reach = reachLabel(o);
           return (
             <button key={o.move.name} className={`option ${cls} ${o === answer?.choice ? 'chosen' : ''}`} onClick={() => submit(o)}>
               {settings.showMoveGifs && <HitboxGif className="opt-gif" lazy src={o.move.hitboxGifs[0]} alt={o.move.name} />}
               <span className="opt-name">{o.move.name}</span>
-              {(settings.showFrames || answer) && (
+              {hints && (
                 <span className="opt-frames">
                   F{o.oosFrame} <small>({METHOD_LABEL[o.method]})</small>
+                  {settings.spacing !== 'off' && <small> · reach {reach ?? '?'}</small>}
                 </span>
               )}
+              {outOfRange && <span className="opt-flag">out of range</span>}
             </button>
           );
         })}
@@ -195,19 +258,34 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
         </button>
       </div>
 
-      {answer && <Feedback answer={answer} situation={situation} fastest={options[0]?.oosFrame ?? null} onNext={next} />}
+      {answer && (
+        <Feedback answer={answer} situation={situation} needed={needed} fastest={options[0]?.oosFrame ?? null} onNext={next} />
+      )}
     </div>
   );
 }
 
-function Feedback({ answer, situation, fastest, onNext }: { answer: { choice: PunishOption | null; grade: Grade }; situation: Situation; fastest: number | null; onNext: () => void }) {
-  const { verdict, punishers, best } = answer.grade;
+function Feedback({
+  answer,
+  situation,
+  needed,
+  fastest,
+  onNext,
+}: {
+  answer: { choice: PunishOption | null; grade: Grade };
+  situation: Situation;
+  needed: number | null;
+  fastest: number | null;
+  onNext: () => void;
+}) {
+  const { verdict, punishers, outOfRange, best } = answer.grade;
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, []);
   const window_ = -situation.advantage;
   const title = { optimal: '✅ Optimal!', correct: '👍 That punishes', wrong: '❌ Not quite' }[verdict];
+  const choice = answer.choice;
 
   return (
     <div ref={ref} className={`feedback card ${verdict}`}>
@@ -217,15 +295,26 @@ function Feedback({ answer, situation, fastest, onNext }: { answer: { choice: Pu
           Next ▶ <kbd>Enter</kbd> <kbd>Space</kbd>
         </button>
       </div>
-      {answer.choice && !punishes(answer.choice, situation) && (
+      {choice && !fastEnough(choice, situation) && (
         <p>
-          {answer.choice.move.name} comes out on frame {answer.choice.oosFrame}, but you only have {window_} frames. {situation.attacker.name} can
-          shield or act first.
+          {choice.move.name} comes out on frame {choice.oosFrame}, but you only have {window_} frames. {situation.attacker.name} can shield or act first.
         </p>
       )}
-      {answer.choice === null && punishers.length > 0 && <p>It's punishable: {punishers.length} of your options fit inside the {window_}-frame window.</p>}
+      {choice && outOfRange.includes(choice) && (
+        <p>
+          {choice.move.name} is fast enough, but after shield pushback you need about {needed?.toFixed(1)} units of reach and it only gets{' '}
+          {reachLabel(choice)}. It would whiff.
+        </p>
+      )}
+      {choice === null && punishers.length > 0 && <p>It's punishable: {punishers.length} of your options are fast enough and reach.</p>}
       {punishers.length === 0 ? (
-        <p>None of your options are fast enough: your fastest is frame {fastest}. Shield it and reset to neutral.</p>
+        outOfRange.length ? (
+          <p>
+            Some options are fast enough ({outOfRange.map((o) => o.move.name).join(', ')}) but can't reach after pushback. Shield it and reset to neutral.
+          </p>
+        ) : (
+          <p>None of your options are fast enough: your fastest is frame {fastest}. Shield it and reset to neutral.</p>
+        )
       ) : (
         best && (
           <p>
@@ -234,7 +323,10 @@ function Feedback({ answer, situation, fastest, onNext }: { answer: { choice: Pu
           </p>
         )
       )}
-      <p className="muted small">Damage figures are base values; spacing and range are not checked yet.</p>
+      <p className="muted small">
+        Reach comes from SmashWiki hitbox data: exact numbers where the hitbox is anchored to the character, "≈" estimates for hitboxes on
+        limbs and weapons. Units are game units.
+      </p>
       {situation.move.notes && <p className="muted small">Move notes: {situation.move.notes}</p>}
     </div>
   );

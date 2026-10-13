@@ -1,4 +1,5 @@
 import type { Character, Move } from './types';
+import { aerialDrift, ESTIMATE, pushback, requiredReach, shieldstunFromDamage, type Spacing } from './reach';
 
 // Out-of-shield rules, as documented on ultimateframedata.com:
 // - Dropping shield takes 11 frames before a grounded move can start.
@@ -18,6 +19,8 @@ export interface PunishOption {
   method: OosMethod;
   /** Rough reward used to rank punishes (highest listed damage; best throw for grabs). */
   reward: number;
+  /** Distance the character moves toward the opponent before the hitbox comes out (aerial drift, dash attack). */
+  travel: number;
 }
 
 /** A shielded enemy move the player has to answer. */
@@ -27,6 +30,15 @@ export interface Situation {
   hitbox: string | null;
   /** On-shield advantage for the attacker, e.g. -23. */
   advantage: number;
+  /** Damage and shieldstun of this hitbox, for shield pushback. */
+  damage: number;
+  shieldstun: number;
+}
+
+/** What the range check needs to know: spacing assumption and who is shielding. */
+export interface PunishContext {
+  spacing: Spacing;
+  defender: Character;
 }
 
 // Per-character exceptions to the general OoS rules.
@@ -70,22 +82,28 @@ export function punishOptions(c: Character): PunishOption[] {
 
     if (move.category === 'grabs') {
       if (move.name === 'Grab') {
-        options.push({ move, oosFrame: move.startup + SHIELD_GRAB_PENALTY, method: 'shield grab', reward: maxThrow });
+        options.push({ move, oosFrame: move.startup + SHIELD_GRAB_PENALTY, method: 'shield grab', reward: maxThrow, travel: 0 });
       }
       continue;
     }
     if (move.damage.length === 0) continue; // not an attack (e.g. Inhale startup, Up B recovery-only)
 
     if (move.category === 'aerialattacks' || (move.category === 'specialattacks' && isAirVariant(move.name))) {
-      options.push({ move, oosFrame: move.startup + jumpsquat, method: 'jump', reward });
+      options.push({ move, oosFrame: move.startup + jumpsquat, method: 'jump', reward, travel: 0 });
     } else if (move.name === 'Up Smash' || move.name.startsWith('Up B')) {
-      options.push({ move, oosFrame: move.startup, method: 'direct', reward });
+      options.push({ move, oosFrame: move.startup, method: 'direct', reward, travel: 0 });
     } else if (move.category === 'specialattacks' && !airVariants.has(baseOf(move.name))) {
       // No separate aerial version listed, so assume the special can be done right after a jump.
-      options.push({ move, oosFrame: move.startup + jumpsquat, method: 'jump', reward });
+      options.push({ move, oosFrame: move.startup + jumpsquat, method: 'jump', reward, travel: 0 });
     } else if (move.category === 'groundattacks' || move.category === 'specialattacks') {
-      options.push({ move, oosFrame: move.startup + SHIELD_DROP, method: 'shield drop', reward });
+      options.push({ move, oosFrame: move.startup + SHIELD_DROP, method: 'shield drop', reward, travel: 0 });
     }
+  }
+  const p = c.physics;
+  for (const o of options) {
+    if (!p || o.move.startup == null) continue;
+    if (o.method === 'jump') o.travel = aerialDrift(o.move.startup, p.airSpeed, p.airAccel);
+    else if (/^Dash Attack/.test(o.move.name)) o.travel = Math.round(p.initialDash * o.move.startup * ESTIMATE.dashAttackTravel * 10) / 10;
   }
   return options.sort((a, b) => a.oosFrame - b.oosFrame);
 }
@@ -98,29 +116,61 @@ export function situationsFor(attacker: Character, opts: { includeSpecials: bool
     if (move.category === 'specialattacks' && !opts.includeSpecials) continue;
     if (!['groundattacks', 'aerialattacks', 'specialattacks'].includes(move.category)) continue;
     if (/^Jab ([2-9]|\d{2})/.test(move.name)) continue;
-    for (const a of move.shieldAdvantage) {
-      if (a.value < 0) out.push({ attacker, move, hitbox: a.hitbox, advantage: a.value });
-    }
+    move.shieldAdvantage.forEach((a, i) => {
+      if (a.value >= 0) return;
+      const damage = move.damage[i] ?? Math.max(0, ...move.damage);
+      const listedStun = parseInt((move.raw.shieldStun ?? '').split('/')[i] ?? '', 10);
+      const shieldstun = Number.isNaN(listedStun) ? shieldstunFromDamage(damage) : listedStun;
+      out.push({ attacker, move, hitbox: a.hitbox, advantage: a.value, damage, shieldstun });
+    });
   }
   return out;
 }
 
-export const punishes = (opt: PunishOption, s: Situation) => opt.oosFrame <= -s.advantage;
+/** Fast enough: the hitbox comes out inside the frame window. */
+export const fastEnough = (opt: PunishOption, s: Situation) => opt.oosFrame <= -s.advantage;
+
+/** How far forward a punish needs to reach in this situation (null when range is ignored or unknown). */
+export function reachNeeded(s: Situation, ctx?: PunishContext): number | null {
+  if (!ctx || ctx.spacing === 'off') return null;
+  const a = s.attacker.physics;
+  const d = ctx.defender.physics;
+  if (!a || !d) return null;
+  return requiredReach({
+    spacing: ctx.spacing,
+    attackerReach: s.move.reach?.units ?? null,
+    attackerSize: a.size,
+    defenderSize: d.size,
+    pushback: pushback({ shieldstun: s.shieldstun, damage: s.damage, defenderTraction: d.traction, attackerTraction: a.traction }),
+  });
+}
+
+/** Long enough: the punish reaches the attacker after pushback. Moves without reach data get the benefit of the doubt. */
+export function reaches(opt: PunishOption, s: Situation, ctx?: PunishContext): boolean {
+  const needed = reachNeeded(s, ctx);
+  if (needed == null || !opt.move.reach) return true;
+  return opt.move.reach.units + opt.travel >= needed;
+}
+
+export const punishes = (opt: PunishOption, s: Situation, ctx?: PunishContext) => fastEnough(opt, s) && reaches(opt, s, ctx);
 
 export interface Grade {
   verdict: 'optimal' | 'correct' | 'wrong';
   punishers: PunishOption[];
+  /** Fast enough, but can't reach after pushback at this spacing. */
+  outOfRange: PunishOption[];
   best: PunishOption | null;
 }
 
-/** `choice === null` means the player answered "nothing punishes, it's safe". */
-export function grade(options: PunishOption[], s: Situation, choice: PunishOption | null): Grade {
-  const punishers = options.filter((o) => punishes(o, s));
+/** `choice === null` means the player answered "nothing punishes, it's safe". Without `ctx`, range is ignored. */
+export function grade(options: PunishOption[], s: Situation, choice: PunishOption | null, ctx?: PunishContext): Grade {
+  const punishers = options.filter((o) => punishes(o, s, ctx));
+  const outOfRange = options.filter((o) => fastEnough(o, s) && !reaches(o, s, ctx));
   const best = punishers.reduce<PunishOption | null>((b, o) => (!b || o.reward > b.reward ? o : b), null);
 
-  if (choice === null) return { verdict: punishers.length === 0 ? 'optimal' : 'wrong', punishers, best };
-  if (!punishes(choice, s)) return { verdict: 'wrong', punishers, best };
-  return { verdict: best && choice.reward >= best.reward ? 'optimal' : 'correct', punishers, best };
+  if (choice === null) return { verdict: punishers.length === 0 ? 'optimal' : 'wrong', punishers, outOfRange, best };
+  if (!punishes(choice, s, ctx)) return { verdict: 'wrong', punishers, outOfRange, best };
+  return { verdict: best && choice.reward >= best.reward ? 'optimal' : 'correct', punishers, outOfRange, best };
 }
 
 export function pick<T>(arr: T[], rng: () => number = Math.random): T {
@@ -128,17 +178,17 @@ export function pick<T>(arr: T[], rng: () => number = Math.random): T {
 }
 
 /** What the right answer to a situation is: the best punish's move name, or 'safe'. */
-export const answerKey = (options: PunishOption[], s: Situation) => grade(options, s, null).best?.move.name ?? 'safe';
+export const answerKey = (options: PunishOption[], s: Situation, ctx?: PunishContext) => grade(options, s, null, ctx).best?.move.name ?? 'safe';
 
 /**
  * Groups situations by their right answer, so questions can be drawn evenly across answers.
  * Drawing situations uniformly would make one fast, high-damage move (Fox up smash, Puff Rest)
  * the answer to most questions, since most shielded moves leave a big window.
  */
-export function bucketByAnswer(options: PunishOption[], pool: Situation[]): Situation[][] {
+export function bucketByAnswer(options: PunishOption[], pool: Situation[], ctx?: PunishContext): Situation[][] {
   const buckets = new Map<string, Situation[]>();
   for (const s of pool) {
-    const k = answerKey(options, s);
+    const k = answerKey(options, s, ctx);
     buckets.set(k, [...(buckets.get(k) ?? []), s]);
   }
   return [...buckets.values()];

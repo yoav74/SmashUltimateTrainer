@@ -24,6 +24,7 @@ npm run build
 ```bash
 npm run scrape            # frame data + portraits from ultimateframedata.com (cached in packages/data/.cache)
 npm run scrape:resources  # community resources
+npm run scrape:hitboxes   # hitbox tables + traction from SmashWiki (for reach)
 ```
 
 A GitHub Actions workflow re-runs both weekly and opens a PR when anything changes.
@@ -46,7 +47,16 @@ When an attack hits your shield at **-N**, you have N frames. An option punishes
 
 The test suite checks the fastest computed option against UFD's hand-curated OoS list: it matches for 79/87 fighters. The rest are Mii custom moves, items, or cases where UFD leaves out grab.
 
-**Known limits:** spacing/range isn't modeled, "best punish" ranks by raw damage (no kill power or follow-ups), and multi-hit moves count their biggest single hit.
+### Range (`packages/core/src/reach.ts`)
+
+A punish also has to **reach** after shield pushback. The trainer has a spacing setting: close range (default), max range (their hitbox just touched your shield), or ignore range.
+
+- **Reach** comes from SmashWiki's per-move hitbox tables. It's exact (offset + radius) when the farthest hitbox is anchored to the character (~half of all moves, including grabs), and estimated ("≈") when it sits on a limb or weapon bone, since bone positions depend on animations that aren't public. Tether grabs and projectiles are left unknown and get the benefit of the doubt.
+- **Pushback** uses Ultimate's formulas (defender `(shieldstun + 1) × 0.09`, max 1.3; attacker `damage × 0.04 + 0.025`), slowed by each fighter's traction.
+- **Movement:** out-of-shield aerials drift forward (air speed and acceleration), and dash attacks travel.
+- All guessed constants live in `ESTIMATE` in `reach.ts`.
+
+**Known limits:** "best punish" ranks by raw damage (no kill power or follow-ups), bone-attached reach is an estimate, and multi-hit moves count their biggest single hit.
 
 ---
 Not affiliated with Nintendo. Code is MIT-licensed; see [LICENSE](LICENSE) for data and asset attribution.

@@ -1,3 +1,5 @@
+import type { Reach } from './reach';
+
 export type MoveCategory =
   | 'groundattacks'
   | 'aerialattacks'
@@ -31,6 +33,8 @@ export interface Move {
   };
   notes: string | null;
   hitboxGifs: string[];
+  /** Forward reach from SmashWiki hitbox data, when the move maps to a SmashWiki page with hitboxes. */
+  reach?: Reach | null;
 }
 
 export interface OosEntry {
@@ -44,6 +48,17 @@ export interface Character {
   moves: Move[];
   oos: OosEntry[];
   stats: Record<string, string>;
+  /** Movement numbers the range model needs (traction from SmashWiki, the rest from UFD stats). */
+  physics?: Physics;
+}
+
+export interface Physics {
+  traction: number;
+  /** Size proxy: standing grab reach, clamped (see ESTIMATE.sizeClamp). */
+  size: number;
+  airSpeed: number;
+  airAccel: number;
+  initialDash: number;
 }
 
 export interface FrameData {
