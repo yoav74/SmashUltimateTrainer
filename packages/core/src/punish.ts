@@ -1,4 +1,4 @@
-import type { Character, Move } from '../data/types';
+import type { Character, Move } from './types';
 
 // Out-of-shield rules, as documented on ultimateframedata.com:
 // - Dropping shield takes 11 frames before a grounded move can start.

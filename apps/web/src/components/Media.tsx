@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { portraitUrl } from '../data/characters';
+import { portraitUrl } from '../lib/assets';
 
 export function Portrait({ slug, name, size = 56, className = '' }: { slug: string; name: string; size?: number; className?: string }) {
   return (

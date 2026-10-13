@@ -117,3 +117,5 @@ td.notes { color: var(--muted); font-size: 0.8rem; max-width: 320px; }
   .move-title { font-size: 1.5rem; }
   .topnav { gap: 12px; padding: 10px 16px; }
 }
+
+.footer { max-width: 1100px; margin: 40px auto 24px; padding: 0 16px; text-align: center; }

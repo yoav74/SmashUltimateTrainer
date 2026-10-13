@@ -5,12 +5,16 @@
 import { parse } from 'node-html-parser';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Paths are relative to packages/data, wherever the script is run from.
+const PKG = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 const UA = { 'User-Agent': 'smash-trainer personal project' };
 const DD_API = 'https://dragdown.wiki/w/api.php';
-const OUT = path.resolve('src/data/resources.json');
-const INVITE_CACHE = path.resolve('.cache/discord-check.json');
-const FRAME_DATA = path.resolve('src/data/frameData.json');
+const OUT = path.join(PKG, 'generated/resources.json');
+const INVITE_CACHE = path.join(PKG, '.cache/discord-check.json');
+const FRAME_DATA = path.join(PKG, 'generated/frameData.json');
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const norm = (s) => s.toLowerCase().replace(/é/g, 'e').replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');
@@ -49,7 +53,7 @@ async function listSsbuPages() {
 
 // ---------- smasharchives (tournament VODs per fighter) ----------
 
-const ARCHIVE_CACHE = path.resolve('.cache/smasharchives.json');
+const ARCHIVE_CACHE = path.join(PKG, '.cache/smasharchives.json');
 
 /** smasharchives.com/character/<id> ids, found by reading each page's title ("Mario VODs - Smasharchives"). */
 async function smasharchivesIds() {
@@ -145,7 +149,7 @@ async function checkInvites(urls) {
 
 // ---------- titles for unlabeled links ----------
 
-const TITLE_CACHE = path.resolve('.cache/link-titles.json');
+const TITLE_CACHE = path.join(PKG, '.cache/link-titles.json');
 
 async function fetchTitle(url, kind) {
   if (kind === 'video' && /youtube\.com|youtu\.be/.test(url)) {

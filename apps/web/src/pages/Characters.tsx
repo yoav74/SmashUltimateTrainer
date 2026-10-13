@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { characterBySlug, characters, dataSource } from '../data/characters';
-import { resourcesFor, youtubeSearch, type ResourceLink } from '../data/community';
+import { Link } from 'react-router-dom';
+import { characterBySlug, characters, dataSource, resourcesFor, youtubeSearch, type ResourceLink } from '@smash-trainer/data';
 import { Portrait } from '../components/Media';
-import { punishOptions } from '../lib/punish';
+import { punishOptions } from '@smash-trainer/core';
 
 export function CharacterList() {
   const [query, setQuery] = useState('');
@@ -13,10 +13,10 @@ export function CharacterList() {
       <input className="search" placeholder="Search fighters…" value={query} onChange={(e) => setQuery(e.target.value)} />
       <div className="char-grid">
         {shown.map((c) => (
-          <a key={c.slug} className="char-card" href={`#/characters/${c.slug}`}>
+          <Link key={c.slug} className="char-card" to={`/characters/${c.slug}`}>
             <Portrait slug={c.slug} name={c.name} size={96} />
             <span>{c.name}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
@@ -127,13 +127,13 @@ export function CharacterDetail({ slug }: { slug: string }) {
 
   return (
     <div className="detail">
-      <a href="#/characters" className="ghost">← All fighters</a>
+      <Link to="/characters" className="ghost">← All fighters</Link>
       <header className="hero">
         <Portrait slug={c.slug} name={c.name} size={120} className="hero-portrait" />
         <div>
           <h1>{c.name}</h1>
           <div className="hero-actions">
-            <a className="primary" href={`#/?you=${c.slug}`}>Train as {c.name}</a>
+            <Link className="primary" to={`/?you=${c.slug}`}>Train as {c.name}</Link>
             {discord && <a className="link-btn discord" href={discord.url} target="_blank" rel="noreferrer">Join Discord</a>}
           </div>
         </div>

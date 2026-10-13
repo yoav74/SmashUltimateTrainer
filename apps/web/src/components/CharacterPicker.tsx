@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { characters } from '../data/characters';
+import { characters } from '@smash-trainer/data';
 import { Portrait } from './Media';
 
 interface Props {

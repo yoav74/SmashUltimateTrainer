@@ -5,10 +5,14 @@
 import { parse } from 'node-html-parser';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Paths are relative to packages/data, wherever the script is run from.
+const PKG = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 const BASE = 'https://ultimateframedata.com';
-const CACHE = path.resolve('.cache/ufd');
-const OUT = path.resolve('src/data/frameData.json');
+const CACHE = path.join(PKG, '.cache/ufd');
+const OUT = path.join(PKG, 'generated/frameData.json');
 const FRESH = process.argv.includes('--fresh');
 const DELAY_MS = 1200;
 
@@ -133,7 +137,7 @@ async function main() {
   }
 
   // Portraits: UFD's small character art, downloaded once into public/ so the app doesn't hotlink them.
-  const portraitDir = path.resolve('public/portraits');
+  const portraitDir = path.join(PKG, '../../apps/web/public/portraits');
   await fs.mkdir(portraitDir, { recursive: true });
   for (const { slug } of characters) {
     const file = path.join(portraitDir, `${slug}.webp`);

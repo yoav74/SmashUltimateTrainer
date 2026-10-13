@@ -1,5 +1,5 @@
-import raw from './frameData.json';
-import type { Character, FrameData } from './types';
+import type { Character, FrameData } from '@smash-trainer/core';
+import raw from '../generated/frameData.json';
 
 const data = raw as FrameData;
 
@@ -37,8 +37,6 @@ function withGifFallbacks(c: Character): Character {
 export const characters: Character[] = data.characters
   .map((c) => withGifFallbacks({ ...c, name: displayName(c.slug) }))
   .sort((a, b) => a.name.localeCompare(b.name));
-
-export const portraitUrl = (slug: string) => `${import.meta.env.BASE_URL}portraits/${slug}.webp`;
 
 export const characterBySlug = new Map(characters.map((c) => [c.slug, c]));
 

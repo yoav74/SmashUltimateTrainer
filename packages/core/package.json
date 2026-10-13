@@ -1,0 +1,8 @@
+{
+  "name": "@smash-trainer/core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Punish engine and frame-data types. No UI, network or storage code, so web, desktop and the AI coach can all share it.",
+  "exports": { ".": "./src/index.ts" }
+}

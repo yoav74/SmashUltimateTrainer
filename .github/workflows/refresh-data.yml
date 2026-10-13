@@ -1,0 +1,34 @@
+name: Refresh data
+
+# Weekly: re-scrape frame data and community resources (re-verifying Discord invites),
+# then open a PR if anything changed. Review the diff before merging.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run scrape
+      - run: npm run scrape:resources
+      - run: npm test
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data/weekly-refresh
+          title: 'Weekly data refresh'
+          commit-message: 'Refresh frame data and community resources'
+          body: |
+            Automated weekly re-scrape of ultimateframedata.com, dragdown, SmashWiki Discord invites and Smash Archives.
+            Tests passed on the new data. Check the diff for anything surprising before merging.

@@ -5,11 +5,12 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
     "isolatedModules": true
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["apps/web/src", "apps/web/vite.config.ts", "packages/*/src", "packages/*/test", "vitest.config.ts"]
 }

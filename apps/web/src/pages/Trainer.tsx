@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { characterBySlug, characters } from '../data/characters';
-import type { Character } from '../data/types';
+import { useSearchParams } from 'react-router-dom';
+import { characterBySlug, characters } from '@smash-trainer/data';
+import type { Character } from '@smash-trainer/core';
 import { CharacterPicker, RANDOM } from '../components/CharacterPicker';
 import { HitboxGif, Portrait, preloadImages } from '../components/Media';
-import { grade, pick, punishes, punishOptions, situationsFor, type Grade, type PunishOption, type Situation } from '../lib/punish';
+import { grade, pick, punishes, punishOptions, situationsFor, type Grade, type PunishOption, type Situation } from '@smash-trainer/core';
 import { getStats, recordResult } from '../lib/stats';
 
 interface Settings {
@@ -14,9 +15,10 @@ interface Settings {
 }
 
 export function Trainer() {
-  // Fighter pages link here as #/?you=<slug>.
+  // Fighter pages link here as /?you=<slug>.
+  const [params] = useSearchParams();
   const [you, setYou] = useState<string | null>(() => {
-    const s = new URLSearchParams(window.location.hash.split('?')[1]).get('you');
+    const s = params.get('you');
     return s && characterBySlug.has(s) ? s : null;
   });
   const [opp, setOpp] = useState<string | null>(RANDOM);
