@@ -1,0 +1,12 @@
+// Cloudflare Workers static-assets deploy (Workers Builds runs `npx wrangler deploy` after `npm run build`).
+// "name" must match the Worker's name in the Cloudflare dashboard.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "smashultimatetrainer",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./apps/web/dist",
+    // Serve index.html for client-side routes like /characters/lucas
+    "not_found_handling": "single-page-application"
+  }
+}
