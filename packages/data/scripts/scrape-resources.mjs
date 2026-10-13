@@ -6,6 +6,7 @@ import { parse } from 'node-html-parser';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeJsonIfChanged } from './write-json.mjs';
 
 // Paths are relative to packages/data, wherever the script is run from.
 const PKG = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -248,7 +249,9 @@ async function main() {
   const addInvite = (slug, url) => {
     const inv = invites.get(url);
     if (inv?.status !== 200 || out[slug].discords.some((d) => d.name === inv.guild)) return;
-    out[slug].discords.push({ url, name: inv.guild, members: inv.members });
+    // Rounded so small weekly fluctuations don't count as a data change.
+    const members = inv.members == null ? null : Math.max(100, Math.round(inv.members / 100) * 100);
+    out[slug].discords.push({ url, name: inv.guild, members });
   };
   for (const row of discordRows) for (const s of match(row.name)) for (const url of row.urls) addInvite(s, url);
   for (const d of dragdownInvites) addInvite(d.slug, d.url);
@@ -256,7 +259,8 @@ async function main() {
 
   await resolveTitles(slugs.flatMap((s) => [...out[s].links, ...out[s].players.map((p) => ({ url: p.footage, kind: 'video', isFootage: true, set title(t) { p.footageTitle = t; } }))]));
 
-  await fs.writeFile(OUT, JSON.stringify({ generatedAt: new Date().toISOString(), fighters: out }, null, 1));
+  const changed = await writeJsonIfChanged(OUT, 'generatedAt', { fighters: out });
+  if (!changed) console.log('Resources unchanged');
   const missing = slugs.filter((s) => !out[s].links.length && !out[s].players.length);
   console.log(`Wrote ${OUT}. No dragdown resources for: ${missing.join(', ')}`);
   console.log(`No live Discord for: ${slugs.filter((s) => !out[s].discords.length).join(', ') || 'none'}`);

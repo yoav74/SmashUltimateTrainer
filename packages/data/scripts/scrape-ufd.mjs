@@ -6,6 +6,7 @@ import { parse } from 'node-html-parser';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeJsonIfChanged } from './write-json.mjs';
 
 // Paths are relative to packages/data, wherever the script is run from.
 const PKG = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -148,9 +149,8 @@ async function main() {
     await sleep(300);
   }
 
-  const data = { source: BASE, scrapedAt: new Date().toISOString(), characters };
-  await fs.writeFile(OUT, JSON.stringify(data));
-  console.log(`Wrote ${OUT}`);
+  const changed = await writeJsonIfChanged(OUT, 'scrapedAt', { source: BASE, characters });
+  console.log(changed ? `Wrote ${OUT}` : 'Frame data unchanged');
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

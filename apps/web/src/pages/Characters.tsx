@@ -50,7 +50,7 @@ function Resources({ slug, name }: { slug: string; name: string }) {
               {r.discords.map((d) => (
                 <li key={d.url}>
                   <a className="link-btn discord" href={d.url} target="_blank" rel="noreferrer">{d.name}</a>
-                  {d.members && <span className="muted small"> {d.members.toLocaleString()} members</span>}
+                  {d.members && <span className="muted small"> ~{d.members.toLocaleString()} members</span>}
                 </li>
               ))}
             </ul>
