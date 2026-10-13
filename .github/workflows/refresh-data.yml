@@ -23,6 +23,7 @@ jobs:
       - run: npm ci
       - run: npm run scrape
       - run: npm run scrape:resources
+      - run: npm run scrape:hitboxes
       - run: npm test
       - uses: peter-evans/create-pull-request@v7
         with:
@@ -30,5 +31,5 @@ jobs:
           title: 'Weekly data refresh'
           commit-message: 'Refresh frame data and community resources'
           body: |
-            Automated weekly re-scrape of ultimateframedata.com, dragdown, SmashWiki Discord invites and Smash Archives.
+            Automated weekly re-scrape of ultimateframedata.com, dragdown, SmashWiki (Discord invites, hitbox data) and Smash Archives.
             Tests passed on the new data. Check the diff for anything surprising before merging.
