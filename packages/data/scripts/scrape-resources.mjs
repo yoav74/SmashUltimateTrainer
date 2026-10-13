@@ -191,37 +191,59 @@ async function main() {
   const match = slugMatcher(slugs);
   const out = Object.fromEntries(slugs.map((s) => [s, { discords: [], players: [], links: [], sources: [], wiki: null, vodArchive: null }]));
 
-  const allPages = await listSsbuPages();
-  for (const title of allPages.filter((t) => /^SSBU\/[^/]+$/.test(t))) {
-    for (const s of match(title.split('/')[1])) out[s].wiki ??= `https://dragdown.wiki/wiki/${title.replace(/ /g, '_')}`;
-  }
-  for (const [title, id] of Object.entries(await smasharchivesIds())) {
-    // Titles look like "Mr. Game &amp; Watch" or "Pyra/Mythra".
-    for (const name of title.replace(/&amp;/g, '&').split('/')) {
-      for (const s of match(name)) out[s].vodArchive ??= `https://smasharchives.com/character/${id}`;
+  // Some sources refuse requests from CI/datacenter IPs (dragdown answers 403 on GitHub Actions).
+  // When a source fails, keep its data from the last successful run instead of dropping it.
+  let previous = {};
+  try { previous = JSON.parse(await fs.readFile(OUT, 'utf8')).fighters; } catch {}
+  const keepPrevious = (source, fields, err) => {
+    console.warn(`WARNING: ${source} unavailable (${err.message}); keeping previous ${fields.join('/')}`);
+    for (const s of slugs) for (const f of fields) if (previous[s]) out[s][f] = previous[s][f];
+  };
+
+  try {
+    const allPages = await listSsbuPages();
+    for (const title of allPages.filter((t) => /^SSBU\/[^/]+$/.test(t))) {
+      for (const s of match(title.split('/')[1])) out[s].wiki ??= `https://dragdown.wiki/wiki/${title.replace(/ /g, '_')}`;
     }
+    const pages = allPages.filter((t) => /^SSBU\/[^/]+\/Resources$/.test(t));
+    console.log(`dragdown: ${pages.length} resource pages`);
+    for (const title of pages) {
+      const fighter = title.split('/')[1];
+      const targets = match(fighter);
+      if (!targets.length) { console.log(`  skip ${title} (no matching fighter)`); continue; }
+      const j = await getJson(`${DD_API}?action=parse&page=${encodeURIComponent(title)}&prop=wikitext&format=json&formatversion=2`);
+      const { players, links } = parseResourcesWikitext(j.parse.wikitext);
+      for (const s of targets) {
+        out[s].players.push(...players);
+        out[s].links.push(...links);
+        out[s].sources.push(`https://dragdown.wiki/wiki/${title.replace(/ /g, '_')}`);
+      }
+      console.log(`  ${fighter}: ${players.length} players, ${links.length} links`);
+      await sleep(500);
+    }
+  } catch (err) {
+    keepPrevious('dragdown', ['wiki', 'players', 'links', 'sources'], err);
   }
 
-  const pages = allPages.filter((t) => /^SSBU\/[^/]+\/Resources$/.test(t));
-  console.log(`dragdown: ${pages.length} resource pages`);
-  for (const title of pages) {
-    const fighter = title.split('/')[1];
-    const targets = match(fighter);
-    if (!targets.length) { console.log(`  skip ${title} (no matching fighter)`); continue; }
-    const j = await getJson(`${DD_API}?action=parse&page=${encodeURIComponent(title)}&prop=wikitext&format=json&formatversion=2`);
-    const { players, links } = parseResourcesWikitext(j.parse.wikitext);
-    for (const s of targets) {
-      out[s].players.push(...players);
-      out[s].links.push(...links);
-      out[s].sources.push(`https://dragdown.wiki/wiki/${title.replace(/ /g, '_')}`);
+  try {
+    for (const [title, id] of Object.entries(await smasharchivesIds())) {
+      // Titles look like "Mr. Game &amp; Watch" or "Pyra/Mythra".
+      for (const name of title.replace(/&amp;/g, '&').split('/')) {
+        for (const s of match(name)) out[s].vodArchive ??= `https://smasharchives.com/character/${id}`;
+      }
     }
-    console.log(`  ${fighter}: ${players.length} players, ${links.length} links`);
-    await sleep(500);
+  } catch (err) {
+    keepPrevious('smasharchives', ['vodArchive'], err);
   }
 
-  // Discord invites: SmashWiki's table, plus any discord.gg links on the dragdown pages. Only live ones are kept.
-  const discordRows = await smashwikiDiscords();
-  const dragdownInvites = slugs.flatMap((s) => out[s].links.filter((l) => /discord\.gg\//.test(l.url)).map((l) => ({ slug: s, url: l.url })));
+  // Discord invites: SmashWiki's table, plus any discord.gg links on the dragdown pages, plus last run's
+  // invites (so they're re-verified even if a source is down). Only live ones are kept.
+  let discordRows = [];
+  try { discordRows = await smashwikiDiscords(); } catch (err) { console.warn(`WARNING: SmashWiki unavailable (${err.message}); re-checking previous invites only`); }
+  const dragdownInvites = slugs.flatMap((s) => [
+    ...out[s].links.filter((l) => /discord\.gg\//.test(l.url)).map((l) => ({ slug: s, url: l.url })),
+    ...(previous[s]?.discords ?? []).map((d) => ({ slug: s, url: d.url })),
+  ]);
   const invites = await checkInvites([...discordRows.flatMap((r) => r.urls), ...dragdownInvites.map((d) => d.url)]);
   const addInvite = (slug, url) => {
     const inv = invites.get(url);
