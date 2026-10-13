@@ -13,8 +13,6 @@ npm test
 npm run build
 ```
 
-> Local note: on this machine the default `node` (v26) doesn't work with the npm in the nvm folder. Either run `nvm use 22` (install with `nvm install 22` first) or call Node 23 directly: `C:\Users\yoav7\AppData\Roaming\nvm\v23.5.0\node.exe node_modules/vite/bin/vite.js apps/web`.
-
 ## Layout
 
 - `packages/core`: punish engine + types (pure TS, shared by web, the future desktop app and AI coach)

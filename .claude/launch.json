@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "smash-trainer",
-      "runtimeExecutable": "C:\Users\yoav7\AppData\Roaming\nvm\v23.5.0\node.exe",
-      "runtimeArgs": ["node_modules/vite/bin/vite.js", "apps/web", "--port", "5173", "--strictPort"],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
       "port": 5173
     }
   ]
