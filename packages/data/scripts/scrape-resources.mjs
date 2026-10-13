@@ -99,8 +99,13 @@ function parseResourcesWikitext(wikitext) {
 
   const links = [];
   let section = 'Other';
-  const body = wikitext.replace(/\{\{PlayersToWatch[\s\S]*?<!---End of PlayersToWatch--->/g, '');
+  // Players are parsed above; drop their entries so footage URLs don't also show up as links.
+  // (Not every page has the "End of PlayersToWatch" marker, so remove the entries themselves.)
+  const body = wikitext
+    .replace(/\{\{PlayersToWatch[\s\S]*?<!---End of PlayersToWatch--->/g, '')
+    .replace(/\{\{PlayersToWatchEntry[\s\S]*?\n\}\}/g, '');
   for (const line of body.split('\n')) {
+    if (/^\s*\|\s*\w+\s*=/.test(line)) continue; // leftover template parameter lines ("|Footage = ...")
     const h = /^(=+)\s*(.+?)\s*\1\s*$/.exec(line);
     if (h) { section = h[2]; continue; }
     // [url label] links first, then bare URLs labeled by the surrounding text.

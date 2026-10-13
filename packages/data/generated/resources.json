@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-13T15:57:00.374Z",
+ "generatedAt": "2026-10-13T17:06:15.373Z",
  "fighters": {
   "banjo_and_kazooie": {
    "discords": [],
@@ -1249,54 +1249,6 @@
    ],
    "links": [
     {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/3CXor1SZQ_A",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/vl5CS74wHRE",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/CGW8r1Tmetg",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/dAbAY9yjThA",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/LPmMuyL0ykc",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/PcQfr5C3wCA",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/EQfbZuUYmus",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/HSQ_c9wQ3bQ",
-     "kind": "video"
-    },
-    {
      "section": "Videos",
      "label": "IzawSmash's Art Of Mario Video, gives a general outline of how Mario functions",
      "url": "https://www.youtube.com/watch?v=vKBM9B8CEBw",
@@ -1573,26 +1525,7 @@
      "footageTitle": "Highlander Con 2022 Kei (Sephiroth) vs. Monte (Mr. GnW) Winners Quarters"
     }
    ],
-   "links": [
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://www.youtube.com/watch?v=0s2qvxAPXwc",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://www.youtube.com/watch?v=QCOMsAzgPmY",
-     "kind": "video"
-    },
-    {
-     "section": "Players to Watch",
-     "label": "|Footage =",
-     "url": "https://www.youtube.com/watch?v=N79rW1UUSaY",
-     "kind": "video"
-    }
-   ],
+   "links": [],
    "sources": [
     "https://dragdown.wiki/wiki/SSBU/Mr._Game_&_Watch/Resources"
    ],
@@ -2097,32 +2030,7 @@
      "footageTitle": "Ikan vs. X i l l i o n - Ultimate Singles Pools - Low Tide City 2022"
     }
    ],
-   "links": [
-    {
-     "section": "Players to watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/_lhhQhbga6U",
-     "kind": "video"
-    },
-    {
-     "section": "Players to watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/hwmmxQT9q34",
-     "kind": "video"
-    },
-    {
-     "section": "Players to watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/4vB7FwUb2Cs",
-     "kind": "video"
-    },
-    {
-     "section": "Players to watch",
-     "label": "|Footage =",
-     "url": "https://youtu.be/QdCi9JFgZYk",
-     "kind": "video"
-    }
-   ],
+   "links": [],
    "sources": [
     "https://dragdown.wiki/wiki/SSBU/Robin/Resources"
    ],

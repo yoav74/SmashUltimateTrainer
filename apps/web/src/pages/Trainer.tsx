@@ -2,9 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { characterBySlug, characters } from '@smash-trainer/data';
 import {
-  bucketByAnswer,
+  answerKey,
+  bucketBy,
   fastEnough,
   grade,
+  pick,
   pickBalanced,
   punishes,
   punishOptions,
@@ -21,19 +23,29 @@ import { CharacterPicker, RANDOM } from '../components/CharacterPicker';
 import { HitboxGif, Portrait, preloadImages } from '../components/Media';
 import { getStats, recordResult } from '../lib/stats';
 
+/** 'mixed' gives each question close or max range at random, and says which. */
+type TrainerSpacing = Spacing | 'mixed';
+
 interface Settings {
   includeAerials: boolean;
   includeSpecials: boolean;
   showFrames: boolean;
   showMoveGifs: boolean;
-  spacing: Spacing;
+  spacing: TrainerSpacing;
 }
 
-const SPACING_LABEL: Record<Spacing, { title: string; help: string }> = {
+const SPACING_LABEL: Record<TrainerSpacing, { title: string; help: string }> = {
   close: { title: 'Close range', help: 'They hit your shield standing next to you. The usual punish scenario.' },
   max: { title: 'Max range', help: 'Their hitbox just touched the edge of your shield. Spaced moves are much safer.' },
+  mixed: { title: 'Mixed', help: 'Each question is close or max range at random. Read the spacing tag before answering.' },
   off: { title: 'Ignore range', help: 'Frame data only, like before.' },
 };
+
+/** One question: a shielded move plus the spacing it hit your shield at. */
+interface Question {
+  situation: Situation;
+  spacing: Spacing;
+}
 
 export function Trainer() {
   // Fighter pages link here as /?you=<slug>.
@@ -76,7 +88,7 @@ export function Trainer() {
       <section>
         <h2>3. Spacing</h2>
         <div className="spacing-choice">
-          {(Object.keys(SPACING_LABEL) as Spacing[]).map((sp) => (
+          {(Object.keys(SPACING_LABEL) as TrainerSpacing[]).map((sp) => (
             <label key={sp} className={`spacing-option ${settings.spacing === sp ? 'on' : ''}`}>
               <input type="radio" name="spacing" checked={settings.spacing === sp} onChange={() => setSettings({ ...settings, spacing: sp })} />
               <b>{SPACING_LABEL[sp].title}</b>
@@ -114,16 +126,23 @@ export function Trainer() {
 }
 
 /**
- * Every shielded situation for the chosen opponent (or all fighters), grouped by right answer
- * so each possible answer comes up about equally often (see bucketByAnswer).
+ * Every shielded situation for the chosen opponent (or all fighters), per spacing in play, grouped by right
+ * answer so each possible answer comes up about equally often (see bucketByAnswer). In Mixed mode the spacing
+ * is picked 50/50 first; otherwise max range (where "safe" dominates) would crowd out close range.
  */
-function useQuestionBuckets(options: PunishOption[], opp: string, settings: Settings, ctx: PunishContext) {
+function useQuestionBuckets(options: PunishOption[], you: Character, opp: string, settings: Settings): Question[][][] {
   return useMemo(() => {
     const attackers = opp === RANDOM ? characters : [characterBySlug.get(opp)!];
-    const pool = attackers.flatMap((a) => situationsFor(a, settings));
-    if (!pool.length) throw new Error('No situations available with these filters');
-    return bucketByAnswer(options, pool, ctx);
-  }, [options, opp, settings.includeAerials, settings.includeSpecials, ctx]);
+    const situations = attackers.flatMap((a) => situationsFor(a, settings));
+    if (!situations.length) throw new Error('No situations available with these filters');
+    const spacings: Spacing[] = settings.spacing === 'mixed' ? ['close', 'max'] : [settings.spacing];
+    return spacings.map((spacing) =>
+      bucketBy(
+        situations.map((situation) => ({ situation, spacing })),
+        (q) => answerKey(options, q.situation, { spacing, defender: you }),
+      ),
+    );
+  }, [options, you, opp, settings.includeAerials, settings.includeSpecials, settings.spacing]);
 }
 
 const METHOD_LABEL: Record<PunishOption['method'], string> = {
@@ -143,12 +162,14 @@ function reachLabel(o: PunishOption): string | null {
 
 function Session({ you, opp, settings, onExit }: { you: Character; opp: string; settings: Settings; onExit: () => void }) {
   const options = useMemo(() => punishOptions(you), [you]);
-  const ctx = useMemo<PunishContext>(() => ({ spacing: settings.spacing, defender: you }), [settings.spacing, you]);
-  const buckets = useQuestionBuckets(options, opp, settings, ctx);
-  const [situation, setSituation] = useState(() => pickBalanced(buckets));
+  const bySpacing = useQuestionBuckets(options, you, opp, settings);
+  const nextQuestion = () => pickBalanced(pick(bySpacing));
+  const [question, setQuestion] = useState(nextQuestion);
   // The next question is picked ahead of time so its GIF can preload while you answer this one.
-  const [upcoming, setUpcoming] = useState(() => pickBalanced(buckets));
-  useEffect(() => preloadImages(upcoming.move.hitboxGifs.slice(0, 1)), [upcoming]);
+  const [upcoming, setUpcoming] = useState(nextQuestion);
+  useEffect(() => preloadImages(upcoming.situation.move.hitboxGifs.slice(0, 1)), [upcoming]);
+  const { situation, spacing } = question;
+  const ctx = useMemo<PunishContext>(() => ({ spacing, defender: you }), [spacing, you]);
   const [answer, setAnswer] = useState<{ choice: PunishOption | null; grade: Grade } | null>(null);
   const [session, setSession] = useState({ attempts: 0, correct: 0, streak: 0 });
 
@@ -163,8 +184,8 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
 
   const next = () => {
     setAnswer(null);
-    setSituation(upcoming);
-    setUpcoming(pickBalanced(buckets));
+    setQuestion(upcoming);
+    setUpcoming(nextQuestion());
   };
 
   useEffect(() => {
@@ -205,7 +226,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
         <div className="move-title">
           {situation.move.name}
           {situation.hitbox && <span className="tag">{situation.hitbox} hit</span>}
-          {settings.spacing !== 'off' && <span className="tag">{SPACING_LABEL[settings.spacing].title.toLowerCase()}</span>}
+          {spacing !== 'off' && <span className={`tag spacing-tag ${spacing}`}>{SPACING_LABEL[spacing].title.toLowerCase()}</span>}
         </div>
         <HitboxGif className="hitbox-main" src={gifs[0]} alt={`${situation.attacker.name} ${situation.move.name} hitbox`} />
         {hints && (
@@ -243,7 +264,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
               {hints && (
                 <span className="opt-frames">
                   F{o.oosFrame} <small>({METHOD_LABEL[o.method]})</small>
-                  {settings.spacing !== 'off' && <small> · reach {reach ?? '?'}</small>}
+                  {spacing !== 'off' && <small> · reach {reach ?? '?'}</small>}
                 </span>
               )}
               {outOfRange && <span className="opt-flag">out of range</span>}

@@ -186,13 +186,20 @@ export const answerKey = (options: PunishOption[], s: Situation, ctx?: PunishCon
  * the answer to most questions, since most shielded moves leave a big window.
  */
 export function bucketByAnswer(options: PunishOption[], pool: Situation[], ctx?: PunishContext): Situation[][] {
-  const buckets = new Map<string, Situation[]>();
-  for (const s of pool) {
-    const k = answerKey(options, s, ctx);
-    buckets.set(k, [...(buckets.get(k) ?? []), s]);
+  return bucketBy(pool, (s) => answerKey(options, s, ctx));
+}
+
+/** Groups items by a key, keeping first-seen order. */
+export function bucketBy<T>(items: T[], key: (item: T) => string): T[][] {
+  const buckets = new Map<string, T[]>();
+  for (const item of items) {
+    const k = key(item);
+    const bucket = buckets.get(k);
+    if (bucket) bucket.push(item);
+    else buckets.set(k, [item]);
   }
   return [...buckets.values()];
 }
 
-/** Picks an answer bucket uniformly, then a situation inside it. */
-export const pickBalanced = (buckets: Situation[][], rng: () => number = Math.random): Situation => pick(pick(buckets, rng), rng);
+/** Picks a bucket uniformly, then an item inside it. */
+export const pickBalanced = <T>(buckets: T[][], rng: () => number = Math.random): T => pick(pick(buckets, rng), rng);
