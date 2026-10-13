@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { grade, punishOptions, situationsFor } from '@smash-trainer/core';
-import { characterBySlug, characters, resourcesFor } from '../src/index.ts';
+import { characterBySlug, characters, fighterNumber, fighterOrder, resourcesFor } from '../src/index.ts';
 
 const get = (slug: string) => {
   const c = characterBySlug.get(slug);
@@ -54,5 +54,19 @@ describe('community resources', () => {
   });
   it("links Lucas's Sunflower Field resource sheet", () => {
     expect(resourcesFor('lucas').links.some((l) => l.url.includes('1lCVfUxWdrXDzIJBMYjvxPhJQ4FI0w-owyZkFcIPjUFE'))).toBe(true);
+  });
+});
+
+describe('fighter numbers', () => {
+  it('has an official number for every fighter, with no duplicates', () => {
+    const numbers = characters.map((c) => fighterNumber(c.slug));
+    expect(numbers.filter((n) => n === null)).toEqual([]);
+    expect(new Set(numbers).size).toBe(characters.length);
+  });
+  it('sorts echoes right after their base fighter', () => {
+    const order = [...characters].sort((a, b) => fighterOrder(a.slug) - fighterOrder(b.slug)).map((c) => c.slug);
+    expect(order.slice(0, 4)).toEqual(['mario', 'donkey_kong', 'link', 'samus']);
+    expect(order.indexOf('daisy')).toBe(order.indexOf('peach') + 1);
+    expect(order[order.length - 1]).toBe('sora');
   });
 });

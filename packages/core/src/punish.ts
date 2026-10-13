@@ -123,6 +123,26 @@ export function grade(options: PunishOption[], s: Situation, choice: PunishOptio
   return { verdict: best && choice.reward >= best.reward ? 'optimal' : 'correct', punishers, best };
 }
 
-export function pick<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)];
+export function pick<T>(arr: T[], rng: () => number = Math.random): T {
+  return arr[Math.floor(rng() * arr.length)];
 }
+
+/** What the right answer to a situation is: the best punish's move name, or 'safe'. */
+export const answerKey = (options: PunishOption[], s: Situation) => grade(options, s, null).best?.move.name ?? 'safe';
+
+/**
+ * Groups situations by their right answer, so questions can be drawn evenly across answers.
+ * Drawing situations uniformly would make one fast, high-damage move (Fox up smash, Puff Rest)
+ * the answer to most questions, since most shielded moves leave a big window.
+ */
+export function bucketByAnswer(options: PunishOption[], pool: Situation[]): Situation[][] {
+  const buckets = new Map<string, Situation[]>();
+  for (const s of pool) {
+    const k = answerKey(options, s);
+    buckets.set(k, [...(buckets.get(k) ?? []), s]);
+  }
+  return [...buckets.values()];
+}
+
+/** Picks an answer bucket uniformly, then a situation inside it. */
+export const pickBalanced = (buckets: Situation[][], rng: () => number = Math.random): Situation => pick(pick(buckets, rng), rng);

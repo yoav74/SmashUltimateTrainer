@@ -8,8 +8,8 @@ export function Portrait({ slug, name, size = 56, className = '' }: { slug: stri
       src={portraitUrl(slug)}
       alt={name}
       width={size}
-      height={size}
-      style={{ width: size, height: size }}
+      height={Math.round(size * 1.15)}
+      style={{ width: size, height: Math.round(size * 1.15) }}
       loading="lazy"
     />
   );

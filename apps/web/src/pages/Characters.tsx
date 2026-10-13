@@ -1,21 +1,28 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { characterBySlug, characters, dataSource, resourcesFor, youtubeSearch, type ResourceLink } from '@smash-trainer/data';
+import { characterBySlug, characters, dataSource, fighterNumber, resourcesFor, youtubeSearch, type ResourceLink } from '@smash-trainer/data';
+import { sortFighters, useFighterSort } from '../lib/fighterSort';
+import { SortToggle } from '../components/SortToggle';
 import { Portrait } from '../components/Media';
 import { punishOptions } from '@smash-trainer/core';
 
 export function CharacterList() {
   const [query, setQuery] = useState('');
-  const shown = characters.filter((c) => c.name.toLowerCase().includes(query.toLowerCase()));
+  const [sort] = useFighterSort();
+  const shown = sortFighters(characters, sort).filter((c) => c.name.toLowerCase().includes(query.toLowerCase()));
   return (
     <div>
       <h1>Fighters</h1>
-      <input className="search" placeholder="Search fighters…" value={query} onChange={(e) => setQuery(e.target.value)} />
+      <div className="list-controls">
+        <input className="search" placeholder="Search fighters…" value={query} onChange={(e) => setQuery(e.target.value)} />
+        <SortToggle />
+      </div>
       <div className="char-grid">
         {shown.map((c) => (
           <Link key={c.slug} className="char-card" to={`/characters/${c.slug}`}>
             <Portrait slug={c.slug} name={c.name} size={96} />
             <span>{c.name}</span>
+            <span className="tile-num">#{fighterNumber(c.slug)}</span>
           </Link>
         ))}
       </div>
@@ -131,7 +138,7 @@ export function CharacterDetail({ slug }: { slug: string }) {
       <header className="hero">
         <Portrait slug={c.slug} name={c.name} size={120} className="hero-portrait" />
         <div>
-          <h1>{c.name}</h1>
+          <h1>{c.name} <span className="muted hero-num">#{fighterNumber(c.slug)}</span></h1>
           <div className="hero-actions">
             <Link className="primary" to={`/?you=${c.slug}`}>Train as {c.name}</Link>
             {discord && <a className="link-btn discord" href={discord.url} target="_blank" rel="noreferrer">Join Discord</a>}

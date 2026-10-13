@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { grade, punishes, punishOptions, situationsFor, type Character, type Move } from '../src/index.ts';
+import { answerKey, bucketByAnswer, grade, pickBalanced, punishes, punishOptions, situationsFor, type Character, type Move } from '../src/index.ts';
 
 function move(name: string, category: string, startup: number | null, opts: Partial<Move> = {}): Move {
   return {
@@ -90,5 +90,29 @@ describe('grade', () => {
   it('accepts "nothing, it\'s safe" only when nothing punishes', () => {
     expect(grade(options, fair, null).verdict).toBe('optimal');
     expect(grade(options, fsmash, null).verdict).toBe('wrong');
+  });
+});
+
+describe('balanced question picking', () => {
+  // Ten big-window moves (Up Smash is always the answer) and one tight one (nothing punishes).
+  const attacker = fighter('attacker', [
+    ...Array.from({ length: 10 }, (_, i) => move(`Smash ${i}`, 'groundattacks', 15, { shieldAdvantage: [{ value: -25, hitbox: null }] })),
+    move('Jab 1', 'groundattacks', 3, { shieldAdvantage: [{ value: -2, hitbox: null }] }),
+  ]);
+  const pool = situationsFor(attacker, { includeAerials: true, includeSpecials: true });
+  const options = punishOptions(tester);
+
+  it('groups situations by their answer', () => {
+    const buckets = bucketByAnswer(options, pool);
+    expect(buckets.map((b) => answerKey(options, b[0])).sort()).toEqual(['Up Smash', 'safe']);
+  });
+
+  it('draws each answer about equally often, not in proportion to how many situations share it', () => {
+    const buckets = bucketByAnswer(options, pool);
+    let seed = 1;
+    const rng = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+    const safe = Array.from({ length: 2000 }, () => pickBalanced(buckets, rng)).filter((s) => answerKey(options, s) === 'safe').length;
+    expect(safe / 2000).toBeGreaterThan(0.4); // uniform drawing would give ~1/11
+    expect(safe / 2000).toBeLessThan(0.6);
   });
 });

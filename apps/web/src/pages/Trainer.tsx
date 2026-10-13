@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { characterBySlug, characters } from '@smash-trainer/data';
 import type { Character } from '@smash-trainer/core';
 import { CharacterPicker, RANDOM } from '../components/CharacterPicker';
 import { HitboxGif, Portrait, preloadImages } from '../components/Media';
-import { grade, pick, punishes, punishOptions, situationsFor, type Grade, type PunishOption, type Situation } from '@smash-trainer/core';
+import { bucketByAnswer, grade, pickBalanced, punishes, punishOptions, situationsFor, type Grade, type PunishOption, type Situation } from '@smash-trainer/core';
 import { getStats, recordResult } from '../lib/stats';
 
 interface Settings {
@@ -73,14 +73,17 @@ export function Trainer() {
   );
 }
 
-function nextSituation(opp: string, settings: Settings): Situation {
-  // Retry a few times in case a random fighter has no qualifying moves under the current filters.
-  for (let i = 0; i < 20; i++) {
-    const attacker: Character = opp === RANDOM ? pick(characters) : characterBySlug.get(opp)!;
-    const pool = situationsFor(attacker, settings);
-    if (pool.length) return pick(pool);
-  }
-  throw new Error('No situations available with these filters');
+/**
+ * Every shielded situation for the chosen opponent (or all fighters), grouped by right answer
+ * so each possible answer comes up about equally often (see bucketByAnswer).
+ */
+function useQuestionBuckets(options: PunishOption[], opp: string, settings: Settings) {
+  return useMemo(() => {
+    const attackers = opp === RANDOM ? characters : [characterBySlug.get(opp)!];
+    const pool = attackers.flatMap((a) => situationsFor(a, settings));
+    if (!pool.length) throw new Error('No situations available with these filters');
+    return bucketByAnswer(options, pool);
+  }, [options, opp, settings.includeAerials, settings.includeSpecials]);
 }
 
 const METHOD_LABEL: Record<PunishOption['method'], string> = {
@@ -92,9 +95,10 @@ const METHOD_LABEL: Record<PunishOption['method'], string> = {
 
 function Session({ you, opp, settings, onExit }: { you: Character; opp: string; settings: Settings; onExit: () => void }) {
   const options = useMemo(() => punishOptions(you), [you]);
-  const [situation, setSituation] = useState(() => nextSituation(opp, settings));
+  const buckets = useQuestionBuckets(options, opp, settings);
+  const [situation, setSituation] = useState(() => pickBalanced(buckets));
   // The next question is picked ahead of time so its GIF can preload while you answer this one.
-  const [upcoming, setUpcoming] = useState(() => nextSituation(opp, settings));
+  const [upcoming, setUpcoming] = useState(() => pickBalanced(buckets));
   useEffect(() => preloadImages(upcoming.move.hitboxGifs.slice(0, 1)), [upcoming]);
   const [answer, setAnswer] = useState<{ choice: PunishOption | null; grade: Grade } | null>(null);
   const [session, setSession] = useState({ attempts: 0, correct: 0, streak: 0 });
@@ -111,12 +115,12 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
   const next = () => {
     setAnswer(null);
     setSituation(upcoming);
-    setUpcoming(nextSituation(opp, settings));
+    setUpcoming(pickBalanced(buckets));
   };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (answer && (e.key === 'Enter' || e.key === ' ')) {
+      if (answer && !e.repeat && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         next();
       }
@@ -191,19 +195,28 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
         </button>
       </div>
 
-      {answer && <Feedback answer={answer} situation={situation} fastest={options[0]?.oosFrame ?? null} />}
+      {answer && <Feedback answer={answer} situation={situation} fastest={options[0]?.oosFrame ?? null} onNext={next} />}
     </div>
   );
 }
 
-function Feedback({ answer, situation, fastest }: { answer: { choice: PunishOption | null; grade: Grade }; situation: Situation; fastest: number | null }) {
+function Feedback({ answer, situation, fastest, onNext }: { answer: { choice: PunishOption | null; grade: Grade }; situation: Situation; fastest: number | null; onNext: () => void }) {
   const { verdict, punishers, best } = answer.grade;
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, []);
   const window_ = -situation.advantage;
   const title = { optimal: '✅ Optimal!', correct: '👍 That punishes', wrong: '❌ Not quite' }[verdict];
 
   return (
-    <div className={`feedback card ${verdict}`}>
-      <h3>{title}</h3>
+    <div ref={ref} className={`feedback card ${verdict}`}>
+      <div className="feedback-head">
+        <h3>{title}</h3>
+        <button className="primary next-btn" onClick={onNext}>
+          Next ▶ <kbd>Enter</kbd> <kbd>Space</kbd>
+        </button>
+      </div>
       {answer.choice && !punishes(answer.choice, situation) && (
         <p>
           {answer.choice.move.name} comes out on frame {answer.choice.oosFrame}, but you only have {window_} frames. {situation.attacker.name} can
@@ -221,7 +234,7 @@ function Feedback({ answer, situation, fastest }: { answer: { choice: PunishOpti
           </p>
         )
       )}
-      <p className="muted small">Press Enter or Space for the next one. Damage figures are base values; spacing and range are not checked yet.</p>
+      <p className="muted small">Damage figures are base values; spacing and range are not checked yet.</p>
       {situation.move.notes && <p className="muted small">Move notes: {situation.move.notes}</p>}
     </div>
   );

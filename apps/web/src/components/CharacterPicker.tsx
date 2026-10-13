@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { characters } from '@smash-trainer/data';
+import { characters, fighterNumber } from '@smash-trainer/data';
+import { sortFighters, useFighterSort } from '../lib/fighterSort';
 import { Portrait } from './Media';
+import { SortToggle } from './SortToggle';
 
 interface Props {
   value: string | null;
@@ -12,16 +14,20 @@ export const RANDOM = '__random__';
 
 export function CharacterPicker({ value, onChange, allowRandom }: Props) {
   const [query, setQuery] = useState('');
-  const shown = characters.filter((c) => c.name.toLowerCase().includes(query.toLowerCase()));
+  const [sort] = useFighterSort();
+  const shown = sortFighters(characters, sort).filter((c) => c.name.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <div className="picker">
-      <input
-        className="search"
-        placeholder="Search fighters…"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <div className="list-controls">
+        <input
+          className="search"
+          placeholder="Search fighters…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <SortToggle />
+      </div>
       <div className="picker-grid">
         {allowRandom && (
           <button className={`tile random ${value === RANDOM ? 'selected' : ''}`} onClick={() => onChange(RANDOM)} title="Random">
@@ -38,6 +44,7 @@ export function CharacterPicker({ value, onChange, allowRandom }: Props) {
           >
             <Portrait slug={c.slug} name={c.name} size={64} />
             <span className="tile-name">{c.name}</span>
+            <span className="tile-num">#{fighterNumber(c.slug)}</span>
           </button>
         ))}
       </div>
