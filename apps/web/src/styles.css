@@ -57,7 +57,8 @@ kbd { font: 0.7rem/1 ui-monospace, monospace; background: rgba(0,0,0,0.25); bord
 .tile-name { font-size: 0.72rem; line-height: 1.1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
 .tile-random { width: 64px; height: 64px; display: grid; place-items: center; font-size: 2rem; }
 /* Whole figure visible (the art is tall and has a white background, so letterbox in white). */
-.portrait { object-fit: contain; border-radius: 8px; background: #fff; flex-shrink: 0; }
+/* --portrait is set per image; --portrait-fit (set on a container) overrides it, e.g. smaller tiles on phones. */
+.portrait { width: var(--portrait-fit, var(--portrait, 56px)); height: calc(var(--portrait-fit, var(--portrait, 56px)) * 1.15); object-fit: contain; border-radius: 8px; background: #fff; flex-shrink: 0; }
 .toggle { display: flex; gap: 8px; align-items: center; margin: 6px 0; }
 
 .session-bar { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
@@ -126,10 +127,7 @@ td.move-name { font-weight: 600; white-space: nowrap; }
 td.neg { color: var(--accent-2); }
 td.notes { color: var(--muted); font-size: 0.8rem; max-width: 320px; }
 
-@media (max-width: 600px) {
-  .move-title { font-size: 1.5rem; }
-  .topnav { gap: 12px; padding: 10px 16px; }
-}
+
 
 .footer { max-width: 1100px; margin: 40px auto 24px; padding: 0 16px; text-align: center; }
 .option.short { border-color: var(--accent-2); }
@@ -159,3 +157,80 @@ td.notes { color: var(--muted); font-size: 0.8rem; max-width: 320px; }
 .safety-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 480px; margin: 12px auto 0; }
 .big-choice { align-items: center; justify-content: center; flex-direction: row; gap: 10px; padding: 18px; font-size: 1.1rem; }
 .mu-train { display: flex; gap: 8px; align-items: center; }
+
+/* Start buttons stay reachable at the bottom of long setup pages. */
+.setup > .primary.big:not(:disabled) { position: sticky; bottom: 12px; z-index: 5; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45); }
+.next-fab { display: none; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 600px) {
+  main { padding: 12px; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1rem; margin-top: 1.2em; }
+  .topnav { gap: 14px; padding: 10px 12px; font-size: 0.9rem; }
+  .topnav .brand { white-space: nowrap; margin-right: auto; font-size: 0.95rem; }
+  .footer { margin-top: 24px; }
+
+  /* Pickers: denser tiles, fewer screens of scrolling */
+  .picker-grid { grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); gap: 4px; max-height: 240px; }
+  .tile { padding: 4px 2px; border-width: 1px; }
+  .picker-grid { --portrait-fit: 44px; }
+  .tile-random { width: 44px; height: 50px; font-size: 1.5rem; }
+  .tile-name { font-size: 0.65rem; }
+  .tile-num { display: none; }
+  .list-controls .search { max-width: none; flex: 1 1 160px; }
+  .setup > .primary.big { width: 100%; }
+
+  /* Fighter list */
+  .char-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; }
+  .char-card { padding: 8px; font-size: 0.85rem; }
+  .char-grid { --portrait-fit: 64px; }
+
+  /* Trainer */
+  .session-bar { font-size: 0.85rem; gap: 8px; }
+  .matchup { --portrait-fit: 36px; }
+  .move-title { font-size: 1.35rem; }
+  .hitbox-main { height: 200px; }
+  .options { grid-template-columns: 1fr 1fr; gap: 6px; padding-bottom: 64px; }
+  .option { padding: 8px; }
+  .opt-gif { height: 72px; }
+  .opt-name { font-size: 0.9rem; }
+  .opt-frames { font-size: 0.75rem; }
+  .safety-buttons { gap: 8px; }
+  .next-fab {
+    display: block; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 20;
+    padding: 14px; font-size: 1.05rem; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  }
+  .feedback { margin-bottom: 72px; }
+  .feedback-head .next-btn { display: none; }
+
+  /* Fighter page */
+  .hero { gap: 12px; align-items: flex-start; }
+  .hero { --portrait-fit: 88px; }
+  .hero h1 { font-size: 1.7rem; margin-bottom: 8px; }
+  .hero-actions > * { flex: 1 1 140px; text-align: center; }
+
+  /* Matchups: fighters side by side with "vs" between */
+  .mu-header { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; }
+  .mu-fighter { flex-direction: column; text-align: center; gap: 4px; }
+  .mu-fighter { --portrait-fit: 64px; }
+  .mu-name { font-size: 1.1rem; }
+  .mu-actions, .mu-train { width: 100%; }
+  .mu-train > * { flex: 1; text-align: center; }
+  .segmented { width: 100%; }
+  .segmented button { flex: 1; }
+  .mu-big { font-size: 1.8rem; }
+
+  /* Tables become one card per row */
+  table.cards-on-mobile thead { display: none; }
+  table.cards-on-mobile, table.cards-on-mobile tbody { display: block; }
+  table.cards-on-mobile tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2px 12px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+  /* min-width 0 + anywhere: long values like "28/30—32(33—37/...)" wrap instead of widening the page */
+  table.cards-on-mobile td { border: none; padding: 1px 0; display: flex; gap: 6px; align-items: baseline; min-width: 0; overflow-wrap: anywhere; white-space: normal; }
+  table.cards-on-mobile td::before { content: attr(data-label); color: var(--muted); font-size: 0.72rem; min-width: 64px; }
+  table.cards-on-mobile td.move-name { grid-column: 1 / -1; font-size: 1rem; white-space: normal; padding-bottom: 4px; }
+  table.cards-on-mobile td.move-name::before { content: none; }
+  table.cards-on-mobile td.notes, table.cards-on-mobile td[data-label='Best punish'], table.cards-on-mobile td[data-label='Out of range'] { grid-column: 1 / -1; max-width: none; }
+  table.cards-on-mobile td:empty { display: none; }
+  .table-wrap { overflow-x: visible; }
+}

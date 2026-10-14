@@ -195,7 +195,7 @@ export function CharacterDetail({ slug }: { slug: string }) {
         <section key={cat}>
           <h2>{CATEGORY_LABEL[cat]}</h2>
           <div className="table-wrap">
-            <table>
+            <table className="cards-on-mobile">
               <thead>
                 <tr>
                   <th>Move</th><th>Startup</th><th>Active</th><th title="Forward reach in game units, from SmashWiki hitbox data. ≈ means estimated.">Reach</th><th>Total</th><th>Landing lag</th><th>Damage</th><th>On shield</th><th>Notes</th>
@@ -207,14 +207,14 @@ export function CharacterDetail({ slug }: { slug: string }) {
                     <td className="move-name">
                       {m.hitboxGifs[0] ? <a href={m.hitboxGifs[0]} target="_blank" rel="noreferrer">{m.name}</a> : m.name}
                     </td>
-                    <td>{m.raw.startup ?? '—'}</td>
-                    <td>{m.raw.activeFrames ?? '—'}</td>
-                    <td className={m.reach && !m.reach.exact ? 'muted' : ''}>{m.reach ? (m.reach.exact ? m.reach.units.toFixed(1) : `≈${Math.round(m.reach.units)}`) : '—'}</td>
-                    <td>{m.raw.totalFrames ?? '—'}</td>
-                    <td>{m.raw.landingLag ?? '—'}</td>
-                    <td>{m.raw.damage ?? '—'}</td>
-                    <td className={m.shieldAdvantage.some((a) => a.value < 0) ? 'neg' : ''}>{m.raw.advantage ?? '—'}</td>
-                    <td className="notes">{m.notes ?? ''}</td>
+                    <td data-label="Startup">{m.raw.startup ?? '—'}</td>
+                    <td data-label="Active">{m.raw.activeFrames ?? '—'}</td>
+                    <td data-label="Reach" className={m.reach && !m.reach.exact ? 'muted' : ''}>{m.reach ? (m.reach.exact ? m.reach.units.toFixed(1) : `≈${Math.round(m.reach.units)}`) : '—'}</td>
+                    <td data-label="Total">{m.raw.totalFrames ?? '—'}</td>
+                    <td data-label="Landing lag">{m.raw.landingLag ?? '—'}</td>
+                    <td data-label="Damage">{m.raw.damage ?? '—'}</td>
+                    <td data-label="On shield" className={m.shieldAdvantage.some((a) => a.value < 0) ? 'neg' : ''}>{m.raw.advantage ?? '—'}</td>
+                    <td data-label="Notes" className="notes">{m.notes ?? ''}</td>
                   </tr>
                 ))}
               </tbody>

@@ -126,6 +126,7 @@ export function wikiPageFor(moveName: string): string | null {
     [/^Down B\b/, 'Down special'],
     [/^Grab$/, 'Grab'],
   ];
+  if (/Dodge/.test(moveName)) return null; // "Neutral Air Dodge" is not the neutral aerial
   return rules.find(([re]) => re.test(moveName))?.[1] ?? null;
 }
 

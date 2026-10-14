@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { portraitUrl } from '../lib/assets';
 
 export function Portrait({ slug, name, size = 56, className = '' }: { slug: string; name: string; size?: number; className?: string }) {
@@ -9,7 +9,8 @@ export function Portrait({ slug, name, size = 56, className = '' }: { slug: stri
       alt={name}
       width={size}
       height={Math.round(size * 1.15)}
-      style={{ width: size, height: Math.round(size * 1.15) }}
+      // Size goes through a CSS variable so phone layouts can shrink portraits (see styles.css).
+      style={{ '--portrait': `${size}px` } as CSSProperties}
       loading="lazy"
     />
   );

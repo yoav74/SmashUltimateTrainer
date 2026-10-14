@@ -137,6 +137,7 @@ export function SafetySession({
         </div>
       </div>
 
+      {answer && <button className="primary next-fab" onClick={next}>Next ▶</button>}
       {answer && <SafetyFeedback correct={!!correct} grade={answer.grade} situation={situation} defender={defender} onNext={next} />}
     </div>
   );

@@ -313,6 +313,9 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
       </div>
 
       {answer && (
+        <button className="primary next-fab" onClick={next}>Next ▶</button>
+      )}
+      {answer && (
         <Feedback answer={answer} situation={situation} needed={needed} fastest={options[0]?.oosFrame ?? null} onNext={next} />
       )}
     </div>

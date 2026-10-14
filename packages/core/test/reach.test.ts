@@ -9,6 +9,7 @@ import {
   type Character,
   type HitboxBox,
   type Move,
+  wikiPageFor,
 } from '../src/index.ts';
 
 const box = (b: Partial<HitboxBox>): HitboxBox => ({
@@ -90,5 +91,15 @@ describe('grade with range', () => {
     expect(g.verdict).toBe('wrong');
     expect(g.outOfRange.map((o) => o.move.name)).toEqual(['Up Smash']);
     expect(g.best?.move.name).toBe('Forward Tilt');
+  });
+});
+
+describe('wikiPageFor', () => {
+  it('maps UFD move names to SmashWiki pages, without confusing air dodges for aerials', () => {
+    expect(wikiPageFor('Neutral Air')).toBe('Neutral aerial');
+    expect(wikiPageFor('Neutral Air Dodge')).toBeNull();
+    expect(wikiPageFor('Up B (PK Thunder)')).toBe('Up special');
+    expect(wikiPageFor('Grab')).toBe('Grab');
+    expect(wikiPageFor('Dash Grab')).toBeNull();
   });
 });

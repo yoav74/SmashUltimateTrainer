@@ -176,7 +176,7 @@ function PunishTable({ rows, defender }: { rows: PunishRow[]; defender: Characte
   return (
     <>
       <div className="table-wrap">
-        <table>
+        <table className="cards-on-mobile">
           <thead>
             <tr><th>Move</th><th>On shield</th><th>Best punish ({defender.name})</th><th>Also punishes</th><th>Fast enough but out of range</th></tr>
           </thead>
@@ -187,10 +187,10 @@ function PunishTable({ rows, defender }: { rows: PunishRow[]; defender: Characte
                   {r.situation.move.name}
                   {r.situation.hitbox && <span className="muted small"> ({r.situation.hitbox})</span>}
                 </td>
-                <td className="neg">{r.situation.advantage}</td>
-                <td>{r.best ? <><b>{r.best.move.name}</b> <span className="muted small">F{r.best.oosFrame} · ~{r.best.reward}%</span></> : <span className="muted">safe</span>}</td>
-                <td className="small">{r.punishers.filter((p) => p !== r.best).length || ''}</td>
-                <td className="small muted">{r.outOfRange.map((o) => o.move.name).join(', ')}</td>
+                <td data-label="On shield" className="neg">{r.situation.advantage}</td>
+                <td data-label="Best punish">{r.best ? <><b>{r.best.move.name}</b> <span className="muted small">F{r.best.oosFrame} · ~{r.best.reward}%</span></> : <span className="muted">safe</span>}</td>
+                <td data-label="Also punish" className="small">{r.punishers.filter((p) => p !== r.best).length || ''}</td>
+                <td data-label="Out of range" className="small muted">{r.outOfRange.map((o) => o.move.name).join(', ')}</td>
               </tr>
             ))}
           </tbody>
