@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { characterBySlug, characters } from '@smash-trainer/data';
 import {
+  intangibleAt,
   answerKey,
   bucketBy,
   fastEnough,
@@ -179,7 +180,7 @@ function useQuestionBuckets(options: PunishOption[], you: Character, opp: string
     return spacings.map((spacing) =>
       bucketBy(
         situations.map((situation) => ({ situation, spacing })),
-        (q) => answerKey(options, q.situation, { spacing, defender: you }),
+        (q) => answerKey(options, q.situation, { spacing, defender: you, iframes: true }),
       ),
     );
   }, [options, you, opp, settings.includeAerials, settings.includeSpecials, settings.spacing]);
@@ -215,7 +216,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
   const [upcoming, setUpcoming] = useState(() => nextQuestion([question.id]));
   useEffect(() => preloadImages(upcoming.situation.move.hitboxGifs.slice(0, 1)), [upcoming]);
   const { situation, spacing } = question;
-  const ctx = useMemo<PunishContext>(() => ({ spacing, defender: you }), [spacing, you]);
+  const ctx = useMemo<PunishContext>(() => ({ spacing, defender: you, iframes: true }), [spacing, you]);
   const [answer, setAnswer] = useState<{ choice: PunishOption | null; grade: Grade } | null>(null);
   const [session, setSession] = useState({ attempts: 0, correct: 0, streak: 0 });
 
@@ -293,13 +294,15 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
       <div className="options">
         {options.map((o) => {
           const outOfRange = answer?.grade.outOfRange.includes(o);
+          const intangible = answer?.grade.intangible.includes(o);
+          const linger = answer?.grade.lingering.get(o);
           const cls = !answer
             ? ''
             : o === answer.grade.best
               ? 'best'
               : punishes(o, situation, ctx)
                 ? 'ok'
-                : outOfRange
+                : outOfRange || intangible
                   ? 'short'
                   : o === answer.choice
                     ? 'bad'
@@ -316,6 +319,9 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
                 </span>
               )}
               {outOfRange && <span className="opt-flag">out of range</span>}
+              {intangible && <span className="opt-flag">they're intangible</span>}
+              {linger === 'trade' && <span className="opt-flag">may trade</span>}
+              {linger === 'beats' && <span className="opt-flag good">invincible through it</span>}
             </button>
           );
         })}
@@ -331,7 +337,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
         <button className="primary next-fab" onClick={next}>Next ▶</button>
       )}
       {answer && (
-        <Feedback answer={answer} situation={situation} needed={needed} fastest={options[0]?.oosFrame ?? null} onNext={next} />
+        <Feedback answer={answer} situation={situation} ctx={ctx} needed={needed} fastest={options[0]?.oosFrame ?? null} onNext={next} />
       )}
     </div>
   );
@@ -340,17 +346,25 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
 function Feedback({
   answer,
   situation,
+  ctx,
   needed,
   fastest,
   onNext,
 }: {
   answer: { choice: PunishOption | null; grade: Grade };
   situation: Situation;
+  ctx: PunishContext;
   needed: number | null;
   fastest: number | null;
   onNext: () => void;
 }) {
-  const { verdict, punishers, outOfRange, best } = answer.grade;
+  const { verdict, punishers, outOfRange, intangible, lingering, best } = answer.grade;
+  const who = situation.attacker.name;
+  const intangibleNote = (o: PunishOption) => {
+    const hit = intangibleAt(o, situation, ctx)!;
+    return `${who} is intangible on frames ${hit.window.start}–${hit.window.end} of ${situation.move.name}, and your ${o.move.name} would hit on their frame ${hit.frame}`;
+  };
+  const beats = [...lingering].filter(([, v]) => v === 'beats').map(([o]) => o.move.name);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -378,9 +392,21 @@ function Feedback({
           {reachLabel(choice)}. It would whiff.
         </p>
       )}
+      {choice && intangible.includes(choice) && <p>{intangibleNote(choice)}. It would go right through them.</p>}
+      {choice && lingering.get(choice) === 'trade' && (
+        <p className="warn">
+          Careful: {situation.move.name} keeps hitting until frame {situation.lastActive}, and your {choice.move.name} starts while it's still
+          out, so it may trade or get beaten.
+        </p>
+      )}
+      {choice && lingering.get(choice) === 'beats' && (
+        <p>{situation.move.name} is still hitting when you act, but your {choice.move.name}'s invincibility carries you through it.</p>
+      )}
       {choice === null && punishers.length > 0 && <p>It's punishable: {punishers.length} of your options are fast enough and reach.</p>}
       {punishers.length === 0 ? (
-        outOfRange.length ? (
+        intangible.length ? (
+          <p>{intangibleNote(intangible[0])}{intangible.length > 1 ? ` (same for ${intangible.length - 1} other options)` : ''}. Shield it and reset.</p>
+        ) : outOfRange.length ? (
           <p>
             Some options are fast enough ({outOfRange.map((o) => o.move.name).join(', ')}) but can't reach after pushback. Shield it and reset to neutral.
           </p>
@@ -394,6 +420,9 @@ function Feedback({
             {best.method === 'shield grab' ? ' with your best throw' : ''}).
           </p>
         )
+      )}
+      {beats.length > 0 && !(choice && lingering.get(choice) === 'beats') && (
+        <p className="muted small">Its hits linger after your shieldstun; invincible options like {beats.join(', ')} beat that.</p>
       )}
       <p className="muted small">
         Reach comes from SmashWiki hitbox data: exact numbers where the hitbox is anchored to the character, "≈" estimates for hitboxes on

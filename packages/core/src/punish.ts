@@ -1,4 +1,4 @@
-import type { Character, Move } from './types';
+import type { Character, Invulnerability, Move } from './types';
 import { aerialDrift, ESTIMATE, pushback, requiredReach, shieldstunFromDamage, type Spacing } from './reach';
 
 // Out-of-shield rules, as documented on ultimateframedata.com:
@@ -33,12 +33,18 @@ export interface Situation {
   /** Damage and shieldstun of this hitbox, for shield pushback. */
   damage: number;
   shieldstun: number;
+  /** Frame of the attacker's animation this hitbox connects on (its first active frame). */
+  hitFrame: number;
+  /** Last active frame of any of the move's hitboxes. */
+  lastActive: number;
 }
 
 /** What the range check needs to know: spacing assumption and who is shielding. */
 export interface PunishContext {
   spacing: Spacing;
   defender: Character;
+  /** Also check intangibility (punish lands while they're intangible) and lingering hitboxes. Off unless set. */
+  iframes?: boolean;
 }
 
 // Per-character exceptions to the general OoS rules.
@@ -121,7 +127,15 @@ export function situationsFor(attacker: Character, opts: { includeSpecials: bool
       const damage = move.damage[i] ?? Math.max(0, ...move.damage);
       const listedStun = parseInt((move.raw.shieldStun ?? '').split('/')[i] ?? '', 10);
       const shieldstun = Number.isNaN(listedStun) ? shieldstunFromDamage(damage) : listedStun;
-      out.push({ attacker, move, hitbox: a.hitbox, advantage: a.value, damage, shieldstun });
+      // Active frames look like "13—15/16—19" (one range per hitbox, same order as the advantages).
+      // Worded asides like "(full extended 26—66)" are optional variants, not this move's normal active frames.
+      const active = (move.raw.activeFrames ?? '').replace(/\([^)]*[a-z][^)]*\)/gi, '');
+      // Only the range of the hitbox that connected: a hitbox hits a target once, so other hitboxes (down smash's
+      // second side, later sweetspots) don't threaten you; repeating multi-hits stay inside their own range.
+      const segment = active.split('/')[i] ?? active;
+      const hitFrame = parseInt(/\d+/.exec(segment)?.[0] ?? '', 10) || move.startup || 1;
+      const lastActive = Math.max(hitFrame, ...(segment.match(/\d+/g) ?? []).map(Number).filter(Number.isFinite));
+      out.push({ attacker, move, hitbox: a.hitbox, advantage: a.value, damage, shieldstun, hitFrame, lastActive });
     });
   }
   return out;
@@ -152,13 +166,61 @@ export function reaches(opt: PunishOption, s: Situation, ctx?: PunishContext): b
   return opt.move.reach.units + opt.travel >= needed;
 }
 
-export const punishes = (opt: PunishOption, s: Situation, ctx?: PunishContext) => fastEnough(opt, s) && reaches(opt, s, ctx);
+/**
+ * Frame of the attacker's animation when the punish's hitbox comes out: they hit your shield on hitFrame, keep
+ * animating through your shieldstun, then your option takes oosFrame frames. (Shieldlag freezes both, so it cancels.)
+ */
+export const attackerFrameAtPunish = (opt: PunishOption, s: Situation) => s.hitFrame + s.shieldstun + opt.oosFrame;
+
+/** Aerials land on shield, so their animation (and its intangibility) is over by the time a punish lands. */
+const landsOnShield = (m: Move) => m.category === 'aerialattacks' || isAirVariant(m.name);
+
+/** The attacker's full-body intangible window the punish would land in, if any (only with ctx.iframes). */
+export function intangibleAt(opt: PunishOption, s: Situation, ctx?: PunishContext): { window: Invulnerability; frame: number } | null {
+  if (!ctx?.iframes || landsOnShield(s.move)) return null;
+  const frame = attackerFrameAtPunish(opt, s);
+  const window = s.move.iframes?.find((w) => w.kind === 'intangible' && w.full && w.only !== 'air' && frame >= w.start && frame <= w.end);
+  return window ? { window, frame } : null;
+}
+
+export const punishes = (opt: PunishOption, s: Situation, ctx?: PunishContext) =>
+  fastEnough(opt, s) && reaches(opt, s, ctx) && !intangibleAt(opt, s, ctx);
+
+/** Moves whose hitboxes repeat on the same target: UFD marks them "Multi"/"rehit"/"hits every N frames". */
+export const rehits = (s: Situation) =>
+  /multi|loop|rapid/i.test(s.hitbox ?? '') || /rehit/i.test(s.move.raw.activeFrames ?? '') || /rehit|hits every|multi-?hit/i.test(s.move.notes ?? '');
+
+/**
+ * Lingering hitboxes: when the attacker's move is still active after your shieldstun ends, starting a punish exposes
+ * you (multi-hit and late hitboxes can still hit you). An option whose own full-body intangibility covers every
+ * exposed frame (e.g. Corrin's Up B) beats it; others may trade. Flag only: this doesn't change the verdict.
+ */
+export function lingering(opt: PunishOption, s: Situation, ctx?: PunishContext): 'beats' | 'trade' | null {
+  // Aerials' hitboxes end when they land. And a move normally hits a target only once, so only re-hitting moves
+  // (multi-hits, looping hitboxes) can still hit you after already hitting your shield.
+  if (!ctx?.iframes || landsOnShield(s.move) || !rehits(s)) return null;
+  const actable = s.hitFrame + s.shieldstun + 1; // attacker frame when you can first act
+  const exposedUntil = Math.min(s.lastActive, attackerFrameAtPunish(opt, s) - 1);
+  if (!Number.isFinite(exposedUntil) || exposedUntil < actable) return null;
+  // Your option's own frame f happens on attacker frame actable - 1 + (oosFrame - startup) + f.
+  const offset = actable - 1 + (opt.oosFrame - (opt.move.startup ?? opt.oosFrame));
+  const iframes = (opt.move.iframes ?? []).filter((w) => w.kind === 'intangible' && w.full);
+  for (let frame = actable; frame <= exposedUntil; frame++) {
+    const own = frame - offset;
+    if (!iframes.some((w) => own >= w.start && own <= w.end)) return 'trade';
+  }
+  return 'beats';
+}
 
 export interface Grade {
   verdict: 'optimal' | 'correct' | 'wrong';
   punishers: PunishOption[];
   /** Fast enough, but can't reach after pushback at this spacing. */
   outOfRange: PunishOption[];
+  /** Fast enough and in range, but they're intangible when it would hit (only with ctx.iframes). */
+  intangible: PunishOption[];
+  /** Punishes that start while the attacker's move is still active: 'beats' with invincibility, or may 'trade'. */
+  lingering: Map<PunishOption, 'beats' | 'trade'>;
   best: PunishOption | null;
 }
 
@@ -166,11 +228,18 @@ export interface Grade {
 export function grade(options: PunishOption[], s: Situation, choice: PunishOption | null, ctx?: PunishContext): Grade {
   const punishers = options.filter((o) => punishes(o, s, ctx));
   const outOfRange = options.filter((o) => fastEnough(o, s) && !reaches(o, s, ctx));
+  const intangible = options.filter((o) => fastEnough(o, s) && reaches(o, s, ctx) && intangibleAt(o, s, ctx));
+  const linger = new Map<PunishOption, 'beats' | 'trade'>();
+  for (const o of punishers) {
+    const l = lingering(o, s, ctx);
+    if (l) linger.set(o, l);
+  }
   const best = punishers.reduce<PunishOption | null>((b, o) => (!b || o.reward > b.reward ? o : b), null);
+  const base = { punishers, outOfRange, intangible, lingering: linger, best };
 
-  if (choice === null) return { verdict: punishers.length === 0 ? 'optimal' : 'wrong', punishers, outOfRange, best };
-  if (!punishes(choice, s, ctx)) return { verdict: 'wrong', punishers, outOfRange, best };
-  return { verdict: best && choice.reward >= best.reward ? 'optimal' : 'correct', punishers, outOfRange, best };
+  if (choice === null) return { verdict: punishers.length === 0 ? 'optimal' : 'wrong', ...base };
+  if (!punishes(choice, s, ctx)) return { verdict: 'wrong', ...base };
+  return { verdict: best && choice.reward >= best.reward ? 'optimal' : 'correct', ...base };
 }
 
 export function pick<T>(arr: T[], rng: () => number = Math.random): T {

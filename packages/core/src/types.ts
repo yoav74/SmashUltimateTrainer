@@ -35,6 +35,25 @@ export interface Move {
   hitboxGifs: string[];
   /** Forward reach from SmashWiki hitbox data, when the move maps to a SmashWiki page with hitboxes. */
   reach?: Reach | null;
+  /** Intangibility/invincibility and armor windows parsed from the UFD notes. */
+  iframes?: Invulnerability[];
+}
+
+/**
+ * A window of the move's own animation (frame numbers as UFD lists them) where the character can't be hurt.
+ * 'intangible' covers UFD's intangible / invincible / invulnerable: for punishing they mean the same thing,
+ * the punish doesn't land. 'armor' still takes the hit (only flagged, not modeled).
+ */
+export interface Invulnerability {
+  kind: 'intangible' | 'armor';
+  start: number;
+  end: number;
+  /** False for partial-body windows ("Leg intangibility on frame 12-17"); those can still be hit elsewhere. */
+  full: boolean;
+  /** Body part for partial windows, e.g. "leg", "head and arm". */
+  part?: string;
+  /** The window only applies in the air / on the ground, when the note says so. */
+  only?: 'air' | 'ground';
 }
 
 export interface OosEntry {

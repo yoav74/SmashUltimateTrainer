@@ -1,6 +1,7 @@
 import { moveReach, sizeProxy, TETHER_GRABS, wikiPageFor, type Character, type FrameData, type HitboxGroup } from '@smash-trainer/core';
 import raw from '../generated/frameData.json';
 import hitboxRaw from '../generated/hitboxes.json';
+import { parseInvulnerability } from './iframes';
 
 const data = raw as FrameData;
 const hitboxes = (hitboxRaw as unknown as { fighters: Record<string, { traction: number | null; moves: Record<string, HitboxGroup[]> }> }).fighters;
@@ -67,8 +68,13 @@ function withRange(c: Character): Character {
   };
 }
 
+/** Intangibility / armor windows parsed from each move's UFD notes. */
+function withIframes(c: Character): Character {
+  return { ...c, moves: c.moves.map((m) => ({ ...m, iframes: parseInvulnerability(m.notes) })) };
+}
+
 export const characters: Character[] = data.characters
-  .map((c) => withRange(withGifFallbacks({ ...c, name: displayName(c.slug) })))
+  .map((c) => withIframes(withRange(withGifFallbacks({ ...c, name: displayName(c.slug) }))))
   .sort((a, b) => a.name.localeCompare(b.name));
 
 export const characterBySlug = new Map(characters.map((c) => [c.slug, c]));

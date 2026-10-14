@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { grade, punishOptions, punishTable, situationsFor, summarize } from '@smash-trainer/core';
-import { characterBySlug, characters, fighterNumber, fighterOrder, resourcesFor } from '../src/index.ts';
+import { characterBySlug, characters, fighterNumber, fighterOrder, parseInvulnerability, resourcesFor } from '../src/index.ts';
 
 const get = (slug: string) => {
   const c = characterBySlug.get(slug);
@@ -100,5 +100,27 @@ describe('matchup tables', () => {
     expect(rows.find((r) => r.situation.move.name === 'Forward Smash')?.punishers.some((p) => p.move.name === 'Forward Tilt')).toBe(true);
     const close = summarize(rows), max = summarize(punishTable(get('kirby'), get('lucas'), 'max'));
     expect(max.punishable).toBeLessThanOrEqual(close.punishable);
+  });
+});
+
+describe('i-frames parsed from UFD notes', () => {
+  const move = (slug: string, name: string) => get(slug).moves.find((m) => m.name === name)!;
+  it("Lucas's PK Thunder self-hit is intangible on frames 1-9", () => {
+    expect(move('lucas', 'Up B, Self-hit (PK Thunder 2)').iframes).toEqual([{ kind: 'intangible', start: 1, end: 9, full: true }]);
+  });
+  it("Corrin's Up B is invulnerable on frames 7-17", () => {
+    expect(move('corrin', 'Up B (Dragon Ascent)').iframes).toEqual([{ kind: 'intangible', start: 7, end: 17, full: true }]);
+  });
+  it("Kirby's up smash only has leg intangibility (partial, not full body)", () => {
+    expect(move('kirby', 'Up Smash').iframes).toEqual([{ kind: 'intangible', start: 12, end: 17, full: false, part: 'leg' }]);
+  });
+  it('flags armor separately and skips conditional notes', () => {
+    expect(parseInvulnerability('Intangible frames 3—5, Super Armor frames 6—10.')).toEqual([
+      { kind: 'intangible', start: 3, end: 5, full: true },
+      { kind: 'armor', start: 6, end: 10, full: true },
+    ]);
+    expect(parseInvulnerability('Invulnerable on frame 4-6, 5-10 in the air.')[1]).toMatchObject({ start: 5, end: 10, only: 'air' });
+    expect(parseInvulnerability('23 frames of invulnerability after a successful grab.')).toEqual([]);
+    expect(parseInvulnerability('Intangibility on 5-6 when detecting.')).toEqual([]);
   });
 });

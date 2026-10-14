@@ -178,7 +178,7 @@ function PunishTable({ rows, defender }: { rows: PunishRow[]; defender: Characte
       <div className="table-wrap">
         <table className="cards-on-mobile">
           <thead>
-            <tr><th>Move</th><th>On shield</th><th>Best punish ({defender.name})</th><th>Also punishes</th><th>Fast enough but out of range</th></tr>
+            <tr><th>Move</th><th>On shield</th><th>Best punish ({defender.name})</th><th>Also punishes</th><th>Fast enough but doesn't connect</th></tr>
           </thead>
           <tbody>
             {shown.map((r, i) => (
@@ -188,9 +188,21 @@ function PunishTable({ rows, defender }: { rows: PunishRow[]; defender: Characte
                   {r.situation.hitbox && <span className="muted small"> ({r.situation.hitbox})</span>}
                 </td>
                 <td data-label="On shield" className="neg">{r.situation.advantage}</td>
-                <td data-label="Best punish">{r.best ? <><b>{r.best.move.name}</b> <span className="muted small">F{r.best.oosFrame} · ~{r.best.reward}%</span></> : <span className="muted">safe</span>}</td>
+                <td data-label="Best punish">
+                  {r.best ? (
+                    <>
+                      <b>{r.best.move.name}</b> <span className="muted small">F{r.best.oosFrame} · ~{r.best.reward}%</span>
+                      {r.lingering.get(r.best) === 'trade' && <span className="warn small" title="The move keeps hitting while this starts"> · may trade</span>}
+                      {r.lingering.get(r.best) === 'beats' && <span className="good small"> · invincible through it</span>}
+                    </>
+                  ) : (
+                    <span className="muted">safe</span>
+                  )}
+                </td>
                 <td data-label="Also punish" className="small">{r.punishers.filter((p) => p !== r.best).length || ''}</td>
-                <td data-label="Out of range" className="small muted">{r.outOfRange.map((o) => o.move.name).join(', ')}</td>
+                <td data-label="Doesn't connect" className="small muted">
+                  {[...r.outOfRange.map((o) => `${o.move.name} (range)`), ...r.intangible.map((o) => `${o.move.name} (intangible)`)].join(', ')}
+                </td>
               </tr>
             ))}
           </tbody>

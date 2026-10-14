@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { characterBySlug, characters } from '@smash-trainer/data';
 import {
+  intangibleAt,
   bucketBy,
   grade,
   pick,
@@ -146,15 +147,16 @@ export function SafetySession({
       </div>
 
       {answer && <button className="primary next-fab" onClick={next}>Next ▶</button>}
-      {answer && <SafetyFeedback correct={!!correct} grade={answer.grade} situation={situation} defender={defender} onNext={next} />}
+      {answer && <SafetyFeedback correct={!!correct} grade={answer.grade} situation={situation} defender={defender} spacing={spacing} onNext={next} />}
     </div>
   );
 }
 
-const gradeQuestion = (q: SafetyQuestion) => grade(q.options, q.situation, null, { spacing: q.spacing, defender: q.defender });
+const gradeQuestion = (q: SafetyQuestion) => grade(q.options, q.situation, null, { spacing: q.spacing, defender: q.defender, iframes: true });
 const isSafe = (q: SafetyQuestion) => gradeQuestion(q).best == null;
 
-function SafetyFeedback({ correct, grade: g, situation, defender, onNext }: { correct: boolean; grade: Grade; situation: Situation; defender: Character; onNext: () => void }) {
+function SafetyFeedback({ correct, grade: g, situation, defender, spacing, onNext }: { correct: boolean; grade: Grade; situation: Situation; defender: Character; spacing: Spacing; onNext: () => void }) {
+  const iframeHit = g.intangible[0] ? intangibleAt(g.intangible[0], situation, { spacing, defender, iframes: true }) : null;
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -172,6 +174,11 @@ function SafetyFeedback({ correct, grade: g, situation, defender, onNext }: { co
           {defender.name} punishes with <b>{g.best.move.name}</b> (frame {g.best.oosFrame} out of shield, ~{g.best.reward}%)
           {g.punishers.length > 1 && <>, or {g.punishers.length - 1} other option{g.punishers.length > 2 ? 's' : ''}</>}. You're{' '}
           {-situation.advantage} frames behind.
+        </p>
+      ) : g.intangible.length ? (
+        <p>
+          Safe: you're intangible on frames {iframeHit!.window.start}–{iframeHit!.window.end} of {situation.move.name}, right when{' '}
+          {defender.name}'s {g.intangible.map((o) => o.move.name).join(', ')} would hit.
         </p>
       ) : g.outOfRange.length ? (
         <p>

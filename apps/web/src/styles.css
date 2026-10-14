@@ -244,3 +244,8 @@ td.notes { color: var(--muted); font-size: 0.8rem; max-width: 320px; }
 .progress-page .move-name { white-space: normal; }
 .reset-btn { margin-top: 24px; }
 @media (max-width: 600px) { .topnav { gap: 10px; font-size: 0.82rem; } }
+.opt-flag.good { color: var(--good); }
+.feedback .warn { color: var(--accent-2); }
+.warn { color: var(--accent-2); }
+.good { color: var(--good); }
+table.cards-on-mobile td[data-label="Doesn't connect"] { grid-column: 1 / -1; }

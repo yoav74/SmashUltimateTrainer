@@ -77,7 +77,7 @@ describe('grade with range', () => {
     moves: [move('Up Smash', 'groundattacks', 8, { reach: { units: 6, exact: true } }), move('Forward Tilt', 'groundattacks', 6, { reach: { units: 30, exact: true } })],
   };
   const attacker: Character = { slug: 'a', name: 'a', oos: [], stats: {}, physics, moves: [] };
-  const s = { attacker, move: move('Forward Smash', 'groundattacks', 15, { reach: { units: 15, exact: true } }), hitbox: null, advantage: -25, damage: 15, shieldstun: 14 };
+  const s = { attacker, move: move('Forward Smash', 'groundattacks', 15, { reach: { units: 15, exact: true } }), hitbox: null, advantage: -25, damage: 15, shieldstun: 14, hitFrame: 15, lastActive: 17 };
 
   it('ignores range when no context is given (frame-only, as before)', () => {
     expect(grade([], s, null).verdict).toBe('optimal');

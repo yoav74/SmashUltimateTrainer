@@ -56,6 +56,12 @@ A punish also has to **reach** after shield pushback. The trainer has a spacing 
 - **Movement:** out-of-shield aerials drift forward (air speed and acceleration), and dash attacks travel.
 - All guessed constants live in `ESTIMATE` in `reach.ts`.
 
+### Intangibility (`packages/data/src/iframes.ts`, `punish.ts`)
+
+UFD's notes ("Intangible on frame 3-17", "Leg intangibility on frame 12-17", "Super armor on frame 8-13") are parsed into windows (~1,080 moves). The trainer and matchup pages then check:
+- **Their intangibility:** a punish fails if it would land while the attacker is fully intangible (attacker frame = hit frame + shieldstun + your out-of-shield frame). Partial-body windows and armor are recorded but don't fail punishes.
+- **Lingering multi-hits:** if a re-hitting move is still active when you act, your punish is flagged "may trade", unless your option's own invincibility covers those frames (e.g. Corrin's Up B), which beats it. Flag only; it doesn't change the answer.
+
 **Known limits:** "best punish" ranks by raw damage (no kill power or follow-ups), bone-attached reach is an estimate, and multi-hit moves count their biggest single hit.
 
 ---

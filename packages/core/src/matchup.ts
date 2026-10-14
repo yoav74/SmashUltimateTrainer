@@ -8,6 +8,10 @@ export interface PunishRow {
   punishers: PunishOption[];
   /** Fast enough, but out of range at this spacing. */
   outOfRange: PunishOption[];
+  /** Fast enough and in range, but the attacker is intangible when they'd hit. */
+  intangible: PunishOption[];
+  /** Punishes that start while a re-hitting move is still active: 'beats' with invincibility, or may 'trade'. */
+  lingering: Map<PunishOption, 'beats' | 'trade'>;
   best: PunishOption | null;
 }
 
@@ -17,11 +21,11 @@ export interface PunishRow {
  */
 export function punishTable(attacker: Character, defender: Character, spacing: Spacing): PunishRow[] {
   const options = punishOptions(defender);
-  const ctx = { spacing, defender };
+  const ctx = { spacing, defender, iframes: true };
   return situationsFor(attacker, { includeAerials: true, includeSpecials: true })
     .map((situation) => {
       const g = grade(options, situation, null, ctx);
-      return { situation, punishers: g.punishers, outOfRange: g.outOfRange, best: g.best };
+      return { situation, punishers: g.punishers, outOfRange: g.outOfRange, intangible: g.intangible, lingering: g.lingering, best: g.best };
     })
     .sort((a, b) => a.situation.advantage - b.situation.advantage);
 }
