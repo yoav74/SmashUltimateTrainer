@@ -6,8 +6,10 @@ Placeholders below: `<ref>` is your Supabase project ref (the `xxxx` in `https:/
 
 ## 1. Supabase project
 1. Sign up at [supabase.com](https://supabase.com) (free tier) and create a project. Pick the region closest to most players, and save the database password somewhere safe.
-2. **Create the tables:** go to *SQL Editor → New query*, paste the whole of [`supabase/migrations/20261014120000_users.sql`](../supabase/migrations/20261014120000_users.sql), and click **Run**. This creates `profiles`, `favorite_fighters` and `feedback`, all with row-level security.
-3. **Keys:** go to *Project Settings → API* (or *Data API*) and copy the **Project URL** and the **anon / public** key. Both are safe in the browser. Never use the `service_role` key in the site.
+2. **Create the tables:** go to *SQL Editor → New query* and run each file in [`supabase/migrations`](../supabase/migrations), in order:
+   1. `20261014120000_users.sql` creates `profiles`, `favorite_fighters` and `feedback`, all with row-level security.
+   2. `20261014130000_grants.sql` gives signed-in users access to those tables. It's needed when "Automatically expose new tables" is off, and harmless when it's on.
+3. **Keys:** go to *Project Settings → API Keys* and copy the **Project URL** and the **publishable** key (`sb_publishable_…`; older projects call it the **anon / public** key). Both are safe in the browser. Never use the **secret** / `service_role` key in the site.
 4. **Redirect URLs:** go to *Authentication → URL Configuration*.
    - **Site URL:** `https://smashultimatetrainer.yoav74.workers.dev`
    - **Redirect URLs:** add `https://smashultimatetrainer.yoav74.workers.dev/**` and `http://localhost:5173/**`
@@ -30,7 +32,7 @@ Placeholders below: `<ref>` is your Supabase project ref (the `xxxx` in `https:/
 1. Cloudflare dashboard → *Workers & Pages* → **smashultimatetrainer** → *Settings → Build → Variables and secrets*.
 2. Add two build variables (plain text):
    - `VITE_SUPABASE_URL` = the Project URL
-   - `VITE_SUPABASE_ANON_KEY` = the anon key
+   - `VITE_SUPABASE_ANON_KEY` = the publishable (or anon) key
 3. Redeploy: push any commit, or *Deployments → … → Retry build*. Vite bakes these into the build, so a rebuild is required.
 
 ## 5. Local development
