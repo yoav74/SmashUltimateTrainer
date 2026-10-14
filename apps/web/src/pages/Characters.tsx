@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { characterBySlug, characters, dataSource, fighterNumber, resourcesFor, youtubeSearch, type ResourceLink } from '@smash-trainer/data';
 import { sortFighters, useFighterSort } from '../lib/fighterSort';
 import { SortToggle } from '../components/SortToggle';
@@ -125,6 +125,22 @@ function Resources({ slug, name }: { slug: string; name: string }) {
   );
 }
 
+/** Jump to this fighter's matchup against anyone. */
+function MatchupSelect({ from }: { from: string }) {
+  const navigate = useNavigate();
+  const [sort] = useFighterSort();
+  return (
+    <select className="mu-select" value="" onChange={(e) => e.target.value && navigate(`/matchups/${from}/${e.target.value}`)} aria-label="Open a matchup">
+      <option value="">Matchup vs…</option>
+      {sortFighters(characters, sort)
+        .filter((c) => c.slug !== from)
+        .map((c) => (
+          <option key={c.slug} value={c.slug}>{c.name}</option>
+        ))}
+    </select>
+  );
+}
+
 export function CharacterDetail({ slug }: { slug: string }) {
   const c = characterBySlug.get(slug);
   if (!c) return <p>Unknown fighter.</p>;
@@ -142,6 +158,7 @@ export function CharacterDetail({ slug }: { slug: string }) {
           <div className="hero-actions">
             <Link className="primary" to={`/?you=${c.slug}`}>Train as {c.name}</Link>
             {discord && <a className="link-btn discord" href={discord.url} target="_blank" rel="noreferrer">Join Discord</a>}
+            <MatchupSelect from={c.slug} />
           </div>
         </div>
       </header>

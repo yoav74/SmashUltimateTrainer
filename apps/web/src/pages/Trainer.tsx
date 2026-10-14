@@ -22,6 +22,13 @@ import {
 import { CharacterPicker, RANDOM } from '../components/CharacterPicker';
 import { HitboxGif, Portrait, preloadImages } from '../components/Media';
 import { getStats, recordResult } from '../lib/stats';
+import { SafetySession } from './SafetyDrill';
+
+type Mode = 'punish' | 'safety';
+const MODES: Record<Mode, { title: string; help: string }> = {
+  punish: { title: 'Punish', help: "Their move hits your shield. Pick the punish." },
+  safety: { title: 'Is it safe?', help: "Your move hits their shield. Is it safe, or can they punish it?" },
+};
 
 /** 'mixed' gives each question close or max range at random, and says which. */
 type TrainerSpacing = Spacing | 'mixed';
@@ -54,7 +61,11 @@ export function Trainer() {
     const s = params.get('you');
     return s && characterBySlug.has(s) ? s : null;
   });
-  const [opp, setOpp] = useState<string | null>(RANDOM);
+  // Matchup pages link here as /?you=<slug>&opp=<slug>.
+  const [opp, setOpp] = useState<string | null>(() => {
+    const s = params.get('opp');
+    return s && characterBySlug.has(s) ? s : RANDOM;
+  });
   const [settings, setSettings] = useState<Settings>({
     includeAerials: true,
     includeSpecials: true,
@@ -62,18 +73,40 @@ export function Trainer() {
     showMoveGifs: true,
     spacing: 'close',
   });
+  const [mode, setMode] = useState<Mode>(() => (params.get('mode') === 'safety' ? 'safety' : 'punish'));
   const [running, setRunning] = useState(false);
 
   if (running && you && opp) {
-    return <Session you={characterBySlug.get(you)!} opp={opp} settings={settings} onExit={() => setRunning(false)} />;
+    const exit = () => setRunning(false);
+    if (mode === 'safety') {
+      return (
+        <SafetySession
+          you={characterBySlug.get(you)!}
+          opp={opp}
+          spacing={settings.spacing}
+          includeAerials={settings.includeAerials}
+          includeSpecials={settings.includeSpecials}
+          onExit={exit}
+        />
+      );
+    }
+    return <Session you={characterBySlug.get(you)!} opp={opp} settings={settings} onExit={exit} />;
   }
 
   return (
     <div className="setup">
-      <h1>Punish Trainer</h1>
-      <p className="muted">
-        The enemy's move hits your shield. Pick the punish. Answers use frame data plus each move's reach and shield pushback.
-      </p>
+      <h1>Trainer</h1>
+      <p className="muted">Answers use frame data plus each move's reach and shield pushback.</p>
+
+      <div className="spacing-choice mode-choice">
+        {(Object.keys(MODES) as Mode[]).map((m) => (
+          <label key={m} className={`spacing-option ${mode === m ? 'on' : ''}`}>
+            <input type="radio" name="mode" checked={mode === m} onChange={() => setMode(m)} />
+            <b>{MODES[m].title}</b>
+            <span className="muted small">{MODES[m].help}</span>
+          </label>
+        ))}
+      </div>
 
       <section>
         <h2>1. Your fighter</h2>
@@ -102,11 +135,11 @@ export function Trainer() {
         <h2>4. Options</h2>
         <label className="toggle">
           <input type="checkbox" checked={settings.includeAerials} onChange={(e) => setSettings({ ...settings, includeAerials: e.target.checked })} />
-          Include enemy aerials (landing on shield)
+          Include aerials (landing on shield)
         </label>
         <label className="toggle">
           <input type="checkbox" checked={settings.includeSpecials} onChange={(e) => setSettings({ ...settings, includeSpecials: e.target.checked })} />
-          Include enemy specials
+          Include specials
         </label>
         <label className="toggle">
           <input type="checkbox" checked={settings.showFrames} onChange={(e) => setSettings({ ...settings, showFrames: e.target.checked })} />

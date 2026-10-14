@@ -141,3 +141,21 @@ td.notes { color: var(--muted); font-size: 0.8rem; max-width: 320px; }
 /* Spacing tag: easy to spot in Mixed mode */
 .spacing-tag.close { border-color: var(--ok); color: var(--ok); }
 .spacing-tag.max { border-color: var(--accent-2); color: var(--accent-2); }
+
+/* Matchups */
+.mu-header { display: flex; align-items: center; justify-content: center; gap: 24px; margin: 14px 0; flex-wrap: wrap; }
+.mu-fighter { display: flex; gap: 12px; align-items: center; }
+.mu-name { font-size: 1.6rem; font-weight: 800; color: var(--text); text-decoration: none; }
+.mu-vs { display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 800; color: var(--muted); }
+.mu-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.mu-actions .primary { text-decoration: none; color: var(--text); }
+.mu-stat { text-align: center; }
+.mu-big { font-size: 2.2rem; font-weight: 800; color: var(--accent-2); }
+.mu-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mu-stats td, .mu-stats th { padding: 4px 6px; }
+.mu-select { background: var(--panel-2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font: inherit; }
+
+.mode-choice { margin: 6px 0 4px; }
+.safety-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 480px; margin: 12px auto 0; }
+.big-choice { align-items: center; justify-content: center; flex-direction: row; gap: 10px; padding: 18px; font-size: 1.1rem; }
+.mu-train { display: flex; gap: 8px; align-items: center; }

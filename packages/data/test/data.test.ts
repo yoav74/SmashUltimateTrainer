@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { grade, punishOptions, situationsFor } from '@smash-trainer/core';
+import { grade, punishOptions, punishTable, situationsFor, summarize } from '@smash-trainer/core';
 import { characterBySlug, characters, fighterNumber, fighterOrder, resourcesFor } from '../src/index.ts';
 
 const get = (slug: string) => {
@@ -89,5 +89,16 @@ describe('reach from SmashWiki hitbox data', () => {
     const s = situationsFor(get('kirby'), { includeAerials: true, includeSpecials: true }).find((x) => x.move.name === 'Forward Smash')!;
     const ftilt = punishOptions(lucas).find((o) => o.move.name === 'Forward Tilt')!;
     expect(grade(punishOptions(lucas), s, ftilt, { spacing: 'close', defender: lucas }).verdict).not.toBe('wrong');
+  });
+});
+
+describe('matchup tables', () => {
+  it('lists the attacker\'s shielded moves, most punishable first, with the defender\'s punishes', () => {
+    const rows = punishTable(get('kirby'), get('lucas'), 'close');
+    expect(rows.length).toBeGreaterThan(10);
+    expect(rows[0].situation.advantage).toBeLessThanOrEqual(rows[rows.length - 1].situation.advantage);
+    expect(rows.find((r) => r.situation.move.name === 'Forward Smash')?.punishers.some((p) => p.move.name === 'Forward Tilt')).toBe(true);
+    const close = summarize(rows), max = summarize(punishTable(get('kirby'), get('lucas'), 'max'));
+    expect(max.punishable).toBeLessThanOrEqual(close.punishable);
   });
 });

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { Trainer } from './pages/Trainer';
 import { CharacterDetail, CharacterList } from './pages/Characters';
+import { MatchupPage, MatchupPicker } from './pages/Matchups';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -23,14 +24,17 @@ export function App() {
       <ScrollToTop />
       <nav className="topnav">
         <Link to="/" className="brand">Smash Trainer</Link>
-        <NavLink to="/" end>Punish Trainer</NavLink>
+        <NavLink to="/" end>Trainer</NavLink>
         <NavLink to="/characters">Fighters</NavLink>
+        <NavLink to="/matchups">Matchups</NavLink>
       </nav>
       <main>
         <Routes>
           <Route path="/" element={<Trainer />} />
           <Route path="/characters" element={<CharacterList />} />
           <Route path="/characters/:slug" element={<CharacterRoute />} />
+          <Route path="/matchups" element={<MatchupPicker />} />
+          <Route path="/matchups/:you/:opp" element={<MatchupPage />} />
           <Route path="*" element={<p>Page not found.</p>} />
         </Routes>
       </main>
