@@ -43,7 +43,7 @@ export function Progress() {
       <div>
         <h1>Progress</h1>
         <p className="muted">
-          Nothing yet. Answer some questions in the <Link to="/">Trainer</Link> and your weak spots will show up here. Questions you miss come back
+          Nothing yet. Answer some questions in the <Link to="/train">Trainer</Link> and your weak spots will show up here. Questions you miss come back
           a few questions later, then after 10 minutes, a day, 3 days and a week, until you've got them down.
         </p>
       </div>
@@ -92,7 +92,7 @@ export function Progress() {
                       </td>
                       <td data-label="Next review">{dueLabel(c, now)}</td>
                       <td data-label="">
-                        <Link className="small" to={`/?you=${k.you}&opp=${k.opp}${k.mode === 'safety' ? '&mode=safety' : ''}`}>Drill ▶</Link>
+                        <Link className="small" to={`/train?you=${k.you}&opp=${k.opp}${k.mode === 'safety' ? '&mode=safety' : ''}`}>Drill ▶</Link>
                       </td>
                     </tr>
                   );
@@ -122,7 +122,7 @@ export function Progress() {
                     <td data-label="Accuracy" className={m.accuracy < 0.6 ? 'neg' : ''}>{Math.round(m.accuracy * 100)}%</td>
                     <td data-label="Optimal">{Math.round((m.optimal / m.attempts) * 100)}%</td>
                     <td data-label="">
-                      <Link className="small" to={`/?you=${m.you}&opp=${m.opp}`}>Drill ▶</Link>
+                      <Link className="small" to={`/train?you=${m.you}&opp=${m.opp}`}>Drill ▶</Link>
                     </td>
                   </tr>
                 ))}

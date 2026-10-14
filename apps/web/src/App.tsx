@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { Trainer } from './pages/Trainer';
 import { CharacterDetail, CharacterList } from './pages/Characters';
 import { MatchupPage, MatchupPicker } from './pages/Matchups';
 import { Progress } from './pages/Progress';
+import { Home } from './pages/Home';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -12,6 +13,14 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+}
+
+/** The trainer used to live at "/". Old links like /?you=lucas still open it. */
+function HomeRoute() {
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  if (params.has('you') || params.has('opp') || params.has('mode')) return <Navigate to={`/train${search}`} replace />;
+  return <Home />;
 }
 
 function CharacterRoute() {
@@ -25,14 +34,15 @@ export function App() {
       <ScrollToTop />
       <nav className="topnav">
         <Link to="/" className="brand">Smash Trainer</Link>
-        <NavLink to="/" end>Trainer</NavLink>
+        <NavLink to="/train">Trainer</NavLink>
         <NavLink to="/characters">Fighters</NavLink>
         <NavLink to="/matchups">Matchups</NavLink>
         <NavLink to="/progress">Progress</NavLink>
       </nav>
       <main>
         <Routes>
-          <Route path="/" element={<Trainer />} />
+          <Route path="/" element={<HomeRoute />} />
+          <Route path="/train" element={<Trainer />} />
           <Route path="/characters" element={<CharacterList />} />
           <Route path="/characters/:slug" element={<CharacterRoute />} />
           <Route path="/matchups" element={<MatchupPicker />} />

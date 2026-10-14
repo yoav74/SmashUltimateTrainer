@@ -156,7 +156,7 @@ export function CharacterDetail({ slug }: { slug: string }) {
         <div>
           <h1>{c.name} <span className="muted hero-num">#{fighterNumber(c.slug)}</span></h1>
           <div className="hero-actions">
-            <Link className="primary" to={`/?you=${c.slug}`}>Train as {c.name}</Link>
+            <Link className="primary" to={`/train?you=${c.slug}`}>Train as {c.name}</Link>
             {discord && <a className="link-btn discord" href={discord.url} target="_blank" rel="noreferrer">Join Discord</a>}
             <MatchupSelect from={c.slug} />
           </div>

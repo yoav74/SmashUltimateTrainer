@@ -70,8 +70,8 @@ export function MatchupPage() {
           ))}
         </div>
         <div className="mu-train">
-          <Link className="primary" to={`/?you=${you.slug}&opp=${opp.slug}`}>Drill punishes</Link>
-          <Link className="ghost" to={`/?you=${you.slug}&opp=${opp.slug}&mode=safety`}>Drill "is it safe?"</Link>
+          <Link className="primary" to={`/train?you=${you.slug}&opp=${opp.slug}`}>Drill punishes</Link>
+          <Link className="ghost" to={`/train?you=${you.slug}&opp=${opp.slug}&mode=safety`}>Drill "is it safe?"</Link>
         </div>
       </div>
 
