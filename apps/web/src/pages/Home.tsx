@@ -6,24 +6,8 @@ import { CharacterPicker } from '../components/CharacterPicker';
 import { Portrait } from '../components/Media';
 import { sortFighters, useFighterSort } from '../lib/fighterSort';
 import { allCards, parseCardId } from '../lib/srs';
-
-const MAIN_KEY = 'smash-trainer:main';
-
-function readMain(): string | null {
-  try {
-    const s = localStorage.getItem(MAIN_KEY);
-    return s && characterBySlug.has(s) ? s : null;
-  } catch {
-    return null;
-  }
-}
-
-function writeMain(slug: string | null) {
-  try {
-    if (slug) localStorage.setItem(MAIN_KEY, slug);
-    else localStorage.removeItem(MAIN_KEY);
-  } catch {}
-}
+import { useMain } from '../lib/main';
+import { useAuth } from '../lib/auth';
 
 const MOVE_COUNT = characters.reduce((n, c) => n + c.moves.length, 0);
 
@@ -61,11 +45,11 @@ const FEATURES = [
 ];
 
 export function Home() {
-  const [main, setMain] = useState<string | null>(readMain);
+  const [main, setMain, mains] = useMain();
+  const auth = useAuth();
   const [changing, setChanging] = useState(false);
   const choose = (slug: string) => {
-    setMain(slug);
-    writeMain(slug);
+    setMain(slug).catch(() => {});
     setChanging(false);
   };
 
@@ -87,11 +71,20 @@ export function Home() {
 
       <section className="card home-main">
         {main && !changing ? (
-          <MainPanel slug={main} onChange={() => setChanging(true)} />
+          <MainPanel slug={main} mains={mains} onPick={choose} onChange={() => setChanging(true)} />
         ) : (
           <>
             <h2>Who's your main?</h2>
-            <p className="muted small">Pick one for quick shortcuts. Saved in this browser.</p>
+            <p className="muted small">
+              Pick one for quick shortcuts.{' '}
+              {auth.enabled && !auth.session ? (
+                <>Saved in this browser, or <Link to="/login">sign in</Link> to keep several mains on your account.</>
+              ) : auth.session ? (
+                'Saved to your account.'
+              ) : (
+                'Saved in this browser.'
+              )}
+            </p>
             <CharacterPicker value={main} onChange={choose} />
             {changing && (
               <button className="ghost small" onClick={() => setChanging(false)}>
@@ -135,7 +128,7 @@ export function Home() {
   );
 }
 
-function MainPanel({ slug, onChange }: { slug: string; onChange: () => void }) {
+function MainPanel({ slug, mains, onPick, onChange }: { slug: string; mains: string[]; onPick: (slug: string) => void; onChange: () => void }) {
   const c = characterBySlug.get(slug)!;
   const navigate = useNavigate();
   const [sort] = useFighterSort();
@@ -150,6 +143,15 @@ function MainPanel({ slug, onChange }: { slug: string; onChange: () => void }) {
       <div className="home-main-body">
         <div className="muted small">Your main</div>
         <h2>{c.name}</h2>
+        {mains.length > 1 && (
+          <div className="mains-switch">
+            {mains.map((m) => (
+              <button key={m} className={`mini-main ${m === slug ? 'on' : ''}`} onClick={() => onPick(m)} title={characterBySlug.get(m)?.name}>
+                <Portrait slug={m} name={characterBySlug.get(m)?.name ?? m} size={28} />
+              </button>
+            ))}
+          </div>
+        )}
         <div className="home-main-actions">
           <Link className="primary" to={`/train?you=${slug}`}>Drill punishes</Link>
           <Link className="ghost" to={`/train?you=${slug}&mode=safety`}>Is it safe?</Link>

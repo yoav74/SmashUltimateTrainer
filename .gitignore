@@ -3,3 +3,6 @@ dist
 .cache
 *.tsbuildinfo
 .wrangler
+.env
+.env.*
+!.env.example

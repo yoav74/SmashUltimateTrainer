@@ -13,6 +13,10 @@ npm test
 npm run build
 ```
 
+## Accounts (optional)
+
+Sign-in with email, Google or Discord, saved mains and feedback run on Supabase. Without the `VITE_SUPABASE_*` build variables, the site works as before with accounts hidden. Setup: [docs/accounts-setup.md](docs/accounts-setup.md). Schema and security policies: [supabase/migrations](supabase/migrations).
+
 ## Layout
 
 - `packages/core`: punish engine + types (pure TS, shared by web, the future desktop app and AI coach)

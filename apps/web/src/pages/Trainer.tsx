@@ -25,6 +25,7 @@ import { HitboxGif, Portrait, preloadImages } from '../components/Media';
 import { getStats, recordResult } from '../lib/stats';
 import { cardFor, nextWithReviews, recordCard } from '../lib/srs';
 import { SafetySession } from './SafetyDrill';
+import { useMain } from '../lib/main';
 
 type Mode = 'punish' | 'safety';
 const MODES: Record<Mode, { title: string; help: string }> = {
@@ -65,10 +66,15 @@ interface Served extends Question {
 export function Trainer() {
   // Fighter pages link here as /?you=<slug>.
   const [params] = useSearchParams();
+  const [main] = useMain();
   const [you, setYou] = useState<string | null>(() => {
     const s = params.get('you');
-    return s && characterBySlug.has(s) ? s : null;
+    return s && characterBySlug.has(s) ? s : main;
   });
+  // Signed-in mains load after the first render; use the primary main if nothing was picked yet.
+  useEffect(() => {
+    if (!you && main) setYou(main);
+  }, [main]);
   // Matchup pages link here as /?you=<slug>&opp=<slug>.
   const [opp, setOpp] = useState<string | null>(() => {
     const s = params.get('opp');
