@@ -319,3 +319,9 @@ table.cards-on-mobile td[data-label="Doesn't connect"] { grid-column: 1 / -1; }
 .pw-rules { list-style: none; padding: 0; margin: 2px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; color: var(--muted); }
 .pw-rules li.ok { color: var(--good); }
 .inline-form .pw-rules { flex-basis: 100%; }
+.oauth-btn { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.oauth-logo { width: 20px; height: 20px; flex-shrink: 0; }
+.avatar-prompt { display: flex; gap: 14px; align-items: center; }
+.avatar-prompt p { margin: 4px 0 8px; }
+.legal h2 { margin-top: 1.4em; }
+.legal ul { padding-left: 20px; }

@@ -7,6 +7,7 @@ import { Progress } from './pages/Progress';
 import { Home } from './pages/Home';
 import { Account, Login } from './pages/Account';
 import { Feedback } from './pages/Feedback';
+import { Privacy } from './pages/Privacy';
 import { AuthProvider, useAuth } from './lib/auth';
 
 function ScrollToTop() {
@@ -69,6 +70,7 @@ export function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account />} />
           <Route path="/feedback" element={<Feedback />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<p>Page not found.</p>} />
         </Routes>
       </main>
@@ -76,7 +78,7 @@ export function App() {
         Free, fan-made and open source. Not affiliated with Nintendo. Frame data from{' '}
         <a href="https://ultimateframedata.com" target="_blank" rel="noreferrer">ultimateframedata.com</a>; community resources
         from <a href="https://dragdown.wiki" target="_blank" rel="noreferrer">dragdown</a> and{' '}
-        <a href="https://www.ssbwiki.com" target="_blank" rel="noreferrer">SmashWiki</a>. <Link to="/feedback">Send feedback</Link>
+        <a href="https://www.ssbwiki.com" target="_blank" rel="noreferrer">SmashWiki</a>. <Link to="/feedback">Send feedback</Link> · <Link to="/privacy">Privacy</Link>
       </footer>
     </BrowserRouter>
     </AuthProvider>

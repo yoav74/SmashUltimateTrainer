@@ -34,9 +34,32 @@ function PasswordRules({ pw }: { pw: string }) {
   );
 }
 
-const PROVIDERS: { id: OAuthProvider; label: string }[] = [
-  { id: 'google', label: 'Continue with Google' },
-  { id: 'discord', label: 'Continue with Discord' },
+// Official marks, as Google's and Discord's sign-in button guidelines describe.
+function GoogleLogo() {
+  return (
+    <svg className="oauth-logo" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+    </svg>
+  );
+}
+
+function DiscordLogo() {
+  return (
+    <svg className="oauth-logo" viewBox="0 0 127.14 96.36" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"
+      />
+    </svg>
+  );
+}
+
+const PROVIDERS: { id: OAuthProvider; label: string; Logo: () => JSX.Element }[] = [
+  { id: 'google', label: 'Continue with Google', Logo: GoogleLogo },
+  { id: 'discord', label: 'Continue with Discord', Logo: DiscordLogo },
 ];
 
 /** /login: Google, Discord, or email and password (sign in or register). */
@@ -84,14 +107,17 @@ export function Login() {
   return (
     <div className="auth-page">
       <h1>{mode === 'register' ? 'Create an account' : mode === 'forgot' ? 'Reset your password' : 'Sign in'}</h1>
-      <p className="muted small">Save your mains, send feedback, and (soon) keep your progress across devices.</p>
+      <p className="muted small">
+        Save your mains, send feedback, and (soon) keep your progress across devices. <Link to="/privacy">What we store</Link>
+      </p>
 
       {mode !== 'forgot' && (
         <>
           <div className="oauth-buttons">
             {PROVIDERS.map((p) => (
               <button key={p.id} className={`oauth-btn ${p.id}`} disabled={busy} onClick={() => run(() => auth.signInWithProvider(p.id))}>
-                {p.label}
+                <p.Logo />
+                <span>{p.label}</span>
               </button>
             ))}
           </div>
@@ -162,6 +188,7 @@ export function Account() {
     <div className="auth-page account-page">
       <h1>Your account</h1>
       {params.get('reset') && <NewPassword />}
+      <AvatarPrompt />
 
       <section className="card">
         <ProfileEditor />
@@ -179,6 +206,29 @@ export function Account() {
         <button className="ghost" onClick={() => auth.signOut()}>Sign out</button>
       </section>
     </div>
+  );
+}
+
+const providerName = (provider: string | undefined) => (provider === 'discord' ? 'Discord' : 'Google');
+
+/** Asked once, the first time a Google/Discord user opens their account. */
+function AvatarPrompt() {
+  const auth = useAuth();
+  const p = auth.profile;
+  if (!p || p.avatar_asked || !auth.providerAvatar) return null;
+  const name = providerName(auth.session?.user.app_metadata.provider);
+  return (
+    <section className="card avatar-prompt">
+      <img className="avatar big" src={auth.providerAvatar} alt="" referrerPolicy="no-referrer" />
+      <div>
+        <b>Use your {name} picture?</b>
+        <p className="muted small">It's only shown on your account. You can change this any time.</p>
+        <div className="inline-form">
+          <button className="primary" onClick={() => auth.setUseProviderAvatar(true)}>Use it</button>
+          <button className="ghost" onClick={() => auth.setUseProviderAvatar(false)}>No thanks</button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -215,6 +265,14 @@ function ProfileEditor() {
         <div>
           <h2>{p.display_name}</h2>
           <button className="linklike small" onClick={() => { setName(p.display_name); setEditing(true); }}>Edit name</button>
+          {auth.providerAvatar && p.avatar_asked && (
+            <>
+              {' · '}
+              <button className="linklike small" onClick={() => auth.setUseProviderAvatar(!p.avatar_url)}>
+                {p.avatar_url ? 'Remove picture' : `Use ${providerName(auth.session?.user.app_metadata.provider)} picture`}
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>

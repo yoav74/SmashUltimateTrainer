@@ -8,6 +8,8 @@ export interface Profile {
   id: string;
   display_name: string;
   avatar_url: string | null;
+  /** Whether we've asked about using the Google/Discord picture yet. */
+  avatar_asked: boolean;
 }
 
 export interface FeedbackRow {
@@ -33,6 +35,10 @@ interface AuthState {
   updatePassword: (password: string) => Promise<void>;
   signOut: () => Promise<void>;
   updateDisplayName: (name: string) => Promise<void>;
+  /** The picture from the sign-in provider (Google/Discord), if there is one. Not used unless the user opts in. */
+  providerAvatar: string | null;
+  /** Use the provider's picture (true) or no picture (false); also records that the user was asked. */
+  setUseProviderAvatar: (use: boolean) => Promise<void>;
   setFavorites: (slugs: string[]) => Promise<void>;
   submitFeedback: (f: Pick<FeedbackRow, 'category' | 'message' | 'page'>) => Promise<void>;
   myFeedback: () => Promise<FeedbackRow[]>;
@@ -79,7 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     (async () => {
       const [p, f] = await Promise.all([
-        supabase.from('profiles').select('id, display_name, avatar_url').eq('id', userId).maybeSingle(),
+        supabase.from('profiles').select('id, display_name, avatar_url, avatar_asked').eq('id', userId).maybeSingle(),
         supabase.from('favorite_fighters').select('fighter_slug, position').eq('user_id', userId).order('position'),
       ]);
       if (cancelled) return;
@@ -127,6 +133,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setProfile((p) => (p ? { ...p, display_name: clean } : p));
     },
     [userId],
+  );
+
+  const meta = session?.user.user_metadata ?? {};
+  const rawAvatar = (meta.avatar_url ?? meta.picture ?? null) as string | null;
+  // Only pictures the database accepts (see the profiles_avatar_url_host constraint).
+  const providerAvatar = rawAvatar && /^https:\/\/(lh[0-9]\.googleusercontent\.com|cdn\.discordapp\.com)\//.test(rawAvatar) ? rawAvatar : null;
+
+  const setUseProviderAvatar = useCallback(
+    async (use: boolean) => {
+      if (!userId) return;
+      const avatar_url = use ? providerAvatar : null;
+      must(await supabase!.from('profiles').update({ avatar_url, avatar_asked: true }).eq('id', userId));
+      setProfile((p) => (p ? { ...p, avatar_url, avatar_asked: true } : p));
+    },
+    [userId, providerAvatar],
   );
 
   const setFavorites = useCallback(
@@ -178,11 +199,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       updatePassword,
       signOut,
       updateDisplayName,
+      providerAvatar,
+      setUseProviderAvatar,
       setFavorites,
       submitFeedback,
       myFeedback,
     }),
-    [loading, session, profile, favorites, signInWithProvider, signInWithPassword, signUp, sendPasswordReset, updatePassword, signOut, updateDisplayName, setFavorites, submitFeedback, myFeedback],
+    [loading, session, profile, favorites, signInWithProvider, signInWithPassword, signUp, sendPasswordReset, updatePassword, signOut, updateDisplayName, providerAvatar, setUseProviderAvatar, setFavorites, submitFeedback, myFeedback],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

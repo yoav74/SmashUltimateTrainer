@@ -9,6 +9,7 @@ Placeholders below: `<ref>` is your Supabase project ref (the `xxxx` in `https:/
 2. **Create the tables:** go to *SQL Editor → New query* and run each file in [`supabase/migrations`](../supabase/migrations), in order:
    1. `20261014120000_users.sql` creates `profiles`, `favorite_fighters` and `feedback`, all with row-level security.
    2. `20261014130000_grants.sql` gives signed-in users access to those tables. It's needed when "Automatically expose new tables" is off, and harmless when it's on.
+   3. `20261014140000_avatar_opt_in.sql` makes profile pictures opt-in: users are asked once whether to use their Google/Discord picture.
 3. **Keys:** go to *Project Settings → API Keys* and copy the **Project URL** and the **publishable** key (`sb_publishable_…`; older projects call it the **anon / public** key). Both are safe in the browser. Never use the **secret** / `service_role` key in the site.
 4. **Redirect URLs:** go to *Authentication → URL Configuration*.
    - **Site URL:** `https://smashultimatetrainer.yoav74.workers.dev`
