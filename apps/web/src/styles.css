@@ -228,9 +228,19 @@ td.notes { color: var(--muted); font-size: 0.8rem; max-width: 320px; }
   /* min-width 0 + anywhere: long values like "28/30—32(33—37/...)" wrap instead of widening the page */
   table.cards-on-mobile td { border: none; padding: 1px 0; display: flex; gap: 6px; align-items: baseline; min-width: 0; overflow-wrap: anywhere; white-space: normal; }
   table.cards-on-mobile td::before { content: attr(data-label); color: var(--muted); font-size: 0.72rem; min-width: 64px; }
-  table.cards-on-mobile td.move-name { grid-column: 1 / -1; font-size: 1rem; white-space: normal; padding-bottom: 4px; }
+  table.cards-on-mobile td.move-name { grid-column: 1 / -1; font-size: 1rem; white-space: normal; padding-bottom: 4px; display: block; }
   table.cards-on-mobile td.move-name::before { content: none; }
   table.cards-on-mobile td.notes, table.cards-on-mobile td[data-label='Best punish'], table.cards-on-mobile td[data-label='Out of range'] { grid-column: 1 / -1; max-width: none; }
   table.cards-on-mobile td:empty { display: none; }
   .table-wrap { overflow-x: visible; }
 }
+.review-tag { border-color: #c084fc; color: #c084fc; }
+
+/* Progress */
+.boxes { display: inline-flex; gap: 3px; vertical-align: middle; }
+.boxes i { width: 12px; height: 8px; border-radius: 2px; background: var(--panel-2); border: 1px solid var(--border); }
+.boxes i.on { background: var(--good); border-color: var(--good); }
+.progress-page .move-name .portrait { vertical-align: middle; }
+.progress-page .move-name { white-space: normal; }
+.reset-btn { margin-top: 24px; }
+@media (max-width: 600px) { .topnav { gap: 10px; font-size: 0.82rem; } }

@@ -22,6 +22,7 @@ import {
 import { CharacterPicker, RANDOM } from '../components/CharacterPicker';
 import { HitboxGif, Portrait, preloadImages } from '../components/Media';
 import { getStats, recordResult } from '../lib/stats';
+import { cardFor, nextWithReviews, recordCard } from '../lib/srs';
 import { SafetySession } from './SafetyDrill';
 
 type Mode = 'punish' | 'safety';
@@ -52,6 +53,12 @@ const SPACING_LABEL: Record<TrainerSpacing, { title: string; help: string }> = {
 interface Question {
   situation: Situation;
   spacing: Spacing;
+}
+
+/** A question as served: plus its spaced-repetition card id and whether it came back as a review. */
+interface Served extends Question {
+  id: string;
+  review: boolean;
 }
 
 export function Trainer() {
@@ -196,10 +203,16 @@ function reachLabel(o: PunishOption): string | null {
 function Session({ you, opp, settings, onExit }: { you: Character; opp: string; settings: Settings; onExit: () => void }) {
   const options = useMemo(() => punishOptions(you), [you]);
   const bySpacing = useQuestionBuckets(options, you, opp, settings);
-  const nextQuestion = () => pickBalanced(pick(bySpacing));
-  const [question, setQuestion] = useState(nextQuestion);
+  const idOf = (q: Question) => cardFor('punish', you.slug, q.situation.attacker.slug, q.situation, q.spacing);
+  // Every question in play by card id, so due reviews can be served from it.
+  const byId = useMemo(() => new Map(bySpacing.flat(2).map((q) => [idOf(q), q])), [bySpacing]);
+  const nextQuestion = (avoid: string[] = []): Served => {
+    const { q, review } = nextWithReviews(byId, () => pickBalanced(pick(bySpacing)), idOf, avoid);
+    return { ...q, id: idOf(q), review };
+  };
+  const [question, setQuestion] = useState(() => nextQuestion());
   // The next question is picked ahead of time so its GIF can preload while you answer this one.
-  const [upcoming, setUpcoming] = useState(nextQuestion);
+  const [upcoming, setUpcoming] = useState(() => nextQuestion([question.id]));
   useEffect(() => preloadImages(upcoming.situation.move.hitboxGifs.slice(0, 1)), [upcoming]);
   const { situation, spacing } = question;
   const ctx = useMemo<PunishContext>(() => ({ spacing, defender: you }), [spacing, you]);
@@ -212,13 +225,14 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
     setAnswer({ choice, grade: g });
     recordResult(you.slug, situation.attacker.slug, g.verdict);
     const ok = g.verdict !== 'wrong';
+    recordCard(question.id, ok);
     setSession((s) => ({ attempts: s.attempts + 1, correct: s.correct + (ok ? 1 : 0), streak: ok ? s.streak + 1 : 0 }));
   };
 
   const next = () => {
     setAnswer(null);
     setQuestion(upcoming);
-    setUpcoming(nextQuestion());
+    setUpcoming(nextQuestion([upcoming.id, question.id]));
   };
 
   useEffect(() => {
@@ -259,6 +273,7 @@ function Session({ you, opp, settings, onExit }: { you: Character; opp: string; 
         <div className="move-title">
           {situation.move.name}
           {situation.hitbox && <span className="tag">{situation.hitbox} hit</span>}
+          {question.review && <span className="tag review-tag">Review</span>}
           {spacing !== 'off' && <span className={`tag spacing-tag ${spacing}`}>{SPACING_LABEL[spacing].title.toLowerCase()}</span>}
         </div>
         <HitboxGif className="hitbox-main" src={gifs[0]} alt={`${situation.attacker.name} ${situation.move.name} hitbox`} />

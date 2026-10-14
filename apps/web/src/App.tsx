@@ -3,6 +3,7 @@ import { BrowserRouter, Link, NavLink, Route, Routes, useLocation, useParams } f
 import { Trainer } from './pages/Trainer';
 import { CharacterDetail, CharacterList } from './pages/Characters';
 import { MatchupPage, MatchupPicker } from './pages/Matchups';
+import { Progress } from './pages/Progress';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,6 +28,7 @@ export function App() {
         <NavLink to="/" end>Trainer</NavLink>
         <NavLink to="/characters">Fighters</NavLink>
         <NavLink to="/matchups">Matchups</NavLink>
+        <NavLink to="/progress">Progress</NavLink>
       </nav>
       <main>
         <Routes>
@@ -35,6 +37,7 @@ export function App() {
           <Route path="/characters/:slug" element={<CharacterRoute />} />
           <Route path="/matchups" element={<MatchupPicker />} />
           <Route path="/matchups/:you/:opp" element={<MatchupPage />} />
+          <Route path="/progress" element={<Progress />} />
           <Route path="*" element={<p>Page not found.</p>} />
         </Routes>
       </main>

@@ -31,3 +31,17 @@ export function recordResult(you: string, opp: string, verdict: 'optimal' | 'cor
     localStorage.setItem(KEY, JSON.stringify(all));
   } catch {}
 }
+
+/** Every matchup practiced, as [you, opp, stats]. Covers both drills. */
+export function allStats(): [string, string, MatchupStats][] {
+  return Object.entries(load()).map(([k, s]) => {
+    const [you, opp] = k.split('|');
+    return [you, opp, s];
+  });
+}
+
+export function resetStats() {
+  try {
+    localStorage.removeItem(KEY);
+  } catch {}
+}

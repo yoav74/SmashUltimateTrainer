@@ -16,6 +16,7 @@ import {
 } from '@smash-trainer/core';
 import { HitboxGif, Portrait, preloadImages } from '../components/Media';
 import { recordResult } from '../lib/stats';
+import { cardFor, nextWithReviews, recordCard } from '../lib/srs';
 
 /** "You hit their shield with X. Is it safe?" The punish trainer with the roles swapped. */
 interface SafetyQuestion {
@@ -57,9 +58,14 @@ export function SafetySession({
     });
   }, [you, opp, spacingSetting, includeAerials, includeSpecials]);
 
-  const nextQuestion = () => pickBalanced(pick(bySpacing));
-  const [question, setQuestion] = useState(nextQuestion);
-  const [upcoming, setUpcoming] = useState(nextQuestion);
+  const idOf = (q: SafetyQuestion) => cardFor('safety', you.slug, q.defender.slug, q.situation, q.spacing);
+  const byId = useMemo(() => new Map(bySpacing.flat(2).map((q) => [idOf(q), q])), [bySpacing]);
+  const nextQuestion = (avoid: string[] = []) => {
+    const { q, review } = nextWithReviews(byId, () => pickBalanced(pick(bySpacing)), idOf, avoid);
+    return { ...q, id: idOf(q), review };
+  };
+  const [question, setQuestion] = useState(() => nextQuestion());
+  const [upcoming, setUpcoming] = useState(() => nextQuestion([question.id]));
   useEffect(() => preloadImages(upcoming.situation.move.hitboxGifs.slice(0, 1)), [upcoming]);
   const [answer, setAnswer] = useState<{ saidSafe: boolean; grade: Grade } | null>(null);
   const [session, setSession] = useState({ attempts: 0, correct: 0, streak: 0 });
@@ -72,13 +78,14 @@ export function SafetySession({
     const ok = saidSafe === (g.best == null);
     setAnswer({ saidSafe, grade: g });
     recordResult(you.slug, defender.slug, ok ? 'optimal' : 'wrong');
+    recordCard(question.id, ok);
     setSession((s) => ({ attempts: s.attempts + 1, correct: s.correct + (ok ? 1 : 0), streak: ok ? s.streak + 1 : 0 }));
   };
 
   const next = () => {
     setAnswer(null);
     setQuestion(upcoming);
-    setUpcoming(nextQuestion());
+    setUpcoming(nextQuestion([upcoming.id, question.id]));
   };
 
   useEffect(() => {
@@ -117,6 +124,7 @@ export function SafetySession({
         <div className="move-title">
           {situation.move.name}
           {situation.hitbox && <span className="tag">{situation.hitbox} hit</span>}
+          {question.review && <span className="tag review-tag">Review</span>}
           {spacing !== 'off' && <span className={`tag spacing-tag ${spacing}`}>{spacing === 'close' ? 'close range' : 'max range'}</span>}
         </div>
         <HitboxGif className="hitbox-main" src={situation.move.hitboxGifs[0]} alt={`${you.name} ${situation.move.name} hitbox`} />
