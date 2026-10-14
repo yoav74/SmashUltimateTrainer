@@ -154,6 +154,11 @@ smash-trainer/            (pnpm workspaces, introduced in Phase 0)
 - **Phase 3:** a controller connected to the PC navigates the trainer. A reaction drill scores an input inside and outside the window correctly; test this with scripted gamepad events in the browser.
 - **Phase 4:** the Tauri build runs and input timestamps from a GameCube adapter show sub-frame polling.
 
+## Before public launch
+- **Own domain + Google brand verification:** Google's account chooser currently shows the Supabase address (`<ref>.supabase.co`). Buy a domain (about $10/year through Cloudflare), move the site to it, and submit the OAuth consent screen for brand verification (privacy policy already at `/privacy`). Google should then show "Smash Trainer".
+- **Custom SMTP for email sign-up** (e.g. Resend): Supabase's built-in sender is limited to a few emails an hour.
+- **Publish the Google OAuth consent screen** (out of "Testing") so anyone can sign in with Google.
+
 ## Immediate next steps (first sessions)
 1. Phase 0 restructure, tests and CI. Push to a new GitHub repo (needs your GitHub account/repo name).
 2. Deploy to Cloudflare Pages (needs your Cloudflare account; a domain is optional at first).
