@@ -316,3 +316,6 @@ table.cards-on-mobile td[data-label="Doesn't connect"] { grid-column: 1 / -1; }
 .feedback-list li p { margin: 6px 0 0; white-space: pre-wrap; }
 .fb-status.done { color: var(--good); }
 .fb-status.seen { color: var(--ok); }
+.pw-rules { list-style: none; padding: 0; margin: 2px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; color: var(--muted); }
+.pw-rules li.ok { color: var(--good); }
+.inline-form .pw-rules { flex-basis: 100%; }

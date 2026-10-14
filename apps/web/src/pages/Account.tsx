@@ -14,6 +14,26 @@ function NotConfigured() {
   );
 }
 
+// Must match Supabase: Authentication → Sign In / Providers → Email → password requirements.
+const PASSWORD_RULES: { label: string; ok: (pw: string) => boolean }[] = [
+  { label: 'At least 8 characters', ok: (pw) => pw.length >= 8 },
+  { label: 'A lowercase letter', ok: (pw) => /[a-z]/.test(pw) },
+  { label: 'An uppercase letter', ok: (pw) => /[A-Z]/.test(pw) },
+  { label: 'A digit', ok: (pw) => /[0-9]/.test(pw) },
+];
+
+const passwordOk = (pw: string) => PASSWORD_RULES.every((r) => r.ok(pw));
+
+function PasswordRules({ pw }: { pw: string }) {
+  return (
+    <ul className="pw-rules small">
+      {PASSWORD_RULES.map((r) => (
+        <li key={r.label} className={r.ok(pw) ? 'ok' : ''}>{r.ok(pw) ? '✓' : '○'} {r.label}</li>
+      ))}
+    </ul>
+  );
+}
+
 const PROVIDERS: { id: OAuthProvider; label: string }[] = [
   { id: 'google', label: 'Continue with Google' },
   { id: 'discord', label: 'Continue with Discord' },
@@ -101,12 +121,12 @@ export function Login() {
               onChange={(e) => setPassword(e.target.value)}
               autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
             />
-            {mode === 'register' && <span className="muted small">At least 8 characters.</span>}
+            {mode === 'register' && <PasswordRules pw={password} />}
           </label>
         )}
         {error && <p className="auth-error">{error}</p>}
         {notice && <p className="auth-notice">{notice}</p>}
-        <button className="primary" type="submit" disabled={busy}>
+        <button className="primary" type="submit" disabled={busy || (mode === 'register' && !passwordOk(password))}>
           {mode === 'signin' ? 'Sign in' : mode === 'register' ? 'Create account' : 'Send reset link'}
         </button>
       </form>
@@ -285,7 +305,8 @@ function NewPassword() {
       ) : (
         <form className="inline-form" onSubmit={save}>
           <input type="password" minLength={8} required value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="new-password" placeholder="New password" />
-          <button className="primary" type="submit">Save</button>
+          <button className="primary" type="submit" disabled={!passwordOk(pw)}>Save</button>
+          <PasswordRules pw={pw} />
           {state !== 'idle' && <span className="auth-error">{state}</span>}
         </form>
       )}
