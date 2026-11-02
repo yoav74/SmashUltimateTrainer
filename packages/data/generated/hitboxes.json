@@ -1,5 +1,5 @@
 {
- "scrapedAt": "2026-10-13T16:48:09.217Z",
+ "scrapedAt": "2026-11-02T14:53:55.658Z",
  "source": "https://www.ssbwiki.com",
  "license": "CC BY-SA 3.0",
  "fighters": {
@@ -35046,7 +35046,7 @@
         "id": 2,
         "damage": null,
         "r": 2,
-        "bone": "legr",
+        "bone": "hip",
         "x": [
          1.1,
          1.1
